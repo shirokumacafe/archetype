@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <classPathEntry location="E:\WorkUnit\h2-1.3.168.jar"/>
+
+    <context id="h2" targetRuntime="MyBatis3">
+	
+        <!-- 去除自动生成的注释 -->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="org.h2.Driver"
+                        connectionURL="jdbc:h2:tcp://localhost/~/.h2/crm"
+                        userId="sa"
+                        password="">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.shirokumacafe.archetype.entity" targetProject="..\..\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.shirokumacafe.archetype.common.entity.EntityBean" />
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mybatis.h2" targetProject="..\..\src\main\resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="mybatis" targetProject="..\..\src\main\resources">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+
+
+        <table tableName="T_USER" domainObjectName="User">
+            <!--<generatedKey column="RID" identity="false" sqlStatement="select SEQ_user.nextval from dual"></generatedKey>-->
+        </table>
+
+        <!--<table tableName="v_baseinfo" schema="" domainObjectName="ViewBaseinfo"
+               enableDeleteByExample="false"
+               enableDeleteByPrimaryKey="false"
+               enableInsert="false"
+               enableUpdateByExample="false"
+               enableUpdateByPrimaryKey="false">
+
+        </table>-->
+
+    </context>
+</generatorConfiguration>
