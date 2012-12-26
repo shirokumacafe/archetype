@@ -26,82 +26,18 @@ import java.util.Map;
 @RequestMapping(value = "/app")
 public class AppController {
 
-    private static final int PAGE_SIZE = 3;
-
-    private static Map<String, String> sortTypes = Maps.newLinkedHashMap();
-    static {
-        sortTypes.put("auto", "自动");
-        sortTypes.put("title", "标题");
-    }
-
-    @Autowired
-    private TaskService taskService;
-
     @RequestMapping(value = "")
-    public String list(@RequestParam(value = "sortType", defaultValue = "auto") String sortType,
-                       @RequestParam(value = "page", defaultValue = "1") int pageNumber, Model model, ServletRequest request) {
-
-        Map<String, Object> searchParams = Servlets.getParametersStartingWith(request, "search_");
-        Long userId = getCurrentUserId();
-
-        Page<Task> tasks = taskService.getUserTask(userId, searchParams, pageNumber, PAGE_SIZE, sortType);
-        model.addAttribute("tasks", tasks);
-        model.addAttribute("sortType", sortType);
-        model.addAttribute("sortTypes", sortTypes);
-        model.addAttribute("searchParams", Servlets.encodeParameterStringWithPrefix(searchParams, "search_"));
+    public String list() {
 
         return "app/app";
     }
+    @RequestMapping(value = "tab")
+    public String tab() {
 
-    @RequestMapping(value = "create", method = RequestMethod.GET)
-    public String createForm(Model model) {
-        model.addAttribute("task", new Task());
-        model.addAttribute("action", "create");
-        return "task/taskForm";
+        return "app/tab";
     }
 
-    @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(@Valid Task newTask, RedirectAttributes redirectAttributes) {
-        User user = new User(getCurrentUserId());
-        newTask.setUser(user);
 
-        taskService.saveTask(newTask);
-        redirectAttributes.addFlashAttribute("message", "创建任务成功");
-        return "redirect:/task/";
-    }
-
-    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
-    public String updateForm(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("task", taskService.getTask(id));
-        model.addAttribute("action", "update");
-        return "task/taskForm";
-    }
-
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(@Valid @ModelAttribute("preloadTask") Task task, RedirectAttributes redirectAttributes) {
-        taskService.saveTask(task);
-        redirectAttributes.addFlashAttribute("message", "更新任务成功");
-        return "redirect:/task/";
-    }
-
-    @RequestMapping(value = "delete/{id}")
-    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
-        taskService.deleteTask(id);
-        redirectAttributes.addFlashAttribute("message", "删除任务成功");
-        return "redirect:/task/";
-    }
-
-    /**
-     * 使用@ModelAttribute, 实现Struts2 Preparable二次部分绑定的效果,先根据form的id从数据库查出Task对象,再把Form提交的内容绑定到该对象上。
-     * 因为仅update()方法的form中有id属性，因此本方法在该方法中执行.
-     */
-    @ModelAttribute("preloadTask")
-    public Task getTask(@RequestParam(value = "id", required = false) Long id) {
-        if (id != null) {
-            return taskService.getTask(id);
-        }
-        return null;
-    }
 
     /**
      * 取出Shiro中的当前用户Id.

@@ -117,7 +117,7 @@
             var pane = new ContentPane({
                 id:id,
                 title: title,
-                href:"foo.html",
+                href:"${ctx}/app/tab",
 //                content: "<h4>" + title + "</h4>",
                 closable: true
             });
