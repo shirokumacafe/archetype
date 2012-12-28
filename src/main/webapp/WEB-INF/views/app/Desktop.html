@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Documentation - The Dojo Toolkit</title>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/resources/dojo.css"/>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dijit/themes/claro/claro.css"/>
+    <!--<link rel="stylesheet" href="/api/css/jsdoc.css" type="text/css" media="all"/>-->
+    <!--<link rel="stylesheet" href="/api/css/jsdoc-print.css" type="text/css" media="print"/>-->
+    <!--<link rel="stylesheet" href="/api/themes/dtk/theme.css" type="text/css" media="all"/>-->
+    <script type="text/javascript">dojoConfig = {
+        isDebug:false,
+        async:true
+    };</script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.0/dojo/dojo.js"></script>
+
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="The Dojo Toolkit, dojo, JavaScript Framework"/>
+    <meta name="description" content="The Dojo Toolkit"/>
+    <meta name="author" content="Dojo Foundation"/>
+    <meta name="copyright" content="Copyright 2006-2012 by the Dojo Foundation"/>
+    <meta name="company" content="Dojo Foundation"/>
+
+    <script type="text/javascript">
+        var baseUrl = "//dojotoolkit.org/api/";
+        var theme = "dtk";
+        var siteName = 'The Dojo Toolkit';
+        versions = {"1.4":"lib.old", "1.8":"lib", "1.7":"lib.old", "1.3":"lib.old", "1.6":"lib.old", "1.5":"lib.old"};        // intentional global
+        require({
+                    packages:[
+                        {
+                            name:"api",
+                            location:"//dojotoolkit.org/api/js"
+                        }
+                    ]},
+                [
+                    "dojo/dom",
+                    "dojo/_base/fx",
+                    "dojo/ready",
+                    "dijit/registry",
+                    "api/api"        // main work is done in here
+                ], function (dom, fx, ready, registry) {
+                    ready(function () {
+                        setTimeout(function () {
+                            var loader = dom.byId("loader");
+                            fx.fadeOut({ node:loader, duration:500, onEnd:function () {
+                                loader.style.display = "none";
+                            }}).play();
+                        }, 500);
+                    });
+                });
+
+        // Set currentVersion as a global variable, since it's accessed from api.js
+        currentVersion = '1.8';
+
+        var page = '';
+        var bugdb = 'https://docs.google.com/spreadsheet/viewform?hl=en_US&formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&entry_0=';
+    </script>
+</head>
+<body class="claro">
+<div id="loader">
+    <div id="loaderInner"></div>
+</div>
+<div id="printBlock"></div>
+
+<div id="main" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="liveSplitters: false">
+    <div id="head" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'top'">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a href="/" title="Home"><img src="/api/themes/dtk/images/logo.png" alt="Dojo Toolkit"/></a></span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs"><a href="/documentation">Documentation</a></li>
+                    <li class="community"><a href="/community">Community</a></li>
+                    <li class="blog"><a href="/blog">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="navigation" data-dojo-type="dijit.layout.BorderContainer" style="width:300px;"
+         data-dojo-props="minSize: 20, region:'leading', splitter: true, gutters: false">
+        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Search', region:'top'">
+            <div style="padding: 4px;">
+                <label for="versionSelector">Version: </label>
+                <select id="versionSelector" style="width:auto;">
+                    <option value="1.3">1.3</option>
+                    <option value="1.4">1.4</option>
+                    <option value="1.5">1.5</option>
+                    <option value="1.6">1.6</option>
+                    <option value="1.7">1.7</option>
+                    <option value="1.8" selected="true">1.8</option>
+                </select>
+            </div>
+        </div>
+        <div data-dojo-type="dijit.layout.AccordionContainer" data-dojo-props="region: 'center'">
+            <div id="moduleTreePane" data-dojo-type="dijit.layout.ContentPane"
+                 data-dojo-props="title: 'By Module', selected: true"></div>
+        </div>
+        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'bottom'"
+             style="height:18px;background-color:#f2f2f2;border-top:1px solid #dedede;padding:0 2px 4px 48px;position:relative;overflow:hidden;">
+            <span style="position:absolute;top:5px;left:3px;font-size:11px;">Legend: </span>
+            <img src="/api/css/icons/16x16/array.png" align="middle" title="Array" alt="Array" border="0"/>
+            <img src="/api/css/icons/16x16/boolean.png" align="middle" title="Boolean" alt="Boolean" border="0"/>
+            <img src="/api/css/icons/16x16/constructor.png" align="middle" title="Constructor" alt="Constructor"
+                 border="0"/>
+            <img src="/api/css/icons/16x16/date.png" align="middle" title="Date" alt="Date" border="0"/>
+            <img src="/api/css/icons/16x16/domnode.png" align="middle" title="DomNode" alt="DomNode" border="0"/>
+            <img src="/api/css/icons/16x16/error.png" align="middle" title="Error" alt="Error" border="0"/>
+            <img src="/api/css/icons/16x16/function.png" align="middle" title="Function" alt="Function" border="0"/>
+            <img src="/api/css/icons/16x16/number.png" align="middle" title="Number" alt="Number" border="0"/>
+            <img src="/api/css/icons/16x16/object.png" align="middle" title="Object" alt="Object" border="0"/>
+            <img src="/api/css/icons/16x16/regexp.png" align="middle" title="RegExp" alt="RegExp" border="0"/>
+            <img src="/api/css/icons/16x16/singleton.png" align="middle" title="Singleton" alt="Singleton" border="0"/>
+            <img src="/api/css/icons/16x16/string.png" align="middle" title="String" alt="String" border="0"/>
+        </div>
+    </div>
+    <div id="content" data-dojo-type="dijit.layout.TabContainer" data-dojo-props="region: 'center', tabStrip: true">
+        <div id="baseTab" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title: 'Welcome'">
+        </div>
+    </div>
+    <div id="foot" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region: 'bottom'">
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw"
+                type="text/javascript"></script>
+    </div>
+</div>
+</body>
+</html>

@@ -18,7 +18,8 @@ html, body {
     margin: 0;
 }
 #leftAccordion {
-    width: 25%;
+    width: 280px;
+    overflow: hidden;
 }
 #bottomTabs {
     height: 40%;

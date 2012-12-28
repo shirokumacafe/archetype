@@ -1,6 +1,7 @@
 package com.shirokumacafe.archetype.service.task;
 
 
+import com.google.common.collect.Lists;
 import com.shirokumacafe.archetype.entity.Task;
 import com.shirokumacafe.archetype.repository.jpa.TaskDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springside.modules.persistence.DynamicSpecifications;
 import org.springside.modules.persistence.SearchFilter;
 import org.springside.modules.persistence.SearchFilter.Operator;
 
+import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.Map;
 
@@ -69,9 +71,20 @@ public class TaskService {
 	/**
 	 * 创建动态查询条件组合.
 	 */
-	private Specification<Task> buildSpecification(Long userId, Map<String, Object> searchParams) {
+	private Specification<Task> buildSpecification(final Long userId, Map<String, Object> searchParams) {
 		Map<String, SearchFilter> filters = SearchFilter.parse(searchParams);
 		filters.put("user.id", new SearchFilter("user.id", Operator.EQ, userId));
+//        Specification<Task> spec = new Specification<Task>() {
+//            @Override
+//            public Predicate toPredicate(Root<Task> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+//                List<Predicate> predicates = Lists.newArrayList();
+//
+//                predicates.add(cb.equal(root.get("id"),userId));
+//                Path exp = root.get("title");
+//                predicates.add(cb.like(exp, "%"+"abc"+"%"));
+//                return cb.and(predicates.toArray(new Predicate[predicates.size()]));  //To change body of implemented methods use File | Settings | File Templates.
+//            }
+//        };
 		Specification<Task> spec = DynamicSpecifications.bySearchFilter(filters.values(), Task.class);
 		return spec;
 	}
