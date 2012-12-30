@@ -4,7 +4,7 @@
 		<pattern>/static/*</pattern>
 	</excludes>
 	
-	<decorator name="default" page="default.jsp">
-		<pattern>/*</pattern>
-	</decorator>
+	<!--<decorator name="default" page="default.jsp">-->
+		<!--<pattern>/*</pattern>-->
+	<!--</decorator>-->
 </decorators>

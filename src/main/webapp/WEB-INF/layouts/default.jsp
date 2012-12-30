@@ -14,6 +14,7 @@
 <meta http-equiv="Expires" content="0" />
 
 <link type="image/x-icon" href="${ctx}/static/images/favicon.ico" rel="shortcut icon">
+<%--<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js" data-dojo-config="isDebug:true,async: true"></script>--%>
 <%--<link href="${ctx}/static/bootstrap/2.2.2/css/bootstrap.min.css" type="text/css" rel="stylesheet" />--%>
 <%--<link href="${ctx}/static/jquery-validation/1.10.0/validate.css" type="text/css" rel="stylesheet" />--%>
 <%--<link href="${ctx}/static/styles/default.css" type="text/css" rel="stylesheet" />--%>

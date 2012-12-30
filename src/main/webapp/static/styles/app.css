@@ -1,4 +1,3 @@
-
 h1.testTitle {
     font-size:2em;
     margin:0 0 1em 0;
@@ -17,10 +16,7 @@ html, body {
 #header {
     margin: 0;
 }
-#leftAccordion {
-    width: 280px;
-    overflow: hidden;
-}
+
 #bottomTabs {
     height: 40%;
 }

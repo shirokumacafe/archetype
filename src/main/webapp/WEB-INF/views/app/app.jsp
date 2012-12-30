@@ -10,6 +10,7 @@
     <title>DOJO</title>
     <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dijit/themes/claro/document.css">
     <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dojox/layout/resources/ExpandoPane.css">
     <link rel="stylesheet" href="${ctx}/static/styles/app.css">
     <%--<link rel="stylesheet" href="http://demos.dojotoolkit.org/demos/themePreviewer/demo.css">--%>
 
@@ -56,17 +57,27 @@
 </div>
 --%>
 <!-- end contextMenu -->
-<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, liveSplitters:false" id="main">
-    <div data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="minSize:200, region:'leading', splitter:true" id="leftAccordion">
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true" id="main">
+    <div dojoType="dojox/layout/ExpandoPane"
+         splitter="true"
+         duration="125"
+         region="left"
+         title="主菜单"
+         id="leftPane"
+         maxSize="275"
+         style="width: 275px;">
+        <div data-dojo-type="dijit/layout/AccordionContainer" id="leftAccordion"  attachParent="true">
 
-    </div><!-- end AccordionContainer -->
+        </div><!-- end AccordionContainer -->
+    </div>
     <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center', tabStrip:true" id="contentTabs">
         <div data-dojo-type="dijit/layout/ContentPane" title="首页" selected="true">
             这是首页的内容，以后用来放图形统计！
         </div>
     </div><!-- end TabContainer -->
 </div><!-- end BorderContainer -->
-<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js" data-dojo-config="isDebug:true,parseOnLoad: true,async: true"></script>
+
+<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js"></script>
 <script>
     require([
         "dojo/_base/array",
@@ -82,10 +93,10 @@
         "dijit/tree/ObjectStoreModel",
         "dijit/Tree",
         "dijit/layout/TabContainer",
-        "dijit/layout/ContentPane",
+        "dojox/layout/ContentPane",
         "dijit/layout/AccordionContainer",
         "dijit/layout/AccordionPane"
-    ], function(array,topic,parser,dom,json,ready,fx,registry,win,Memory,ObjectStoreModel,Tree,TabContainer,ContentPane,AccordionContainer,AccordionPane){
+    ], function(array,topic,parser,dom,json,ready,fx,registry,win,Memory,ObjectStoreModel,Tree,TabContainer,ContentPane,AccordionContainer,AccordionPane,Grid){
 
         parser.parse();
         //bugfix:关闭tab后回退到第一个tab的问题
@@ -129,12 +140,10 @@
                     return;
                 }
             }
-
             var pane = new ContentPane({
                 id:id,
                 title: title,
                 href:"${ctx}/app/tab",
-//                content: "<h4>" + title + "</h4>",
                 closable: true
             });
             p.addChild(pane);
@@ -251,10 +260,10 @@
                 title: "菜单2",
                 content: "<h4>aaa</h4>"
             });
-
             leftAccordion.addChild(ap1);
             leftAccordion.addChild(ap2);
             leftAccordion.startup();
+
         });
     });
 </script>

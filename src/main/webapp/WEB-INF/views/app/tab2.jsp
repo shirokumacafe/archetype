@@ -24,14 +24,15 @@
                 last: "Last Name",
                 age: "Age"
             }
-        }, "grid1");
+        }, "grid2");
         grid1.renderArray(data1);
 
     });
 </script>
 </head>
 <body>
-    <div id="grid1"></div>
+22222
+    <div id="grid2"></div>
 
 </body>
 </html>

@@ -36,6 +36,11 @@ public class AppController {
 
         return "app/tab";
     }
+    @RequestMapping(value = "tab2")
+    public String tab2() {
+
+        return "app/tab2";
+    }
 
 
 
