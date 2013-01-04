@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dijit/themes/claro/document.css">
     <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dojox/layout/resources/ExpandoPane.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/dgrid.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/skins/claro.css">
+    <link rel="stylesheet" href="${ctx}/static/styles/base.css">
     <link rel="stylesheet" href="${ctx}/static/styles/app.css">
-    <%--<link rel="stylesheet" href="http://demos.dojotoolkit.org/demos/themePreviewer/demo.css">--%>
 
 <body class="claro">
 <div id="loader"><div id="loaderInner" style="direction:ltr;white-space:nowrap;overflow:visible;">努力载入中 ... </div></div>
@@ -77,7 +79,7 @@
     </div><!-- end TabContainer -->
 </div><!-- end BorderContainer -->
 
-<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js"></script>
+<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js" data-dojo-config="parseOnLoad: true, async:true"></script>
 <script>
     require([
         "dojo/_base/array",
@@ -98,7 +100,7 @@
         "dijit/layout/AccordionPane"
     ], function(array,topic,parser,dom,json,ready,fx,registry,win,Memory,ObjectStoreModel,Tree,TabContainer,ContentPane,AccordionContainer,AccordionPane,Grid){
 
-        parser.parse();
+//        parser.parse();
         //bugfix:关闭tab后回退到第一个tab的问题
         TabContainer.prototype.removeChild = function(page){
             var idx = array.indexOf(this.getChildren(), page);
@@ -131,6 +133,7 @@
 
             var title = page.name;
             var id = page.id;
+            var url = page.url;
             var p = registry.byId("contentTabs");
             var c = p.getChildren();
 
@@ -143,7 +146,8 @@
             var pane = new ContentPane({
                 id:id,
                 title: title,
-                href:"${ctx}/app/tab",
+                href:url,
+                preventCache: true,
                 closable: true
             });
             p.addChild(pane);
@@ -164,12 +168,15 @@
                 {
                     "name": "House of Representatives",
                     "id": "house",
-                    "parent": "congress"
+                    "parent": "congress",
+                    "url":"${ctx}/app/tab"
                 },
                 {
                     "name": "Senate",
                     "id": "senate",
-                    "parent": "congress"
+                    "parent": "congress",
+                    "url":"${ctx}/app/tab2"
+
                 },
                 {
                     "name": "Executive",

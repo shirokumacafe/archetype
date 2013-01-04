@@ -4,35 +4,44 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <html>
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/dgrid.css">
-<link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/skins/claro.css">
-    <%--<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js"></script>--%>
-
     <script>
-    require(["dgrid/Grid","dojo/domReady!"], function(Grid){
+        require(["dijit/Toolbar","dgrid/Grid"], function(Toolbar,Grid){
 
-        var data1 = [
-            { first: "Bob", last: "Barker", age: 89 },
-            { first: "Vanna", last: "White", age: 55 },
-            { first: "Pat", last: "Sajak", age: 65 }
-        ];
+            var data2 = [
+                { first: "Bob", last: "Barker", age: 89 },
+                { first: "Vanna", last: "White", age: 55 },
+                { first: "Pat", last: "Sajak", age: 65 }
+            ];
 
-        var grid1 = new Grid({
-            columns: {
-                first: "First Name",
-                last: "Last Name",
-                age: "Age"
-            }
-        }, "grid2");
-        grid1.renderArray(data1);
+            var grid2 = new Grid({
+                columns: {
+                    first: "First Name",
+                    last: "Last Name",
+                    age: "Age"
+                }
+            }, "grid2");
+            grid2.renderArray(data2);
 
-    });
-</script>
+        });
+    </script>
 </head>
 <body>
-22222
-    <div id="grid2"></div>
+<div id="dropDown1" data-dojo-type="dijit/form/DropDownButton"
+     data-dojo-props="iconClass:'dijitIconApplication'">
+    <span>DropDown</span>
+    <div data-dojo-type="dijit/TooltipDialog">
+        This is a TooltipDialog. You could even put a form in here!
+    </div>
+</div>
+<div data-dojo-type="dijit/Toolbar">
+    <label>用户名:<input data-dojo-type="dijit/form/TextBox" name="username" id="tab2-username"/></label>
+    <label>编号:<input data-dojo-type="dijit/form/TextBox" name="code" id="tab2-code"/></label>
+    <label>起始时间:<input data-dojo-type="dijit/form/DateTextBox" name="timestart" id="tab2-timestart"/></label>
+    <label>结束时间:<input data-dojo-type="dijit/form/DateTextBox" name="timeend" id="tab2-timeend"/></label>
+    <div data-dojo-type="dijit/form/Button" iconClass="dijitIconSearch" id="tab2-s">查询</div>
+
+</div>
+<div id="grid2"></div>
 
 </body>
 </html>

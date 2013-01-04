@@ -1,7 +1,4 @@
-h1.testTitle {
-    font-size:2em;
-    margin:0 0 1em 0;
-}
+
 html, body {
     height: 100%;
     width: 100%;
@@ -15,14 +12,6 @@ html, body {
 }
 #header {
     margin: 0;
-}
-
-#bottomTabs {
-    height: 40%;
-}
-#hs-1width {
-    width:400px;
-    height:40px;
 }
 #loader {
     padding:0;
@@ -43,34 +32,7 @@ html, body {
     background:#3c3;
     color:#fff;
 }
-#indTestBar,
-#setTestBar {
-    width:400px;
-}
-hr.spacer {
-    border:0;
-    background-color:#ededed;
-    width:80%;
-    height:1px;
-}
-.inputPadding0 .dijitInputField {
-    padding: 0 !important;
-}
-.inputPadding1 .dijitInputField {
-    padding: 1px !important;
-}
-.inputPadding2 .dijitInputField {
-    padding: 2px !important;
-}
-.inputPadding3 .dijitInputField {
-    padding: 3px !important;
-}
-.inputPadding4 .dijitInputField {
-    padding: 4px !important;
-}
-.inputPadding5 .dijitInputField {
-    padding: 5px !important;
-}
+
 /*#loader {*/
 /*padding:0;*/
 /*margin:0;*/

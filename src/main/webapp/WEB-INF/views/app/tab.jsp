@@ -4,13 +4,8 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <html>
 <head>
-<meta charset="utf-8">
-<link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/dgrid.css">
-<link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/skins/claro.css">
-    <%--<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js"></script>--%>
-
     <script>
-    require(["dgrid/Grid","dojo/domReady!"], function(Grid){
+    require(["dijit/Toolbar","dgrid/Grid"], function(Toolbar,Grid){
 
         var data1 = [
             { first: "Bob", last: "Barker", age: 89 },
@@ -31,6 +26,16 @@
 </script>
 </head>
 <body>
+    <div data-dojo-type="dijit/Toolbar">
+        <label>用户名:<input data-dojo-type="dijit/form/TextBox" data-dojo-props="trim:true" name="username" class="w100" id="tab-username"/></label>
+        <label>编号:<input data-dojo-type="dijit/form/TextBox" data-dojo-props="trim:true" name="code" class="w100" id="tab-code"/></label>
+        <label>起始时间:<input data-dojo-type="dijit/form/DateTextBox" name="timestart" class="w100" id="tab-timestart"/></label>
+        <label>结束时间:<input data-dojo-type="dijit/form/DateTextBox" name="timeend" class="w100" id="tab-timeend"/></label>
+        <div data-dojo-type="dijit/form/Button" id="tab-s">查询</div>
+    </div>
+    <div data-dojo-type="dijit/Toolbar">
+
+    </div>
     <div id="grid1"></div>
 
 </body>
