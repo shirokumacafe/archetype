@@ -8,11 +8,11 @@
 <head>
     <meta charset="utf-8">
     <title>DOJO</title>
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dijit/themes/claro/document.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dojox/layout/resources/ExpandoPane.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/dgrid.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.2/dgrid/css/skins/claro.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dijit/themes/claro/document.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dojox/layout/resources/ExpandoPane.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dgrid/css/dgrid.css">
+    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dgrid/css/skins/claro.css">
     <link rel="stylesheet" href="${ctx}/static/styles/base.css">
     <link rel="stylesheet" href="${ctx}/static/styles/app.css">
 
@@ -68,23 +68,25 @@
          id="leftPane"
          maxSize="275"
          style="width: 275px;">
-        <div data-dojo-type="dijit/layout/AccordionContainer" id="leftAccordion"  attachParent="true">
+        <div data-dojo-type="dijit/layout/AccordionContainer" id="accordion"  attachParent="true">
 
         </div><!-- end AccordionContainer -->
     </div>
     <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center', tabStrip:true" id="contentTabs">
         <div data-dojo-type="dijit/layout/ContentPane" title="首页" selected="true">
             这是首页的内容，以后用来放图形统计！
+            <button id="test1" >测试</button>
+
         </div>
     </div><!-- end TabContainer -->
 </div><!-- end BorderContainer -->
 
-<script src="${ctx}/static/dojo/1.8.2/dojo/dojo.js" data-dojo-config="parseOnLoad: true, async:true"></script>
+<script src="${ctx}/static/dojo/1.8.3/dojo/dojo.js" data-dojo-config="parseOnLoad: true, async:true,isDebug:true"></script>
+<%--<script src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js" data-dojo-config="parseOnLoad: true, async:true,isDebug:true"></script>--%>
 <script>
     require([
         "dojo/_base/array",
         "dojo/topic",
-        "dojo/parser",
         "dojo/dom",
         "dojo/json",
         "dojo/ready",
@@ -98,9 +100,8 @@
         "dojox/layout/ContentPane",
         "dijit/layout/AccordionContainer",
         "dijit/layout/AccordionPane"
-    ], function(array,topic,parser,dom,json,ready,fx,registry,win,Memory,ObjectStoreModel,Tree,TabContainer,ContentPane,AccordionContainer,AccordionPane,Grid){
+    ], function(array,topic,dom,json,ready,fx,registry,win,Memory,ObjectStoreModel,Tree,TabContainer,ContentPane,AccordionContainer,AccordionPane,Grid){
 
-//        parser.parse();
         //bugfix:关闭tab后回退到第一个tab的问题
         TabContainer.prototype.removeChild = function(page){
             var idx = array.indexOf(this.getChildren(), page);
@@ -146,7 +147,7 @@
             var pane = new ContentPane({
                 id:id,
                 title: title,
-                href:url,
+                href:"${ctx}/"+url,
                 preventCache: true,
                 closable: true
             });
@@ -169,13 +170,13 @@
                     "name": "House of Representatives",
                     "id": "house",
                     "parent": "congress",
-                    "url":"${ctx}/app/tab"
+                    "url":"app/tab"
                 },
                 {
                     "name": "Senate",
                     "id": "senate",
                     "parent": "congress",
-                    "url":"${ctx}/app/tab2"
+                    "url":"app/tab2"
 
                 },
                 {
@@ -258,7 +259,7 @@
                 }
             });
 
-            var leftAccordion = registry.byId("leftAccordion");
+            var leftAccordion = registry.byId("accordion");
             var ap1 = new ContentPane({
                 title: "菜单",
                 content: menuTree
