@@ -7,11 +7,12 @@
         require([
             "dojo/aspect",
             "dojo/dom",
+            "dojo/json",
             "dojo/on",
             "dijit/registry",
             "dijit/form/Button",
             "dgrid/Grid"
-        ], function(aspect,dom,on,registry,Button,Grid){
+        ], function(aspect,dom,JSON,on,registry,Button,Grid){
 
             var data = [
                 { first: "Bob", last: "Barker", age: 89 },
@@ -45,7 +46,16 @@
                     registry.byId("dialog-tab").hide();
                 });
                 //提交
-
+                registry.byId("form-dialog-tab").on("submit",function(){
+                    if(this.validate()){
+                        console.log(registry.byId("form-dialog-tab"));
+                        alert(JSON.stringify(registry.byId("form-dialog-tab").getValues(), true));
+                        return false;
+                    }else{
+                        alert('Form contains invalid data.  Please correct first');
+                        return false;
+                    }
+                });
             });
 
         });
@@ -66,7 +76,7 @@
     </div>
     <div id="grid-tab"></div>
     <div data-dojo-type="dijit/Dialog" title="" id="dialog-tab">
-        <form data-dojo-type="dijit/form/Form"  id="form-dialog-tab" onsubmit="alert('Execute form w/values:\n'+dojo.toJson(this.getValues(),true));return confirm('Show form values in the URL?')">
+        <form data-dojo-type="dijit/form/Form"  id="form-dialog-tab">
             <div class="dijitDialogPaneContentArea">
                 <div class="item">
                     <label>用户名：</label>
