@@ -174,6 +174,15 @@
                 }
             });
 
+            //树
+            var menuTree = new Tree({
+                model: menuModel,
+                showRoot:false,
+                openOnClick:true,
+                onClick: function(item, node){
+                    addTabPane(item);
+                }
+            });
             ready(function(){
 
                 //DOM节点加载完毕后清除Loading
@@ -184,15 +193,7 @@
                     }}).play();
                 }, 250);
 
-                //树
-                var menuTree = new Tree({
-                    model: menuModel,
-                    showRoot:false,
-                    openOnClick:true,
-                    onClick: function(item, node){
-                        addTabPane(item);
-                    }
-                });
+
                 //菜单
                 var accordion = registry.byId("accordion");
                 var ap1 = new ContentPane({
@@ -263,7 +264,7 @@
          id="leftPane"
          maxSize="275"
          style="width: 275px;">
-        <div data-dojo-type="dijit/layout/AccordionContainer" id="accordion"  attachParent="true">
+        <div data-dojo-type="dijit/layout/AccordionContainer" id="accordion">
 
         </div><!-- end AccordionContainer -->
     </div>

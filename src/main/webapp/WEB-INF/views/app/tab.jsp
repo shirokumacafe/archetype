@@ -48,8 +48,8 @@
                 //提交
                 registry.byId("form-dialog-tab").on("submit",function(){
                     if(this.validate()){
-                        console.log(registry.byId("form-dialog-tab"));
-                        alert(JSON.stringify(registry.byId("form-dialog-tab").getValues(), true));
+
+                        alert(JSON.stringify(registry.byId("form-dialog-tab").get('value'), true));
                         return false;
                     }else{
                         alert('Form contains invalid data.  Please correct first');
@@ -78,14 +78,31 @@
     <div data-dojo-type="dijit/Dialog" title="" id="dialog-tab">
         <form data-dojo-type="dijit/form/Form"  id="form-dialog-tab">
             <div class="dijitDialogPaneContentArea">
-                <div class="item">
-                    <label>用户名：</label>
-                    <label><input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true"></label>
+                <div class="form-item">
+                    <label for="code-form-tab" class="form-label">编号：</label>
+                    <input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="code" id="code-form-tab">
+                    <label for="name-form-tab" class="form-label">姓名：</label>
+                    <input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="name" id="name-form-tab">
                 </div>
+                <div class="form-item">
+                    <label for="c1-form-tab" class="form-label">内容1：</label>
+                    <input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="c1" id="c1-form-tab">
+                    <label for="c2-form-tab"  class="form-label">内容2：</label>
+                    <input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="c2" id="c2-form-tab">
+                    <label for="c3-form-tab"  class="form-label">内容3：</label>
+                    <input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="c3" id="c3-form-tab">
+
+                </div>
+
             </div>
             <div class="dijitDialogPaneActionBar">
                 <button type="submit" data-dojo-type="dijit/form/Button" id="submit-form-tab">确定</button>
-                <button type="button" data-dojo-type="dijit/form/Button" id="cancel-form-tab">关闭</button>
+                <button type="button" data-dojo-type="dijit/form/Button" id="cancel-form-tab">关闭
+                    <%--<script type="dojo/on" data-dojo-event="click">--%>
+                        <%--var registry = require("dijit/registry");--%>
+                        <%--registry.byId("dialog-tab").hide();--%>
+                    <%--</script>--%>
+                </button>
             </div>
         </form>
     </div>
