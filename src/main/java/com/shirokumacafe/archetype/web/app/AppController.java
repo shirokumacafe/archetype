@@ -41,7 +41,12 @@ public class AppController {
 
         return "app/tab2";
     }
+    @RequestMapping(value = "add")
+    @ResponseBody
+    public String add() {
 
+        return "success";
+    }
 
 
     /**

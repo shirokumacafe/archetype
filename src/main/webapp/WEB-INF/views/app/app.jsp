@@ -193,6 +193,12 @@
                     }}).play();
                 }, 250);
 
+                //主体内容
+                registry.byId("contentTabs").addChild(new ContentPane({
+                    title:"动态添加的首页",
+                    selected:true,
+                    content: "这是动态添加的首页！以后可以在这里放统计或新来的消息"
+                }));
 
                 //菜单
                 var accordion = registry.byId("accordion");
@@ -205,7 +211,6 @@
                 });
                 accordion.addChild(ap1);
                 accordion.addChild(ap2);
-                accordion.startup();
 
             });
         });
@@ -214,66 +219,15 @@
 
 <body class="claro">
 <div id="loader"><div id="loaderInner" style="direction:ltr;white-space:nowrap;overflow:visible;">努力载入中 ... </div></div>
-<%--
-<div data-dojo-type="dijit.Menu" id="submenu1" data-dojo-props='contextMenuForWindow:true, style:"display:none"' style="display: none;">
-    <div data-dojo-type="dijit.MenuItem">Enabled Item</div>
-    <div data-dojo-type="dijit.MenuItem" data-dojo-props="disabled:true">Disabled Item</div>
-    <div data-dojo-type="dijit.MenuSeparator"></div>
-    <div data-dojo-type="dijit.MenuItem" data-dojo-props="iconClass:'dijitIconCut'">Cut</div>
-    <div data-dojo-type="dijit.MenuItem" data-dojo-props="iconClass:'dijitIconCopy'">Copy</div>
-    <div data-dojo-type="dijit.MenuItem" data-dojo-props="iconClass:'dijitIconPaste'">Paste</div>
-    <div data-dojo-type="dijit.MenuSeparator"></div>
-    <div data-dojo-type="dijit.PopupMenuItem">
-        <span>Enabled Submenu</span>
-        <div data-dojo-type="dijit.Menu" id="submenu2">
-            <div data-dojo-type="dijit.MenuItem">Submenu Item One</div>
-            <div data-dojo-type="dijit.MenuItem">Submenu Item Two</div>
-            <div data-dojo-type="dijit.PopupMenuItem">
-                <span>Deeper Submenu</span>
-                <div data-dojo-type="dijit.Menu" id="submenu4">
-                    <div data-dojo-type="dijit.MenuItem">Sub-sub-menu Item One</div>
-                    <div data-dojo-type="dijit.MenuItem">Sub-sub-menu Item Two</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div data-dojo-type="dijit.PopupMenuItem" data-dojo-props="disabled:true">
-        <span>Disabled Submenu</span>
-        <div data-dojo-type="dijit.Menu" id="submenu3" style="display: none;">
-            <div data-dojo-type="dijit.MenuItem">Submenu Item One</div>
-            <div data-dojo-type="dijit.MenuItem">Submenu Item Two</div>
-        </div>
-    </div>
-    <div data-dojo-type="dijit.PopupMenuItem">
-        <span>Different popup</span>
-        <div data-dojo-type="dijit.ColorPalette"></div>
-    </div>
-    <div data-dojo-type="dijit.PopupMenuItem">
-        <span>Different popup</span>
-        <div data-dojo-type="dijit.Calendar"></div>
-    </div>
-</div>
---%>
-<!-- end contextMenu -->
-<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true" id="main">
-    <div dojoType="dojox/layout/ExpandoPane"
-         splitter="true"
-         duration="125"
-         region="left"
-         title="主菜单"
-         id="leftPane"
-         maxSize="275"
-         style="width: 275px;">
-        <div data-dojo-type="dijit/layout/AccordionContainer" id="accordion">
 
-        </div><!-- end AccordionContainer -->
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true" id="main">
+    <div data-dojo-type="dojox/layout/ExpandoPane" splitter="true" duration="125" region="left" title="主菜单" maxSize="275" style="width: 275px;">
+        <div data-dojo-type="dijit/layout/AccordionContainer" id="accordion"></div>
     </div>
     <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center', tabStrip:true" id="contentTabs">
-        <div data-dojo-type="dijit/layout/ContentPane" title="首页" selected="true">
-            这是首页的内容，以后用来放图形统计！
-            <button id="test1" >测试</button>
-
-        </div>
+        <%--<div data-dojo-type="dijit/layout/ContentPane" title="首页" selected="true">--%>
+            <%--这是首页的内容，以后用来放图形统计！--%>
+        <%--</div>--%>
     </div><!-- end TabContainer -->
 </div><!-- end BorderContainer -->
 </body>
