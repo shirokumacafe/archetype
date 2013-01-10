@@ -12,26 +12,39 @@
             "dojo/request",
             "dijit/registry",
             "dijit/form/Button",
-            "dgrid/Grid"
-        ], function(aspect,dom,JSON,on,request,registry,Button,Grid){
-
+            "dgrid/Grid",
+            "dgrid/extensions/Pagination",
+            "dgrid/Selection",
+            "dgrid/Keyboard",
+            "dgrid/GridFromHtml",
+            "dojo/_base/lang",
+            "dojo/_base/declare"
+        ], function(aspect,dom,JSON,on,request,registry,Button,Grid,Pagination, Selection, Keyboard, GridFromHtml,lang, declare){
+            var CustomGrid = declare([Grid, Keyboard, Selection, Pagination]);
             var data = [
                 { code: "Bob1", name: "Barker1" },
                 { code: "Bob2", name: "Barker2" },
                 { code: "Bob3", name: "Barker3" }
 
             ];
-
-            var grid = new Grid({
+            var grid = new CustomGrid({
+//                store:data,
                 columns: {
                     code: "编号",
                     name: "姓名"
-                }
+                },
+
+//                pagingLinks: false,
+//                pagingTextBox: true,
+//                firstLastArrows: true,
+//                pageSizeOptions: [10, 15, 25],
+                selectionMode: "single"
             }, "grid_tab");
+            grid.renderArray(data);
+
             //bugfix:解决dijit初始化的问题，代替了ready
             aspect.after(_container_,"onLoad", function(){
-                grid.renderArray(data);
-                
+
                 var dialog_tab = registry.byId("dialog_tab");
                 var form_dialog_tab = registry.byId("form_dialog_tab");
 
@@ -71,8 +84,7 @@
                             data:json
 
                         }).then(function(response){
-                            console.log(response);
-//                            registry.byId("grid_tab").load([{ code: "Bob111", name: "Barker111" }]);
+                                    grid.renderArray([{ code: "Bob111", name: "Barker111" }]);
                                     dialog_tab.hide();
                         }).then(function(error){
                             console.log(error);
