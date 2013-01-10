@@ -2,21 +2,38 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="dojo" value="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/"/>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE HTML>
 <html>
 <head>
     <meta charset="utf-8">
     <title>Dojo Demo</title>
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dijit/themes/claro/document.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dojox/layout/resources/ExpandoPane.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dgrid/css/dgrid.css">
-    <link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dgrid/css/skins/claro.css">
+    <%--<link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dijit/themes/claro/document.css">--%>
+    <%--<link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dijit/themes/claro/claro.css">--%>
+    <%--<link rel="stylesheet" href="${ctx}/static/dojo/1.8.3/dojox/layout/resources/ExpandoPane.css">--%>
+    <link rel="stylesheet" href="${dojo}/dijit/themes/claro/document.css">
+    <link rel="stylesheet" href="${dojo}/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="${dojo}/dojox/layout/resources/ExpandoPane.css">
+    <link rel="stylesheet" href="${ctx}/static/dgrid/dgrid/css/dgrid.css">
+    <link rel="stylesheet" href="${ctx}/static/dgrid/dgrid/css/skins/claro.css">
     <link rel="stylesheet" href="${ctx}/static/styles/base.css">
     <link rel="stylesheet" href="${ctx}/static/styles/app.css">
-
-    <script src="${ctx}/static/dojo/1.8.3/dojo/dojo.js" data-dojo-config="parseOnLoad: true, async:true,isDebug:true"></script>
+     <script>
+         var dojoConfig = {
+             baseUrl:"${ctx}/static/",
+             tlmSiblingOfDojo: false,
+             packages:[
+//                 { name: "dojo", location: "dojo/1.8.3/dojo" },
+//                 { name: "dijit", location: "dojo/1.8.3/dijit" },
+//                 { name: "dojox", location: "dojo/1.8.3/dojox" },
+                 { name:"dgrid", location: "dgrid/dgrid" },
+                 { name:"put-selector", location: "dgrid/put-selector" },
+                 { name:"xstyle", location: "dgrid/xstyle" }
+             ]
+         }
+     </script>
+    <script src="${dojo}/dojo/dojo.js" data-dojo-config="parseOnLoad: true, async:true,isDebug:true"></script>
     <script>
         require([
             "dojo/_base/array",
