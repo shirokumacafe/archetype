@@ -38,9 +38,9 @@ html, body {
 }
 .form-item .form-label {
     display:inline-block;
-    *display:inline;
-    zoom:1;
-    width: 90px;
+    /**display:inline;*/
+    /*zoom:1;*/
+    width: 100px;
     text-align: right;
     line-height: 26px;
 }
