@@ -6,17 +6,17 @@
 
     <script>
         var data = [
-            { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" }, { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" }, { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" }, { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" }, { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" }, { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" }, { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" }, { code: "Bob1", name: "Barker1" },
-            { code: "Bob2", name: "Barker2" },
-            { code: "Bob3", name: "Barker3" }
-
+            { id:1,code: "Bob1", name: "Barker1" },
+            { id:2,code: "Bob2", name: "Barker2" },
+            { id:3,code: "Bob3", name: "Barker2" },
+            { id:4,code: "Bob4", name: "Barker2" },
+            { id:5,code: "Bob5", name: "Barker2" },
+            { id:6,code: "Bob6", name: "Barker2" },
+            { id:7,code: "Bob7", name: "Barker2" },
+            { id:8,code: "Bob8", name: "Barker2" },
+            { id:9,code: "Bob9", name: "Barker2" },
+            { id:10,code: "Bob10", name: "Barker3" },
+            { id:11,code: "Bob11", name: "Barker3" }
         ];
         require([
             "dojo/aspect",
@@ -34,25 +34,23 @@
             "dojo/_base/lang",
             "dojo/_base/declare"
         ], function(aspect,dom,JSON,on,request,registry,Button,Grid,Pagination,Selection,Keyboard,Memory,lang, declare){
-            var CustomGrid = declare([Grid,Keyboard,Selection,Pagination]);
-
-            var tabStore = new Memory({data:data});
+            var CustomGrid = declare([ Grid, Keyboard, Selection ,Pagination]);
+            var tabStore = new Memory({identifier: "id",data:data});
             var grid = new CustomGrid({
                 store:tabStore,
                 columns: {
                     code: "编号",
                     name: "姓名"
                 },
-//                selectionMode: "none",
+                selectionMode: "single",
                 pagingLinks: false,
                 pagingTextBox: true,
                 firstLastArrows: true
             }, "grid_tab");
-//            grid.renderArray(tabStore).refresh();
 
             //bugfix:解决dijit初始化的问题，代替了ready
             aspect.after(_container_,"onLoad", function(){
-
+                //会重复用到的dijit
                 var dialog_tab = registry.byId("dialog_tab");
                 var form_dialog_tab = registry.byId("form_dialog_tab");
 
@@ -84,7 +82,6 @@
                 });
                 //提交
                 registry.byId("form_dialog_tab").on("submit",function(e){
-                    alert("!");
                     e.stopPropagation();
                     e.preventDefault();
                     if(this.validate()){
@@ -92,9 +89,9 @@
                         request.post(this.domNode.action,{
                             data:json
                         }).then(function(response){
-//                                    tabStore.put({ code: "Bobkkk", name: "Barker1" });
-//                                    grid.refresh();
-//                                    dialog_tab.hide();
+                                    tabStore.put({id:99, code: "Bobkkk", name: "Barker1" });
+                                    grid.refresh();
+                                    dialog_tab.hide();
                         });
                     }else{
                         alert('还有未填写正确的数据，请修正后再试！');
