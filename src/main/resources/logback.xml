@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- Output pattern : date [thread] priority [category] - message -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d [%t] %-5p [%c] - %m%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <prudent>true</prudent>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
@@ -16,7 +15,7 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
-            <pattern>%d [%t] %-5p [%c] - %m%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -27,7 +26,7 @@
      <logger name="jdbc.sqltiming" level="INFO"/>
 
     <root level="WARN">
-        <appender-ref ref="Console"/>
-        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="console" />
+        <appender-ref ref="rollingFile" />
     </root>
 </configuration>
