@@ -1,9 +1,4 @@
 package com.shirokumacafe.archetype.common.utilities;
-/**
- * Copyright (c) 2005-2012 springside.org.cn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,8 +8,10 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 /**
  * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
@@ -23,7 +20,7 @@ import java.io.IOException;
  *
  * @author calvin
  */
-
+@Component
 public class JsonMapper {
 
     private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);
@@ -40,6 +37,8 @@ public class JsonMapper {
         if (include != null) {
             mapper.setSerializationInclusion(include);
         }
+        //设置时间格式
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         //设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
