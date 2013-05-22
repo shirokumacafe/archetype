@@ -28,6 +28,5 @@
 
 <body <sitemesh:getProperty property="body.class" writeEntireProperty="true" />>
 <sitemesh:body/>
-<%--<script src="${ctx}/static/bootstrap/2.2.2/js/bootstrap.min.js" type="text/javascript"></script>--%>
 </body>
 </html>

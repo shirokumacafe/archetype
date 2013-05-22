@@ -1,22 +1,8 @@
 package com.shirokumacafe.archetype.web.app;
 
-import com.google.common.collect.Maps;
-import com.shirokumacafe.archetype.entity.Task;
-import com.shirokumacafe.archetype.entity.User;
-import com.shirokumacafe.archetype.service.account.ShiroDbRealm;
-import com.shirokumacafe.archetype.service.task.TaskService;
-import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springside.modules.web.Servlets;
-
-import javax.servlet.ServletRequest;
-import javax.validation.Valid;
-import java.util.Map;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 应用入口的Controller
@@ -49,12 +35,6 @@ public class AppController {
     }
 
 
-    /**
-     * 取出Shiro中的当前用户Id.
-     */
-    private Long getCurrentUserId() {
-        ShiroDbRealm.ShiroUser user = (ShiroDbRealm.ShiroUser) SecurityUtils.getSubject().getPrincipal();
-        return user.id;
-    }
+
 }
 
