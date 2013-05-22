@@ -24,7 +24,8 @@
         <property name="typeAliasesPackage" value="com.shirokumacafe.archetype.entity" />
         <!-- 显式指定Mapper文件位置 -->
         <!--<property name="mapperLocations" value="classpath:/mybatis/*Mapper.xml" />-->
-
+        <!--分页插件-->
+        <property name="configLocation" value="classpath:mybatis.xml"/>
     </bean>
 
 	<!-- 事务配置 -->
