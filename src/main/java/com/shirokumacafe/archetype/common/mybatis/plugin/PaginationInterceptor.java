@@ -1,10 +1,7 @@
 package com.shirokumacafe.archetype.common.mybatis.plugin;
 
 
-import com.shirokumacafe.archetype.common.mybatis.dialect.Dialect;
-import com.shirokumacafe.archetype.common.mybatis.dialect.H2Dialect;
-import com.shirokumacafe.archetype.common.mybatis.dialect.MySql5Dialect;
-import com.shirokumacafe.archetype.common.mybatis.dialect.OracleDialect;
+import com.shirokumacafe.archetype.common.mybatis.dialect.*;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.*;
@@ -49,10 +46,14 @@ public class PaginationInterceptor implements Interceptor{
 			case ORACLE:
 				dialect = new OracleDialect();
 				break;
+            case SQLSERVER2005:
+                dialect = new SQLServer2005Dialect();
+                break;
 			case H2:
 				dialect = new H2Dialect();
 				break;
-
+            default:
+                throw new Exception("no database defined");
 		}
 
 		String originalSql = (String)metaStatementHandler.getValue("delegate.boundSql.sql");
