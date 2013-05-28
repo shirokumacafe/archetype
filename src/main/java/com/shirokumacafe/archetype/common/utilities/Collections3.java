@@ -7,7 +7,6 @@ package com.shirokumacafe.archetype.common.utilities;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springside.modules.utils.Reflections;
 
 import java.util.*;
 
@@ -39,7 +38,7 @@ public class Collections3 {
 						PropertyUtils.getProperty(obj, valuePropertyName));
 			}
 		} catch (Exception e) {
-			throw org.springside.modules.utils.Reflections.convertReflectionExceptionToUnchecked(e);
+			throw Reflections.convertReflectionExceptionToUnchecked(e);
 		}
 
 		return map;

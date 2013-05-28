@@ -5,8 +5,6 @@
  */
 package com.shirokumacafe.archetype.common.utilities;
 
-import org.springside.modules.utils.Exceptions;
-
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;

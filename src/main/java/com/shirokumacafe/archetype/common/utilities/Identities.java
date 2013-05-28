@@ -5,8 +5,6 @@
  */
 package com.shirokumacafe.archetype.common.utilities;
 
-import org.springside.modules.utils.Encodes;
-
 import java.security.SecureRandom;
 import java.util.UUID;
 

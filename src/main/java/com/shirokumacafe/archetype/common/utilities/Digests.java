@@ -6,7 +6,6 @@
 package com.shirokumacafe.archetype.common.utilities;
 
 import org.apache.commons.lang3.Validate;
-import org.springside.modules.utils.Exceptions;
 
 import java.io.IOException;
 import java.io.InputStream;

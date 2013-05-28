@@ -27,7 +27,7 @@ public class Reflections {
 
 	private static final String CGLIB_CLASS_SEPARATOR = "$$";
 
-	private static Logger logger = LoggerFactory.getLogger(org.springside.modules.utils.Reflections.class);
+	private static Logger logger = LoggerFactory.getLogger(Reflections.class);
 
 	/**
 	 * 调用Getter方法.

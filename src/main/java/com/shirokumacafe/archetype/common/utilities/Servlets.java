@@ -6,7 +6,6 @@
 package com.shirokumacafe.archetype.common.utilities;
 
 import org.apache.commons.lang3.Validate;
-import org.springside.modules.utils.Encodes;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletResponse;
