@@ -14,7 +14,7 @@ import java.util.Date;
  * @author lim
  */
 public class StringToDateConverter implements Converter<String, Date> {
-    private static DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    private final static DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
     @Override
     public Date convert(String source) {
         if (!StringUtils.hasLength(source)) {

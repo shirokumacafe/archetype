@@ -11,7 +11,8 @@ import java.util.Map;
 *
 * @author lim
 */
-public class ResponseUtil {
+public class Responses {
+    private Responses(){};
     private final static String SUCCESS = "success";
     private final static String MSG = "msg";
 
@@ -44,6 +45,15 @@ public class ResponseUtil {
         return Collections.unmodifiableMap(map);
     }
     /**
+     * 后台操作成功，返回对象
+     */
+    public static Map writeSuccessAndMsg(String msg){
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put(SUCCESS,true);
+        map.put(MSG,msg);
+        return Collections.unmodifiableMap(map);
+    }
+    /**
      * 后台操作成功
      */
     public static Map writeSuccess(){
@@ -52,27 +62,5 @@ public class ResponseUtil {
         return map;
     }
 
-    /**
-     * 上传文件成功
-     */
-    public static void writeUploadSuccess(HttpServletResponse response) {
-        try {
-            response.setContentType("text/html");
-            response.getWriter().write("{success:true}");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    /**
-     * 上传文件失败
-     */
-    public static void writeUploadFail(HttpServletResponse response) {
-        try {
-            response.setContentType("text/html");
-            response.getWriter().write("{success:false}");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

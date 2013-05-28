@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
-<c:set var="dojo" value="//ajax.googleapis.com/ajax/libs/dojo/1.8.3"/>
+<c:set var="dojo" value="//ajax.googleapis.com/ajax/libs/dojo/1.9.0"/>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!DOCTYPE HTML>
 <html>
@@ -51,33 +51,33 @@
         "dojox/layout/ContentPane"
     ], function(array,topic,dom,json,ready,fx,registry,Memory,ObjectStoreModel,Tree,TabContainer,ContentPane){
 
-        //bugfix:关闭tab后回退到第一个tab的问题
-        //据说1.9之后会被修复
-        TabContainer.prototype.removeChild = function(page){
-            var idx = array.indexOf(this.getChildren(), page);
-
-            require("dijit/_Container").prototype.removeChild.apply(this, arguments);
-
-            if(this._started){
-                topic.publish(this.id + "-removeChild", page);
-            }
-
-            if(this._descendantsBeingDestroyed){ return; }
-
-            if(this.selectedChildWidget === page){
-                this.selectedChildWidget = undefined;
-                if(this._started){
-                    var children = this.getChildren();
-                    if(children.length){
-                        this.selectChild(children[Math.max(idx-1, 0)]);
-                    }
-                }
-            }
-
-            if(this._started){
-                this.layout();
-            }
-        };
+//        //bugfix:关闭tab后回退到第一个tab的问题
+//        //据说1.9之后会被修复
+//        TabContainer.prototype.removeChild = function(page){
+//            var idx = array.indexOf(this.getChildren(), page);
+//
+//            require("dijit/_Container").prototype.removeChild.apply(this, arguments);
+//
+//            if(this._started){
+//                topic.publish(this.id + "-removeChild", page);
+//            }
+//
+//            if(this._descendantsBeingDestroyed){ return; }
+//
+//            if(this.selectedChildWidget === page){
+//                this.selectedChildWidget = undefined;
+//                if(this._started){
+//                    var children = this.getChildren();
+//                    if(children.length){
+//                        this.selectChild(children[Math.max(idx-1, 0)]);
+//                    }
+//                }
+//            }
+//
+//            if(this._started){
+//                this.layout();
+//            }
+//        };
 
         //通用添加tab页
         var addTabPane = function(page){
