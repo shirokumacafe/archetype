@@ -4,17 +4,17 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 
 <generatorConfiguration>
-    <classPathEntry location="F:\WorkUnit\h2-1.3.168.jar"/>
+    <classPathEntry location="F:\WorkUnit\h2-1.3.170.jar"/>
 
     <context id="h2" targetRuntime="MyBatis3">
-	
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
         <!-- 去除自动生成的注释 -->
         <commentGenerator>
             <property name="suppressAllComments" value="true" />
         </commentGenerator>
 
         <jdbcConnection driverClass="org.h2.Driver"
-                        connectionURL="jdbc:h2:tcp://localhost/~/.h2/test"
+                        connectionURL="jdbc:h2:tcp://localhost/~/.h2/archetype"
                         userId="sa"
                         password="">
         </jdbcConnection>
@@ -23,22 +23,22 @@
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.shirokumacafe.archetype.entity" targetProject="..\..\src\main\java">
-            <property name="enableSubPackages" value="false"/>
+        <javaModelGenerator targetPackage="com.shirokumacafe.archetype.entity" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mybatis" targetProject="..\..\src\main\resources">
-            <property name="enableSubPackages" value="false"/>
+        <sqlMapGenerator targetPackage="repository" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="mybatis" targetProject="..\..\src\main\resources">
-            <property name="enableSubPackages" value="false"/>
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.shirokumacafe.archetype.repository" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
 
 
-        <table tableName="T_USER" domainObjectName="User">
+        <table tableName="TUSER" domainObjectName="User">
             <!--<generatedKey column="RID" identity="false" sqlStatement="select SEQ_user.nextval from dual"></generatedKey>-->
         </table>
 
