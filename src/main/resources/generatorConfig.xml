@@ -39,7 +39,7 @@
 
 
         <table tableName="TUSER" domainObjectName="User">
-            <!--<generatedKey column="RID" identity="false" sqlStatement="select SEQ_user.nextval from dual"></generatedKey>-->
+            <generatedKey column="RID" identity="false" sqlStatement="select SEQ_tuser.nextval from dual"></generatedKey>
         </table>
 
         <!--<table tableName="v_baseinfo" schema="" domainObjectName="ViewBaseinfo"
@@ -48,7 +48,6 @@
                enableInsert="false"
                enableUpdateByExample="false"
                enableUpdateByPrimaryKey="false">
-
         </table>-->
 
     </context>
