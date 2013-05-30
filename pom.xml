@@ -21,6 +21,7 @@
         <commons-lang3.version>3.1</commons-lang3.version>
         <commons-io.version>2.4</commons-io.version>
         <joda-time.version>2.1</joda-time.version>
+        <hibernate-validator.version>5.0.1.Final</hibernate-validator.version>
         <poi.version>3.9</poi.version>
         <junit.version>4.11</junit.version>
         <jetty.version>7.6.10.v20130312</jetty.version>
@@ -227,6 +228,11 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>${joda-time.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
         </dependency>
         <!-- GENERAL UTILS end -->
 
