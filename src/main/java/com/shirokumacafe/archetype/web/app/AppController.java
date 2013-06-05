@@ -33,7 +33,12 @@ public class AppController extends MyController{
 
         return "success";
     }
-
+//    @RequestMapping(value = "add2")
+//    @ResponseBody
+//    public String add2() {
+//
+//        return "app/tab2";
+//    }
 
 
 }
