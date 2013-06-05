@@ -24,7 +24,7 @@
     var dojoConfig = {
         baseUrl:"${ctx}/static/",
         async:true,
-        parseOnLoad: true,
+        parseOnLoad: false,
         isDebug:true,
         packages:[
 //            { name: "dojo", location: "dojo" },
@@ -77,6 +77,7 @@
                 id:id,
                 title: title,
                 href:"${ctx}/"+url,
+                scriptHasHooks:true,
                 closable: true
             });
             p.addChild(pane);
@@ -177,7 +178,6 @@
                 addTabPane(item);
             }
         });
-
 
         parser.parse();
 
