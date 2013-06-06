@@ -53,7 +53,7 @@ public class PaginationInterceptor implements Interceptor{
 				dialect = new H2Dialect();
 				break;
             default:
-                throw new Exception("no database defined");
+                throw new RuntimeException("no database defined");
 		}
 
 		String originalSql = (String)metaStatementHandler.getValue("delegate.boundSql.sql");
