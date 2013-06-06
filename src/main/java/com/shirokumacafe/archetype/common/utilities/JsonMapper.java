@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
  *
  * @author calvin
  */
-@Component
 public class JsonMapper {
 
     private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);

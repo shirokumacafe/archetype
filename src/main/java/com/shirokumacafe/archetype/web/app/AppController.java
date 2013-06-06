@@ -1,6 +1,5 @@
 package com.shirokumacafe.archetype.web.app;
 
-import com.shirokumacafe.archetype.common.base.MyController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping(value = "/app")
-public class AppController extends MyController{
+public class AppController{
 
     @RequestMapping(value = "")
     public String list() {
@@ -33,12 +32,6 @@ public class AppController extends MyController{
 
         return "success";
     }
-//    @RequestMapping(value = "add2")
-//    @ResponseBody
-//    public String add2() {
-//
-//        return "app/tab2";
-//    }
 
 
 }

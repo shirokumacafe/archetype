@@ -14,20 +14,20 @@ import java.util.Date;
  * @author lim
  */
 public class StringToDateConverter implements Converter<String, Date> {
-    private final static DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+    private static DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
     @Override
     public Date convert(String source) {
-        if (!StringUtils.hasLength(source)) {
+        if ( source == null && source.length() == 0 ) {
             return null;
         }
 
         try {
             DateTime dt;
-            if(source.length()==19 && !source.contains("T")){
-                dt = fmt.parseDateTime(source);
+            if( source.length()==19 && !source.contains("T") ){
+                dt = fmt.parseDateTime( source );
             }
             else{
-                dt = new DateTime(source);
+                dt = new DateTime( source );
             }
             return dt.toDate();
         } catch (IllegalArgumentException e) {

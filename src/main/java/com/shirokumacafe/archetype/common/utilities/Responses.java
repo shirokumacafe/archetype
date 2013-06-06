@@ -10,8 +10,13 @@ import java.util.Map;
 * @author lim
 */
 public class Responses {
+
     private Responses(){};
+
+    private static JsonMapper objectMapper = JsonMapper.nonDefaultMapper();
+
     private final static String SUCCESS = "success";
+
     private final static String MSG = "msg";
 
 
@@ -59,6 +64,17 @@ public class Responses {
         map.put(SUCCESS,true);
         return map;
     }
+    /**
+     * 输出json
+     */
+    public static void writeJson(String str){
+        objectMapper.toJson(str);
+    }
 
-
+    /**
+     * 获得封装过的objectMapper
+     */
+    public static JsonMapper getJsonMapper() {
+        return objectMapper;
+    }
 }
