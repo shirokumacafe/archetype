@@ -1,0 +1,45 @@
+drop table "user";
+
+/*==============================================================*/
+/* Table: "user"                                                */
+/*==============================================================*/
+create table "user" (
+   user_id              SERIAL not null,
+   user_code            VARCHAR(32)          null,
+   user_name            varchar(32)          null,
+   login_name           varchar(32)          null,
+   password             varchar(255)         null,
+   salt                 varchar(32)          null,
+   sex                  int                  null,
+   idcard_address       varchar(64)          null,
+   idcard               varchar(32)          null,
+   home_address         varchar(64)          null,
+   tel                  varchar(32)          null,
+   contact_tel          varchar(32)          null,
+   contact_name         varchar(32)          null,
+   bank_id              int                  null,
+   bank_account         varchar(32)          null,
+   birthday             date                 null,
+   state                int                  null,
+   postion_level_id     int                  null,
+   salary               decimal(8,2)         null,
+   postion_state        int                  null,
+   join_date            date                 null,
+   leave_date           date                 null,
+   regular_date         date                 null,
+   nation_id            int                  null,
+   photo                varchar(64)          null,
+   remark               varchar(255)         null,
+   postion_id           int                  null,
+   major_id             int                  null,
+   education_id         int                  null,
+   graduate             varchar(32)          null,
+   polity               varchar(32)          null,
+   qq                   varchar(32)          null,
+   email                varchar(32)          null,
+   create_id            int                  null,
+   update_id            int                  null,
+   create_time          TIMESTAMP WITH TIME ZONE null,
+   update_time          TIMESTAMP WITH TIME ZONE null,
+   constraint PK_USER primary key (user_id)
+);

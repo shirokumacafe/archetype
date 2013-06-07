@@ -32,9 +32,12 @@
         <jdk.version>1.6</jdk.version>
 
         <!-- 项目属性 -->
-        <jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
-        <jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
-        <jdbc.driver.version>${h2.version}</jdbc.driver.version>
+        <!--<jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>-->
+        <!--<jdbc.driver.artifactId>h2</jdbc.driver.artifactId>-->
+        <!--<jdbc.driver.version>${h2.version}</jdbc.driver.version>-->
+        <jdbc.driver.groupId>postgresql</jdbc.driver.groupId>
+        <jdbc.driver.artifactId>postgresql</jdbc.driver.artifactId>
+        <jdbc.driver.version>9.1-901.jdbc4</jdbc.driver.version>
         <!--<jdbc.driver.groupId>mysql</jdbc.driver.groupId>-->
         <!--<jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>-->
         <!--<jdbc.driver.version>5.1.21</jdbc.driver.version>-->
