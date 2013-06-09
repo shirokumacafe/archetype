@@ -27,14 +27,10 @@ public class JsonMapper {
 
     private static ThreadLocal<DateFormat> threadLocal = new ThreadLocal<DateFormat>(){
         @Override
-        protected synchronized DateFormat initialValue() {
+        protected DateFormat initialValue() {
             return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         }
     };
-
-    public static DateFormat getDateFormat() {
-        return threadLocal.get();
-    }
 
     private ObjectMapper mapper;
 
@@ -49,7 +45,7 @@ public class JsonMapper {
             mapper.setSerializationInclusion(include);
         }
         //设置时间格式
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false).setDateFormat(getDateFormat());
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false).setDateFormat(threadLocal.get());
         //设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
