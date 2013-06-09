@@ -66,8 +66,8 @@ public class Responses {
     /**
      * 输出json
      */
-    public static void writeJson(String str){
-        objectMapper.toJson(str);
+    public static String writeJson(Object obj){
+        return objectMapper.toJson(obj);
     }
 
     /**
