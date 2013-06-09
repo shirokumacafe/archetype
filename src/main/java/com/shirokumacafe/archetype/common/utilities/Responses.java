@@ -1,8 +1,7 @@
 package com.shirokumacafe.archetype.common.utilities;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
 * 应答工具类
@@ -24,16 +23,16 @@ public class Responses {
      * 创建后台验证错误，返回对象
      */
     public static Map writeFailAndMsg(String errors){
-        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
         map.put(SUCCESS,false);
         map.put(MSG,errors);
-        return Collections.unmodifiableMap(map);
+        return map;
     }
     /**
      * 创建后台验证错误
      */
     public static Map writeFail(){
-        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
         map.put(SUCCESS,false);
         map.put(MSG,"系统出错！");
         return map;
@@ -42,25 +41,25 @@ public class Responses {
      * 后台操作成功，返回对象
      */
     public static Map writeSuccessAndMsg(Map<String,Object> msg){
-        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
         map.put(SUCCESS,true);
         map.put(MSG,msg);
-        return Collections.unmodifiableMap(map);
+        return map;
     }
     /**
      * 后台操作成功，返回对象
      */
     public static Map writeSuccessAndMsg(String msg){
-        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
         map.put(SUCCESS,true);
         map.put(MSG,msg);
-        return Collections.unmodifiableMap(map);
+        return map;
     }
     /**
      * 后台操作成功
      */
     public static Map writeSuccess(){
-        Map<String,Object> map = new HashMap<String, Object>();
+        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
         map.put(SUCCESS,true);
         return map;
     }
