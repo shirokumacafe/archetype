@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 * @author lim
 */
 public class Responses {
-
+    //不允许被实例化
     private Responses(){};
 
     private static JsonMapper objectMapper = JsonMapper.nonDefaultMapper();

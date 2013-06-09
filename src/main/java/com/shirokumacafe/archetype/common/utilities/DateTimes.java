@@ -1,6 +1,8 @@
 package com.shirokumacafe.archetype.common.utilities;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
+import org.joda.time.ReadableInstant;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -46,10 +48,10 @@ public class DateTimes {
      * @param format
      * @return
      */
-    public static Date convertFromString(String str, String format) {
+    public static DateTime convertFromString(String str, String format) {
         DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
         DateTime dateTime = fmt.parseDateTime(str);
-        return dateTime.toDate();
+        return dateTime;
     }
 
     /**
@@ -58,9 +60,8 @@ public class DateTimes {
      * @param str
      * @return
      */
-    public static Date convertFromString(String str) {
-        Date date = convertFromString(str, FORMAT);
-        return date;
+    public static DateTime convertFromString(String str) {
+        return convertFromString(str, FORMAT);
     }
 
     /**
@@ -69,10 +70,10 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static Date startOfMonth(Date date) {
+    public static DateTime startOfMonth(Date date) {
         DateTime dateTime = new DateTime(date);
         DateTime startOfMonth = dateTime.dayOfMonth().withMinimumValue();
-        return startOfMonth.toDate();
+        return startOfMonth;
     }
 
     /**
@@ -81,10 +82,10 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static Date endOfMonth(Date date) {
+    public static DateTime endOfMonth(Date date) {
         DateTime dateTime = new DateTime(date);
         DateTime endOfMonth = dateTime.dayOfMonth().withMaximumValue();
-        return endOfMonth.toDate();
+        return endOfMonth;
     }
 
     /**
@@ -93,9 +94,9 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static Date startOfDate(Date date) {
+    public static DateTime startOfDate(Date date) {
         DateTime dateTime = new DateTime(date);
-        return dateTime.millisOfDay().withMinimumValue().toDate();
+        return dateTime.millisOfDay().withMinimumValue();
     }
 
     /**
@@ -104,9 +105,10 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static Date endOfDate(Date date) {
+    public static DateTime endOfDate(Date date) {
         DateTime dateTime = new DateTime(date);
-        return dateTime.millisOfDay().withMaximumValue().toDate();
+        return dateTime.millisOfDay().withMaximumValue();
     }
+
 
 }
