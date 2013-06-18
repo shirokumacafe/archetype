@@ -8,11 +8,8 @@ import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
@@ -24,13 +21,6 @@ import java.text.SimpleDateFormat;
 public class JsonMapper {
 
     private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);
-
-    private static ThreadLocal<DateFormat> threadLocal = new ThreadLocal<DateFormat>(){
-        @Override
-        protected DateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        }
-    };
 
     private ObjectMapper mapper;
 
@@ -44,8 +34,6 @@ public class JsonMapper {
         if (include != null) {
             mapper.setSerializationInclusion(include);
         }
-        //设置时间格式
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false).setDateFormat(threadLocal.get());
         //设置输入时忽略在JSON字符串中存在但Java对象实际没有的属性
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
