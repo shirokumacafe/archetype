@@ -43,3 +43,109 @@ create table "user" (
    update_time          TIMESTAMP WITH TIME ZONE null,
    constraint PK_USER primary key (user_id)
 );
+
+drop table department;
+
+/*==============================================================*/
+/* Table: department                                            */
+/*==============================================================*/
+create table department (
+   dept_id              SERIAL not null,
+   dept_name            varchar(32)          null,
+   dept_code            varchar(32)          null,
+   leader_user_id       int                  null,
+   dept_tel             varchar(32)          null,
+   dept_fax             varchar(32)          null,
+   dept_typeid          int                  null,
+   state                int                  null,
+   dept_area            varchar(32)          null,
+   dept_address         varchar(32)          null,
+   dept_email           varchar(32)          null,
+   p_id                 int                  null,
+   orderno              int                  null,
+   create_id            int                  null,
+   update_id            int                  null,
+   create_time          TIMESTAMP WITH TIME ZONE null,
+   update_time          TIMESTAMP WITH TIME ZONE null,
+   constraint PK_DEPARTMENT primary key (dept_id)
+);
+
+drop table base;
+
+/*==============================================================*/
+/* Table: base                                                  */
+/*==============================================================*/
+create table base (
+   base_id              SERIAL not null,
+   base_name            varchar(32)          null,
+   base_code            varchar(32)          null,
+   base_type            varchar(32)          null,
+   state                int                  null,
+   remark               varchar(255)         null,
+   create_id            int                  null,
+   update_id            int                  null,
+   create_time          TIMESTAMP WITH TIME ZONE null,
+   update_time          TIMESTAMP WITH TIME ZONE null,
+   constraint PK_BASE primary key (base_id)
+);
+
+drop table role;
+
+/*==============================================================*/
+/* Table: role                                                  */
+/*==============================================================*/
+create table role (
+   role_id              SERIAL not null,
+   role_name            varchar(32)          null,
+   sys                  int                  null,
+   remark               varchar(255)         null,
+   state                int                  null,
+   create_id            int                  null,
+   update_id            int                  null,
+   create_time          TIMESTAMP WITH TIME ZONE null,
+   update_time          TIMESTAMP WITH TIME ZONE null,
+   constraint PK_ROLE primary key (role_id)
+);
+
+drop table menu;
+
+/*==============================================================*/
+/* Table: menu                                                  */
+/*==============================================================*/
+create table menu (
+   menu_id              SERIAL not null,
+   menu_name            varchar(32)          null,
+   menu_code            varchar(32)          null,
+   p_id                 int                  null,
+   link                 varchar(32)          null,
+   orderno              int                  null,
+   state                int                  null,
+   btn                  int                  null,
+   level                int                  null,
+   create_id            int                  null,
+   update_id            int                  null,
+   create_time          TIMESTAMP WITH TIME ZONE null,
+   update_time          TIMESTAMP WITH TIME ZONE null,
+   constraint PK_MENU primary key (menu_id)
+);
+
+drop table role_menu;
+
+/*==============================================================*/
+/* Table: role_menu                                             */
+/*==============================================================*/
+drop table role_menu;
+create table role_menu (
+   role_id              int                  not null,
+   menu_id              int                  not null,
+   constraint PK_ROLE_MENU primary key (role_id, menu_id)
+);
+/*==============================================================*/
+/* Table: user_dept                                             */
+/*==============================================================*/
+drop table user_dept;
+create table user_dept (
+   user_id              int                  not null,
+   dept_id              int                  not null,
+   constraint PK_USER_DEPT primary key (user_id, dept_id)
+);
