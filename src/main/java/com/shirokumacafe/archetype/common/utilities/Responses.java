@@ -1,5 +1,9 @@
 package com.shirokumacafe.archetype.common.utilities;
 
+import com.fasterxml.jackson.databind.SerializationFeature;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,7 +16,19 @@ public class Responses {
     //不允许被实例化
     private Responses(){};
 
+    private static ThreadLocal<DateFormat> threadLocal = new ThreadLocal<DateFormat>(){
+        @Override
+        protected DateFormat initialValue() {
+            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        }
+    };
+
     private static JsonMapper objectMapper = JsonMapper.nonDefaultMapper();
+
+    static{
+        //设置时间格式
+        objectMapper.getMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false).setDateFormat(threadLocal.get());
+    }
 
     private final static String SUCCESS = "success";
 
