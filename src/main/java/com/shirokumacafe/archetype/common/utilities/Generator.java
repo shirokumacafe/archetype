@@ -4,14 +4,12 @@ import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Calendar;
-import java.util.Date;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,24 +19,35 @@ import java.util.Map;
  * @author lim
  */
 public class Generator {
-    public static void main(String[] args) throws IOException, TemplateException {
+
+    public static void main(String[] args) throws IOException, TemplateException, URISyntaxException {
+
+        String className = "User";
+        String basePackage = "com.shirokumacafe.archetype";
+
+        File templateDirectory = new File(Generator.class.getClassLoader().getResource("generator").getFile());
+
         Configuration cfg = new Configuration();
-        ClassPathResource resource = new ClassPathResource("generator");
-        File file = new File("/generator");
-        File[] s=file.listFiles();
-        System.out.println(s);
-//        cfg.setDirectoryForTemplateLoading(file);
-//        cfg.setObjectWrapper(new DefaultObjectWrapper());
-//        Template template = cfg.getTemplate("${className}Controller.ftl");
-//        Map root = new HashMap();
-//
-//        root.put("className","User");
-//        root.put("basepackage","com.shirokumacafe.demo");
-//
-//        Writer out = new OutputStreamWriter(System.out);
-//        template.process(root,out);
-//        out.flush();
-//        String pattern = "%1$s 在 %4$tF %4$tT 说了 \"%1$s 爱 %2$s %3$d 年\"";
-//        System.out.println(String.format(pattern, "mingming","shuilian",10000,System.currentTimeMillis()));
+        cfg.setDefaultEncoding("UTF-8");
+        cfg.setDirectoryForTemplateLoading(templateDirectory);
+        cfg.setObjectWrapper(new DefaultObjectWrapper());
+
+        Map root = new HashMap();
+
+        root.put("className",className);
+        root.put("basepackage",basePackage);
+
+        for(File file: templateDirectory.listFiles()){
+
+            Template template = cfg.getTemplate(file.getName());
+            String outDirectory = "src/main/java/" + basePackage.replace(".","/");
+            File outFile = new File(outDirectory+"/22.txt");
+            outFile.createNewFile();
+            Writer out = new FileWriter(outFile);
+            template.process(root,out);
+            out.flush();
+        }
+
     }
+
 }
