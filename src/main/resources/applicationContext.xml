@@ -49,7 +49,7 @@
 			location="classpath*:/application.properties" />	
 		
 		<!-- 数据源配置, 使用DBCP数据库连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
 			<!-- Connection Info -->
 			<property name="driverClassName" value="${jdbc.driver}" />
 			<property name="url" value="${jdbc.url}" />
@@ -65,6 +65,8 @@
 			<property name="minEvictableIdleTimeMillis" value="3600000" />
 		</bean>
 
+        <!-- 数据源配置,使用应用服务器的数据库连接池 -->
+        <!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" />-->
 	</beans>
 	
 	<!-- local development环境 -->
@@ -74,7 +76,7 @@
           			  classpath*:/application.development.properties" />	
 
 		<!-- DBCP连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
 			<property name="driverClassName" value="${jdbc.driver}" />
 			<property name="url" value="${jdbc.url}" />
 			<property name="username" value="${jdbc.username}" />
@@ -91,7 +93,7 @@
           			  classpath*:/application.functional-local.properties" />	
 
 		<!-- DBCP连接池 -->
-		<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
 			<property name="driverClassName" value="${jdbc.driver}" />
 			<property name="url" value="${jdbc.url}" />
 			<property name="username" value="${jdbc.username}" />
@@ -101,7 +103,7 @@
 
 		<!-- 初始化数据表结构 -->
 		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/h2/schema.sql" />
+			<jdbc:script location="classpath:sql/${db.type}/schema.sql" />
 		</jdbc:initialize-database>	
 	</beans>
 	
@@ -111,8 +113,8 @@
 			location="classpath*:/application.properties,
           			  classpath*:/application.test.properties" />
 
-        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-            <property name="driverClassName" value="${jdbc.driver}" />
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+            <property name="driverClass" value="${jdbc.driver}" />
             <property name="url" value="${jdbc.url}" />
             <property name="username" value="${jdbc.username}" />
             <property name="password" value="${jdbc.password}" />
