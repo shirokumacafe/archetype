@@ -60,8 +60,8 @@
 
         //通用添加tab页
         var addTabPane = function(page){
-            var title = page.name;
-            var id = page.id;
+            var title = page.menuName;
+            var id = page.menuId;
             var url = page.url;
             var p = registry.byId("contentTabs");
             var c = p.getChildren();
@@ -87,83 +87,42 @@
 
         //初始化菜单的数据
         var menuStore = new Memory({
-            data: [{
-                "name": "US Government",
-                "id": "root"
-            },
-                {
-                    "name": "Congress",
-                    "id": "congress",
-                    "parent": "root"
-                },
-                {
-                    "name": "House of Representatives",
-                    "id": "house",
-                    "parent": "congress",
-                    "url":"app/tab"
-                },
-                {
-                    "name": "Senate",
-                    "id": "senate",
-                    "parent": "congress",
-                    "url":"app/tab2"
-
-                },
-                {
-                    "name": "Executive",
-                    "id": "exec",
-                    "parent": "root"
-                },
-                {
-                    "name": "President",
-                    "id": "pres",
-                    "parent": "exec"
-                },
-                {
-                    "name": "Vice President",
-                    "id": "vice-pres",
-                    "parent": "exec"
-                },
-                {
-                    "name": "Secretary of State",
-                    "id": "state",
-                    "parent": "exec"
-                },
-                {
-                    "name": "Cabinet",
-                    "id": "cabinet",
-                    "parent": "exec"
-                },
-                {
-                    "name": "National Security Council",
-                    "id": "security",
-                    "parent": "cabinet"
-                },
-                {
-                    "name": "Council of Economic Advisers",
-                    "id": "economic",
-                    "parent": "cabinet"
-                },
-                {
-                    "name": "Office of Management and Budget",
-                    "id": "budget",
-                    "parent": "cabinet"
-                },
-                {
-                    "name": "Judicial",
-                    "id": "judicial",
-                    "parent": "root"
-                }
-            ],
+//            data: [
+//                {
+//                "name": "US Government",
+//                "id": "root"
+//                },
+//                {
+//                    "name": "Congress",
+//                    "id": "congress",
+//                    "parent": "root"
+//                },
+//                {
+//                    "name": "House of Representatives",
+//                    "id": "house",
+//                    "parent": "congress",
+//                    "url":"app/tab"
+//                },
+//                {
+//                    "name": "Senate",
+//                    "id": "senate",
+//                    "parent": "congress",
+//                    "url":"app/tab2"
+//
+//                }
+//            ],
+            data:${menus},
             getChildren: function(object){
-                return this.query({parent: object.id});
+//                return this.query({parent: object.id});
+                return this.query({pId: object.menuId});
             }
         });
 
         //数据模型
         var menuModel = new ObjectStoreModel({
             store: menuStore,
-            query: {id: 'root'},
+            query: {menuId: '1'},
+            labelAttr:'menuName',
             mayHaveChildren: function(object){
                 return this.store.getChildren(object).length > 0;
             }
@@ -172,7 +131,7 @@
         //树
         var menuTree = new Tree({
             model: menuModel,
-            showRoot:false,
+//            showRoot:false,
             openOnClick:true,
             onClick: function(item, node){
                 addTabPane(item);

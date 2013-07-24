@@ -1,4 +1,4 @@
-drop table "user";
+drop table if exists "user";
 
 /*==============================================================*/
 /* Table: "user"                                                */
@@ -44,7 +44,7 @@ create table "user" (
    constraint PK_USER primary key (user_id)
 );
 
-drop table department;
+drop table if exists department;
 
 /*==============================================================*/
 /* Table: department                                            */
@@ -70,7 +70,7 @@ create table department (
    constraint PK_DEPARTMENT primary key (dept_id)
 );
 
-drop table base;
+drop table if exists base;
 
 /*==============================================================*/
 /* Table: base                                                  */
@@ -89,7 +89,7 @@ create table base (
    constraint PK_BASE primary key (base_id)
 );
 
-drop table role;
+drop table if exists role;
 
 /*==============================================================*/
 /* Table: role                                                  */
@@ -107,7 +107,7 @@ create table role (
    constraint PK_ROLE primary key (role_id)
 );
 
-drop table menu;
+drop table if exists menu;
 
 /*==============================================================*/
 /* Table: menu                                                  */
@@ -129,12 +129,12 @@ create table menu (
    constraint PK_MENU primary key (menu_id)
 );
 
-drop table role_menu;
+drop table if exists role_menu;
 
 /*==============================================================*/
 /* Table: role_menu                                             */
 /*==============================================================*/
-drop table role_menu;
+drop table if exists role_menu;
 create table role_menu (
    role_id              int                  not null,
    menu_id              int                  not null,
@@ -143,7 +143,7 @@ create table role_menu (
 /*==============================================================*/
 /* Table: user_dept                                             */
 /*==============================================================*/
-drop table user_dept;
+drop table if exists user_dept;
 create table user_dept (
    user_id              int                  not null,
    dept_id              int                  not null,
