@@ -21,9 +21,24 @@ public class MenuService {
     @Autowired
     private MenuMapper menuMapper;
 
-    public List<Menu> getAllMenu(){
+    /**
+     * 获取所有目录以及按钮
+     */
+    public List<Menu> findAllMenu(){
         List<Menu> menus = menuMapper.selectByExample(null);
         return menus;
 
+    }
+
+    public void add(Menu menu){
+        menuMapper.insert(menu);
+    }
+
+    public void update(Menu menu){
+        menuMapper.updateByPrimaryKeySelective(menu);
+    }
+
+    public void delete(Menu menu){
+        menuMapper.deleteByPrimaryKey(menu.getMenuId());
     }
 }

@@ -58,11 +58,11 @@
         "dojo/domReady!"
     ], function(array,topic,dom,json,parser,fx,registry,Memory,ObjectStoreModel,Tree,TabContainer,BorderContainer,AccordionContainer,ContentPane,ExpandoPane){
 
-        //通用添加tab页
-        var addTabPane = function(page){
-            var title = page.menuName;
-            var id = page.menuId;
-            var url = page.url;
+        //添加tab页
+        var addTabPane = function(data){
+            var title = data.menuName;
+            var id = data.menuId;
+            var url = data.link;
             var p = registry.byId("contentTabs");
             var c = p.getChildren();
 
@@ -85,63 +85,49 @@
             return pane;
         };
 
-        //初始化菜单的数据
+        //初始化数据
         var menuStore = new Memory({
-//            data: [
-//                {
-//                "name": "US Government",
-//                "id": "root"
-//                },
-//                {
-//                    "name": "Congress",
-//                    "id": "congress",
-//                    "parent": "root"
-//                },
-//                {
-//                    "name": "House of Representatives",
-//                    "id": "house",
-//                    "parent": "congress",
-//                    "url":"app/tab"
-//                },
-//                {
-//                    "name": "Senate",
-//                    "id": "senate",
-//                    "parent": "congress",
-//                    "url":"app/tab2"
-//
-//                }
-//            ],
             data:${menus},
             getChildren: function(object){
-//                return this.query({parent: object.id});
                 return this.query({pId: object.menuId});
-            }
-        });
-
-        //数据模型
-        var menuModel = new ObjectStoreModel({
-            store: menuStore,
-            query: {menuId: '1'},
-            labelAttr:'menuName',
-            mayHaveChildren: function(object){
-                return this.store.getChildren(object).length > 0;
-            }
-        });
-
-        //树
-        var menuTree = new Tree({
-            model: menuModel,
-//            showRoot:false,
-            openOnClick:true,
-            onClick: function(item, node){
-                addTabPane(item);
             }
         });
 
         parser.parse();
 
+        //菜单
+        var accordion = registry.byId("accordion");
+
+        //生成选项卡与树
+        menuStore.query({pId:0}).forEach(function(data){
+
+            var menuModel = new ObjectStoreModel({
+                store: menuStore,
+                query: {menuId: data.menuId},
+                labelAttr:'menuName',
+                mayHaveChildren: function(object){
+                    return this.store.getChildren(object).length > 0;
+                }
+            });
+
+            var menuTree = new Tree({
+                model: menuModel,
+                showRoot:false,
+                openOnClick:true,
+                onClick: function(item, node){
+                    addTabPane(item);
+                }
+            });
+
+            var ap = new ContentPane({
+                title: data.menuName,
+                 content: menuTree
+            });
+            accordion.addChild(ap);
+        });
+
         //DOM节点加载完毕后清除Loading
-        dom.byId("loaderInner").innerHTML += " 完成啦!";
+        dom.byId("loaderInner").innerHTML += " 载入完成，进入系统！";
         setTimeout(function hideLoader() {
             fx.fadeOut({node: "loader",duration: 500,onEnd: function(n) {
                 n.style.display = "none";
@@ -153,18 +139,6 @@
             selected:true,
             content: "这是动态添加的首页！以后可以在这里放统计或新来的消息"
         }));
-
-        //菜单
-        var accordion = registry.byId("accordion");
-        var ap1 = new ContentPane({
-            title: "菜单",
-            content: menuTree
-        });
-        var ap2 = new ContentPane({
-            title: "菜单2"
-        });
-        accordion.addChild(ap1);
-        accordion.addChild(ap2);
 
     });
 </script>
