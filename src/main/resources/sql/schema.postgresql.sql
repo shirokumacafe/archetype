@@ -41,7 +41,7 @@ create table users (
    update_id            int                  null,
    create_time          TIMESTAMP WITH TIME ZONE null,
    update_time          TIMESTAMP WITH TIME ZONE null,
-   constraint PK_USER primary key (user_id)
+   constraint PK_USERS primary key (user_id)
 );
 
 drop table if exists department;
@@ -81,7 +81,7 @@ create table dict (
    dict_type            varchar(32)          null,
    state                int                  null,
    remark               varchar(255)         null,
-   constraint PK_BASE primary key (dict_code)
+   constraint PK_DICT primary key (dict_code)
 );
 
 drop table if exists role;
