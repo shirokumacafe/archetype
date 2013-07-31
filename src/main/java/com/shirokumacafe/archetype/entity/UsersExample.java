@@ -6,14 +6,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class UserExample {
+public class UsersExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UserExample() {
+    public UsersExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -1023,63 +1023,73 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andBankIdIsNull() {
-            addCriterion("bank_id is null");
+        public Criteria andBankDictIsNull() {
+            addCriterion("bank_dict is null");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdIsNotNull() {
-            addCriterion("bank_id is not null");
+        public Criteria andBankDictIsNotNull() {
+            addCriterion("bank_dict is not null");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdEqualTo(Integer value) {
-            addCriterion("bank_id =", value, "bankId");
+        public Criteria andBankDictEqualTo(String value) {
+            addCriterion("bank_dict =", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdNotEqualTo(Integer value) {
-            addCriterion("bank_id <>", value, "bankId");
+        public Criteria andBankDictNotEqualTo(String value) {
+            addCriterion("bank_dict <>", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdGreaterThan(Integer value) {
-            addCriterion("bank_id >", value, "bankId");
+        public Criteria andBankDictGreaterThan(String value) {
+            addCriterion("bank_dict >", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("bank_id >=", value, "bankId");
+        public Criteria andBankDictGreaterThanOrEqualTo(String value) {
+            addCriterion("bank_dict >=", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdLessThan(Integer value) {
-            addCriterion("bank_id <", value, "bankId");
+        public Criteria andBankDictLessThan(String value) {
+            addCriterion("bank_dict <", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdLessThanOrEqualTo(Integer value) {
-            addCriterion("bank_id <=", value, "bankId");
+        public Criteria andBankDictLessThanOrEqualTo(String value) {
+            addCriterion("bank_dict <=", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdIn(List<Integer> values) {
-            addCriterion("bank_id in", values, "bankId");
+        public Criteria andBankDictLike(String value) {
+            addCriterion("bank_dict like", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdNotIn(List<Integer> values) {
-            addCriterion("bank_id not in", values, "bankId");
+        public Criteria andBankDictNotLike(String value) {
+            addCriterion("bank_dict not like", value, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdBetween(Integer value1, Integer value2) {
-            addCriterion("bank_id between", value1, value2, "bankId");
+        public Criteria andBankDictIn(List<String> values) {
+            addCriterion("bank_dict in", values, "bankDict");
             return (Criteria) this;
         }
 
-        public Criteria andBankIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("bank_id not between", value1, value2, "bankId");
+        public Criteria andBankDictNotIn(List<String> values) {
+            addCriterion("bank_dict not in", values, "bankDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankDictBetween(String value1, String value2) {
+            addCriterion("bank_dict between", value1, value2, "bankDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andBankDictNotBetween(String value1, String value2) {
+            addCriterion("bank_dict not between", value1, value2, "bankDict");
             return (Criteria) this;
         }
 
@@ -1273,63 +1283,73 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdIsNull() {
-            addCriterion("postion_level_id is null");
+        public Criteria andPostionLevelDictIsNull() {
+            addCriterion("postion_level_dict is null");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdIsNotNull() {
-            addCriterion("postion_level_id is not null");
+        public Criteria andPostionLevelDictIsNotNull() {
+            addCriterion("postion_level_dict is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdEqualTo(Integer value) {
-            addCriterion("postion_level_id =", value, "postionLevelId");
+        public Criteria andPostionLevelDictEqualTo(String value) {
+            addCriterion("postion_level_dict =", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdNotEqualTo(Integer value) {
-            addCriterion("postion_level_id <>", value, "postionLevelId");
+        public Criteria andPostionLevelDictNotEqualTo(String value) {
+            addCriterion("postion_level_dict <>", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdGreaterThan(Integer value) {
-            addCriterion("postion_level_id >", value, "postionLevelId");
+        public Criteria andPostionLevelDictGreaterThan(String value) {
+            addCriterion("postion_level_dict >", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("postion_level_id >=", value, "postionLevelId");
+        public Criteria andPostionLevelDictGreaterThanOrEqualTo(String value) {
+            addCriterion("postion_level_dict >=", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdLessThan(Integer value) {
-            addCriterion("postion_level_id <", value, "postionLevelId");
+        public Criteria andPostionLevelDictLessThan(String value) {
+            addCriterion("postion_level_dict <", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdLessThanOrEqualTo(Integer value) {
-            addCriterion("postion_level_id <=", value, "postionLevelId");
+        public Criteria andPostionLevelDictLessThanOrEqualTo(String value) {
+            addCriterion("postion_level_dict <=", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdIn(List<Integer> values) {
-            addCriterion("postion_level_id in", values, "postionLevelId");
+        public Criteria andPostionLevelDictLike(String value) {
+            addCriterion("postion_level_dict like", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdNotIn(List<Integer> values) {
-            addCriterion("postion_level_id not in", values, "postionLevelId");
+        public Criteria andPostionLevelDictNotLike(String value) {
+            addCriterion("postion_level_dict not like", value, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdBetween(Integer value1, Integer value2) {
-            addCriterion("postion_level_id between", value1, value2, "postionLevelId");
+        public Criteria andPostionLevelDictIn(List<String> values) {
+            addCriterion("postion_level_dict in", values, "postionLevelDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionLevelIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("postion_level_id not between", value1, value2, "postionLevelId");
+        public Criteria andPostionLevelDictNotIn(List<String> values) {
+            addCriterion("postion_level_dict not in", values, "postionLevelDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostionLevelDictBetween(String value1, String value2) {
+            addCriterion("postion_level_dict between", value1, value2, "postionLevelDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andPostionLevelDictNotBetween(String value1, String value2) {
+            addCriterion("postion_level_dict not between", value1, value2, "postionLevelDict");
             return (Criteria) this;
         }
 
@@ -1633,63 +1653,73 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andNationIdIsNull() {
-            addCriterion("nation_id is null");
+        public Criteria andNationDictIsNull() {
+            addCriterion("nation_dict is null");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdIsNotNull() {
-            addCriterion("nation_id is not null");
+        public Criteria andNationDictIsNotNull() {
+            addCriterion("nation_dict is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdEqualTo(Integer value) {
-            addCriterion("nation_id =", value, "nationId");
+        public Criteria andNationDictEqualTo(String value) {
+            addCriterion("nation_dict =", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdNotEqualTo(Integer value) {
-            addCriterion("nation_id <>", value, "nationId");
+        public Criteria andNationDictNotEqualTo(String value) {
+            addCriterion("nation_dict <>", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdGreaterThan(Integer value) {
-            addCriterion("nation_id >", value, "nationId");
+        public Criteria andNationDictGreaterThan(String value) {
+            addCriterion("nation_dict >", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("nation_id >=", value, "nationId");
+        public Criteria andNationDictGreaterThanOrEqualTo(String value) {
+            addCriterion("nation_dict >=", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdLessThan(Integer value) {
-            addCriterion("nation_id <", value, "nationId");
+        public Criteria andNationDictLessThan(String value) {
+            addCriterion("nation_dict <", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdLessThanOrEqualTo(Integer value) {
-            addCriterion("nation_id <=", value, "nationId");
+        public Criteria andNationDictLessThanOrEqualTo(String value) {
+            addCriterion("nation_dict <=", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdIn(List<Integer> values) {
-            addCriterion("nation_id in", values, "nationId");
+        public Criteria andNationDictLike(String value) {
+            addCriterion("nation_dict like", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdNotIn(List<Integer> values) {
-            addCriterion("nation_id not in", values, "nationId");
+        public Criteria andNationDictNotLike(String value) {
+            addCriterion("nation_dict not like", value, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdBetween(Integer value1, Integer value2) {
-            addCriterion("nation_id between", value1, value2, "nationId");
+        public Criteria andNationDictIn(List<String> values) {
+            addCriterion("nation_dict in", values, "nationDict");
             return (Criteria) this;
         }
 
-        public Criteria andNationIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("nation_id not between", value1, value2, "nationId");
+        public Criteria andNationDictNotIn(List<String> values) {
+            addCriterion("nation_dict not in", values, "nationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andNationDictBetween(String value1, String value2) {
+            addCriterion("nation_dict between", value1, value2, "nationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andNationDictNotBetween(String value1, String value2) {
+            addCriterion("nation_dict not between", value1, value2, "nationDict");
             return (Criteria) this;
         }
 
@@ -1833,183 +1863,213 @@ public class UserExample {
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdIsNull() {
-            addCriterion("postion_id is null");
+        public Criteria andPostionDictIsNull() {
+            addCriterion("postion_dict is null");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdIsNotNull() {
-            addCriterion("postion_id is not null");
+        public Criteria andPostionDictIsNotNull() {
+            addCriterion("postion_dict is not null");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdEqualTo(Integer value) {
-            addCriterion("postion_id =", value, "postionId");
+        public Criteria andPostionDictEqualTo(String value) {
+            addCriterion("postion_dict =", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdNotEqualTo(Integer value) {
-            addCriterion("postion_id <>", value, "postionId");
+        public Criteria andPostionDictNotEqualTo(String value) {
+            addCriterion("postion_dict <>", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdGreaterThan(Integer value) {
-            addCriterion("postion_id >", value, "postionId");
+        public Criteria andPostionDictGreaterThan(String value) {
+            addCriterion("postion_dict >", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("postion_id >=", value, "postionId");
+        public Criteria andPostionDictGreaterThanOrEqualTo(String value) {
+            addCriterion("postion_dict >=", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdLessThan(Integer value) {
-            addCriterion("postion_id <", value, "postionId");
+        public Criteria andPostionDictLessThan(String value) {
+            addCriterion("postion_dict <", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdLessThanOrEqualTo(Integer value) {
-            addCriterion("postion_id <=", value, "postionId");
+        public Criteria andPostionDictLessThanOrEqualTo(String value) {
+            addCriterion("postion_dict <=", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdIn(List<Integer> values) {
-            addCriterion("postion_id in", values, "postionId");
+        public Criteria andPostionDictLike(String value) {
+            addCriterion("postion_dict like", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdNotIn(List<Integer> values) {
-            addCriterion("postion_id not in", values, "postionId");
+        public Criteria andPostionDictNotLike(String value) {
+            addCriterion("postion_dict not like", value, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdBetween(Integer value1, Integer value2) {
-            addCriterion("postion_id between", value1, value2, "postionId");
+        public Criteria andPostionDictIn(List<String> values) {
+            addCriterion("postion_dict in", values, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andPostionIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("postion_id not between", value1, value2, "postionId");
+        public Criteria andPostionDictNotIn(List<String> values) {
+            addCriterion("postion_dict not in", values, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdIsNull() {
-            addCriterion("major_id is null");
+        public Criteria andPostionDictBetween(String value1, String value2) {
+            addCriterion("postion_dict between", value1, value2, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdIsNotNull() {
-            addCriterion("major_id is not null");
+        public Criteria andPostionDictNotBetween(String value1, String value2) {
+            addCriterion("postion_dict not between", value1, value2, "postionDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdEqualTo(Integer value) {
-            addCriterion("major_id =", value, "majorId");
+        public Criteria andMajorDictIsNull() {
+            addCriterion("major_dict is null");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdNotEqualTo(Integer value) {
-            addCriterion("major_id <>", value, "majorId");
+        public Criteria andMajorDictIsNotNull() {
+            addCriterion("major_dict is not null");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdGreaterThan(Integer value) {
-            addCriterion("major_id >", value, "majorId");
+        public Criteria andMajorDictEqualTo(String value) {
+            addCriterion("major_dict =", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("major_id >=", value, "majorId");
+        public Criteria andMajorDictNotEqualTo(String value) {
+            addCriterion("major_dict <>", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdLessThan(Integer value) {
-            addCriterion("major_id <", value, "majorId");
+        public Criteria andMajorDictGreaterThan(String value) {
+            addCriterion("major_dict >", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdLessThanOrEqualTo(Integer value) {
-            addCriterion("major_id <=", value, "majorId");
+        public Criteria andMajorDictGreaterThanOrEqualTo(String value) {
+            addCriterion("major_dict >=", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdIn(List<Integer> values) {
-            addCriterion("major_id in", values, "majorId");
+        public Criteria andMajorDictLessThan(String value) {
+            addCriterion("major_dict <", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdNotIn(List<Integer> values) {
-            addCriterion("major_id not in", values, "majorId");
+        public Criteria andMajorDictLessThanOrEqualTo(String value) {
+            addCriterion("major_dict <=", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdBetween(Integer value1, Integer value2) {
-            addCriterion("major_id between", value1, value2, "majorId");
+        public Criteria andMajorDictLike(String value) {
+            addCriterion("major_dict like", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andMajorIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("major_id not between", value1, value2, "majorId");
+        public Criteria andMajorDictNotLike(String value) {
+            addCriterion("major_dict not like", value, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdIsNull() {
-            addCriterion("education_id is null");
+        public Criteria andMajorDictIn(List<String> values) {
+            addCriterion("major_dict in", values, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdIsNotNull() {
-            addCriterion("education_id is not null");
+        public Criteria andMajorDictNotIn(List<String> values) {
+            addCriterion("major_dict not in", values, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdEqualTo(Integer value) {
-            addCriterion("education_id =", value, "educationId");
+        public Criteria andMajorDictBetween(String value1, String value2) {
+            addCriterion("major_dict between", value1, value2, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdNotEqualTo(Integer value) {
-            addCriterion("education_id <>", value, "educationId");
+        public Criteria andMajorDictNotBetween(String value1, String value2) {
+            addCriterion("major_dict not between", value1, value2, "majorDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdGreaterThan(Integer value) {
-            addCriterion("education_id >", value, "educationId");
+        public Criteria andEducationDictIsNull() {
+            addCriterion("education_dict is null");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("education_id >=", value, "educationId");
+        public Criteria andEducationDictIsNotNull() {
+            addCriterion("education_dict is not null");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdLessThan(Integer value) {
-            addCriterion("education_id <", value, "educationId");
+        public Criteria andEducationDictEqualTo(String value) {
+            addCriterion("education_dict =", value, "educationDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdLessThanOrEqualTo(Integer value) {
-            addCriterion("education_id <=", value, "educationId");
+        public Criteria andEducationDictNotEqualTo(String value) {
+            addCriterion("education_dict <>", value, "educationDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdIn(List<Integer> values) {
-            addCriterion("education_id in", values, "educationId");
+        public Criteria andEducationDictGreaterThan(String value) {
+            addCriterion("education_dict >", value, "educationDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdNotIn(List<Integer> values) {
-            addCriterion("education_id not in", values, "educationId");
+        public Criteria andEducationDictGreaterThanOrEqualTo(String value) {
+            addCriterion("education_dict >=", value, "educationDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdBetween(Integer value1, Integer value2) {
-            addCriterion("education_id between", value1, value2, "educationId");
+        public Criteria andEducationDictLessThan(String value) {
+            addCriterion("education_dict <", value, "educationDict");
             return (Criteria) this;
         }
 
-        public Criteria andEducationIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("education_id not between", value1, value2, "educationId");
+        public Criteria andEducationDictLessThanOrEqualTo(String value) {
+            addCriterion("education_dict <=", value, "educationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andEducationDictLike(String value) {
+            addCriterion("education_dict like", value, "educationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andEducationDictNotLike(String value) {
+            addCriterion("education_dict not like", value, "educationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andEducationDictIn(List<String> values) {
+            addCriterion("education_dict in", values, "educationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andEducationDictNotIn(List<String> values) {
+            addCriterion("education_dict not in", values, "educationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andEducationDictBetween(String value1, String value2) {
+            addCriterion("education_dict between", value1, value2, "educationDict");
+            return (Criteria) this;
+        }
+
+        public Criteria andEducationDictNotBetween(String value1, String value2) {
+            addCriterion("education_dict not between", value1, value2, "educationDict");
             return (Criteria) this;
         }
 

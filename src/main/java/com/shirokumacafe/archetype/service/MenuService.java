@@ -39,6 +39,6 @@ public class MenuService {
     }
 
     public void delete(Menu menu){
-        menuMapper.deleteByPrimaryKey(menu.getMenuId());
+        menuMapper.deleteByPrimaryKey(menu.getMenuCode());
     }
 }

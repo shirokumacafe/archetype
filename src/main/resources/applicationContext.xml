@@ -122,7 +122,7 @@
 
 		<!-- 初始化数据表结构 与默认数据-->
 		<jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-			<jdbc:script location="classpath:sql/h2/schema.sql" />
+			<jdbc:script location="classpath:sql/schema.postgresql.sql" />
 			<jdbc:script location="classpath:data/import-data.sql" encoding="UTF-8"/>
 		</jdbc:initialize-database>
 	</beans>

@@ -1,40 +1,37 @@
 package com.shirokumacafe.archetype.entity;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Menu {
-    private Integer menuId;
-
-    private String menuName;
-
+    @JsonProperty("id")
     private String menuCode;
-
-    private Integer pId;
+    @JsonProperty("pId")
+    private String menuParent;
+    @JsonProperty("name")
+    private String menuName;
 
     private String link;
 
-    private Integer orderno;
+    private Integer sort;
 
     private Integer state;
 
     private Integer btn;
 
-    private Integer level;
-
-    private Integer createId;
-
-    private Integer updateId;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    public Integer getMenuId() {
-        return menuId;
+    public String getMenuCode() {
+        return menuCode;
     }
 
-    public void setMenuId(Integer menuId) {
-        this.menuId = menuId;
+    public void setMenuCode(String menuCode) {
+        this.menuCode = menuCode == null ? null : menuCode.trim();
+    }
+
+    public String getMenuParent() {
+        return menuParent;
+    }
+
+    public void setMenuParent(String menuParent) {
+        this.menuParent = menuParent == null ? null : menuParent.trim();
     }
 
     public String getMenuName() {
@@ -45,22 +42,6 @@ public class Menu {
         this.menuName = menuName == null ? null : menuName.trim();
     }
 
-    public String getMenuCode() {
-        return menuCode;
-    }
-
-    public void setMenuCode(String menuCode) {
-        this.menuCode = menuCode == null ? null : menuCode.trim();
-    }
-
-    public Integer getpId() {
-        return pId;
-    }
-
-    public void setpId(Integer pId) {
-        this.pId = pId;
-    }
-
     public String getLink() {
         return link;
     }
@@ -69,12 +50,12 @@ public class Menu {
         this.link = link == null ? null : link.trim();
     }
 
-    public Integer getOrderno() {
-        return orderno;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setOrderno(Integer orderno) {
-        this.orderno = orderno;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public Integer getState() {
@@ -91,45 +72,5 @@ public class Menu {
 
     public void setBtn(Integer btn) {
         this.btn = btn;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Integer getCreateId() {
-        return createId;
-    }
-
-    public void setCreateId(Integer createId) {
-        this.createId = createId;
-    }
-
-    public Integer getUpdateId() {
-        return updateId;
-    }
-
-    public void setUpdateId(Integer updateId) {
-        this.updateId = updateId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 }

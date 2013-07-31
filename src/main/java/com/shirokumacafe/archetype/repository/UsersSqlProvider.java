@@ -13,33 +13,33 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.shirokumacafe.archetype.entity.User;
-import com.shirokumacafe.archetype.entity.UserExample.Criteria;
-import com.shirokumacafe.archetype.entity.UserExample.Criterion;
-import com.shirokumacafe.archetype.entity.UserExample;
+import com.shirokumacafe.archetype.entity.Users;
+import com.shirokumacafe.archetype.entity.UsersExample.Criteria;
+import com.shirokumacafe.archetype.entity.UsersExample.Criterion;
+import com.shirokumacafe.archetype.entity.UsersExample;
 import java.util.List;
 import java.util.Map;
 
-public class UserSqlProvider {
+public class UsersSqlProvider {
 
-    public String countByExample(UserExample example) {
+    public String countByExample(UsersExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("user");
+        FROM("users");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String deleteByExample(UserExample example) {
+    public String deleteByExample(UsersExample example) {
         BEGIN();
-        DELETE_FROM("user");
+        DELETE_FROM("users");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String insertSelective(User record) {
+    public String insertSelective(Users record) {
         BEGIN();
-        INSERT_INTO("user");
+        INSERT_INTO("users");
         
         if (record.getUserId() != null) {
             VALUES("user_id", "#{userId,jdbcType=INTEGER}");
@@ -93,8 +93,8 @@ public class UserSqlProvider {
             VALUES("contact_name", "#{contactName,jdbcType=VARCHAR}");
         }
         
-        if (record.getBankId() != null) {
-            VALUES("bank_id", "#{bankId,jdbcType=INTEGER}");
+        if (record.getBankDict() != null) {
+            VALUES("bank_dict", "#{bankDict,jdbcType=VARCHAR}");
         }
         
         if (record.getBankAccount() != null) {
@@ -109,8 +109,8 @@ public class UserSqlProvider {
             VALUES("state", "#{state,jdbcType=INTEGER}");
         }
         
-        if (record.getPostionLevelId() != null) {
-            VALUES("postion_level_id", "#{postionLevelId,jdbcType=INTEGER}");
+        if (record.getPostionLevelDict() != null) {
+            VALUES("postion_level_dict", "#{postionLevelDict,jdbcType=VARCHAR}");
         }
         
         if (record.getSalary() != null) {
@@ -133,8 +133,8 @@ public class UserSqlProvider {
             VALUES("regular_date", "#{regularDate,jdbcType=DATE}");
         }
         
-        if (record.getNationId() != null) {
-            VALUES("nation_id", "#{nationId,jdbcType=INTEGER}");
+        if (record.getNationDict() != null) {
+            VALUES("nation_dict", "#{nationDict,jdbcType=VARCHAR}");
         }
         
         if (record.getPhoto() != null) {
@@ -145,16 +145,16 @@ public class UserSqlProvider {
             VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
         
-        if (record.getPostionId() != null) {
-            VALUES("postion_id", "#{postionId,jdbcType=INTEGER}");
+        if (record.getPostionDict() != null) {
+            VALUES("postion_dict", "#{postionDict,jdbcType=VARCHAR}");
         }
         
-        if (record.getMajorId() != null) {
-            VALUES("major_id", "#{majorId,jdbcType=INTEGER}");
+        if (record.getMajorDict() != null) {
+            VALUES("major_dict", "#{majorDict,jdbcType=VARCHAR}");
         }
         
-        if (record.getEducationId() != null) {
-            VALUES("education_id", "#{educationId,jdbcType=INTEGER}");
+        if (record.getEducationDict() != null) {
+            VALUES("education_dict", "#{educationDict,jdbcType=VARCHAR}");
         }
         
         if (record.getGraduate() != null) {
@@ -192,7 +192,7 @@ public class UserSqlProvider {
         return SQL();
     }
 
-    public String selectByExample(UserExample example) {
+    public String selectByExample(UsersExample example) {
         BEGIN();
         if (example != null && example.isDistinct()) {
             SELECT_DISTINCT("user_id");
@@ -211,22 +211,22 @@ public class UserSqlProvider {
         SELECT("tel");
         SELECT("contact_tel");
         SELECT("contact_name");
-        SELECT("bank_id");
+        SELECT("bank_dict");
         SELECT("bank_account");
         SELECT("birthday");
         SELECT("state");
-        SELECT("postion_level_id");
+        SELECT("postion_level_dict");
         SELECT("salary");
         SELECT("postion_state");
         SELECT("join_date");
         SELECT("leave_date");
         SELECT("regular_date");
-        SELECT("nation_id");
+        SELECT("nation_dict");
         SELECT("photo");
         SELECT("remark");
-        SELECT("postion_id");
-        SELECT("major_id");
-        SELECT("education_id");
+        SELECT("postion_dict");
+        SELECT("major_dict");
+        SELECT("education_dict");
         SELECT("graduate");
         SELECT("polity");
         SELECT("qq");
@@ -235,7 +235,7 @@ public class UserSqlProvider {
         SELECT("update_id");
         SELECT("create_time");
         SELECT("update_time");
-        FROM("user");
+        FROM("users");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -246,11 +246,11 @@ public class UserSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        User record = (User) parameter.get("record");
-        UserExample example = (UserExample) parameter.get("example");
+        Users record = (Users) parameter.get("record");
+        UsersExample example = (UsersExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("user");
+        UPDATE("users");
         
         if (record.getUserId() != null) {
             SET("user_id = #{record.userId,jdbcType=INTEGER}");
@@ -304,8 +304,8 @@ public class UserSqlProvider {
             SET("contact_name = #{record.contactName,jdbcType=VARCHAR}");
         }
         
-        if (record.getBankId() != null) {
-            SET("bank_id = #{record.bankId,jdbcType=INTEGER}");
+        if (record.getBankDict() != null) {
+            SET("bank_dict = #{record.bankDict,jdbcType=VARCHAR}");
         }
         
         if (record.getBankAccount() != null) {
@@ -320,8 +320,8 @@ public class UserSqlProvider {
             SET("state = #{record.state,jdbcType=INTEGER}");
         }
         
-        if (record.getPostionLevelId() != null) {
-            SET("postion_level_id = #{record.postionLevelId,jdbcType=INTEGER}");
+        if (record.getPostionLevelDict() != null) {
+            SET("postion_level_dict = #{record.postionLevelDict,jdbcType=VARCHAR}");
         }
         
         if (record.getSalary() != null) {
@@ -344,8 +344,8 @@ public class UserSqlProvider {
             SET("regular_date = #{record.regularDate,jdbcType=DATE}");
         }
         
-        if (record.getNationId() != null) {
-            SET("nation_id = #{record.nationId,jdbcType=INTEGER}");
+        if (record.getNationDict() != null) {
+            SET("nation_dict = #{record.nationDict,jdbcType=VARCHAR}");
         }
         
         if (record.getPhoto() != null) {
@@ -356,16 +356,16 @@ public class UserSqlProvider {
             SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
         
-        if (record.getPostionId() != null) {
-            SET("postion_id = #{record.postionId,jdbcType=INTEGER}");
+        if (record.getPostionDict() != null) {
+            SET("postion_dict = #{record.postionDict,jdbcType=VARCHAR}");
         }
         
-        if (record.getMajorId() != null) {
-            SET("major_id = #{record.majorId,jdbcType=INTEGER}");
+        if (record.getMajorDict() != null) {
+            SET("major_dict = #{record.majorDict,jdbcType=VARCHAR}");
         }
         
-        if (record.getEducationId() != null) {
-            SET("education_id = #{record.educationId,jdbcType=INTEGER}");
+        if (record.getEducationDict() != null) {
+            SET("education_dict = #{record.educationDict,jdbcType=VARCHAR}");
         }
         
         if (record.getGraduate() != null) {
@@ -406,7 +406,7 @@ public class UserSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("user");
+        UPDATE("users");
         
         SET("user_id = #{record.userId,jdbcType=INTEGER}");
         SET("user_code = #{record.userCode,jdbcType=VARCHAR}");
@@ -421,22 +421,22 @@ public class UserSqlProvider {
         SET("tel = #{record.tel,jdbcType=VARCHAR}");
         SET("contact_tel = #{record.contactTel,jdbcType=VARCHAR}");
         SET("contact_name = #{record.contactName,jdbcType=VARCHAR}");
-        SET("bank_id = #{record.bankId,jdbcType=INTEGER}");
+        SET("bank_dict = #{record.bankDict,jdbcType=VARCHAR}");
         SET("bank_account = #{record.bankAccount,jdbcType=VARCHAR}");
         SET("birthday = #{record.birthday,jdbcType=DATE}");
         SET("state = #{record.state,jdbcType=INTEGER}");
-        SET("postion_level_id = #{record.postionLevelId,jdbcType=INTEGER}");
+        SET("postion_level_dict = #{record.postionLevelDict,jdbcType=VARCHAR}");
         SET("salary = #{record.salary,jdbcType=NUMERIC}");
         SET("postion_state = #{record.postionState,jdbcType=INTEGER}");
         SET("join_date = #{record.joinDate,jdbcType=DATE}");
         SET("leave_date = #{record.leaveDate,jdbcType=DATE}");
         SET("regular_date = #{record.regularDate,jdbcType=DATE}");
-        SET("nation_id = #{record.nationId,jdbcType=INTEGER}");
+        SET("nation_dict = #{record.nationDict,jdbcType=VARCHAR}");
         SET("photo = #{record.photo,jdbcType=VARCHAR}");
         SET("remark = #{record.remark,jdbcType=VARCHAR}");
-        SET("postion_id = #{record.postionId,jdbcType=INTEGER}");
-        SET("major_id = #{record.majorId,jdbcType=INTEGER}");
-        SET("education_id = #{record.educationId,jdbcType=INTEGER}");
+        SET("postion_dict = #{record.postionDict,jdbcType=VARCHAR}");
+        SET("major_dict = #{record.majorDict,jdbcType=VARCHAR}");
+        SET("education_dict = #{record.educationDict,jdbcType=VARCHAR}");
         SET("graduate = #{record.graduate,jdbcType=VARCHAR}");
         SET("polity = #{record.polity,jdbcType=VARCHAR}");
         SET("qq = #{record.qq,jdbcType=VARCHAR}");
@@ -446,14 +446,14 @@ public class UserSqlProvider {
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
-        UserExample example = (UserExample) parameter.get("example");
+        UsersExample example = (UsersExample) parameter.get("example");
         applyWhere(example, true);
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(User record) {
+    public String updateByPrimaryKeySelective(Users record) {
         BEGIN();
-        UPDATE("user");
+        UPDATE("users");
         
         if (record.getUserCode() != null) {
             SET("user_code = #{userCode,jdbcType=VARCHAR}");
@@ -503,8 +503,8 @@ public class UserSqlProvider {
             SET("contact_name = #{contactName,jdbcType=VARCHAR}");
         }
         
-        if (record.getBankId() != null) {
-            SET("bank_id = #{bankId,jdbcType=INTEGER}");
+        if (record.getBankDict() != null) {
+            SET("bank_dict = #{bankDict,jdbcType=VARCHAR}");
         }
         
         if (record.getBankAccount() != null) {
@@ -519,8 +519,8 @@ public class UserSqlProvider {
             SET("state = #{state,jdbcType=INTEGER}");
         }
         
-        if (record.getPostionLevelId() != null) {
-            SET("postion_level_id = #{postionLevelId,jdbcType=INTEGER}");
+        if (record.getPostionLevelDict() != null) {
+            SET("postion_level_dict = #{postionLevelDict,jdbcType=VARCHAR}");
         }
         
         if (record.getSalary() != null) {
@@ -543,8 +543,8 @@ public class UserSqlProvider {
             SET("regular_date = #{regularDate,jdbcType=DATE}");
         }
         
-        if (record.getNationId() != null) {
-            SET("nation_id = #{nationId,jdbcType=INTEGER}");
+        if (record.getNationDict() != null) {
+            SET("nation_dict = #{nationDict,jdbcType=VARCHAR}");
         }
         
         if (record.getPhoto() != null) {
@@ -555,16 +555,16 @@ public class UserSqlProvider {
             SET("remark = #{remark,jdbcType=VARCHAR}");
         }
         
-        if (record.getPostionId() != null) {
-            SET("postion_id = #{postionId,jdbcType=INTEGER}");
+        if (record.getPostionDict() != null) {
+            SET("postion_dict = #{postionDict,jdbcType=VARCHAR}");
         }
         
-        if (record.getMajorId() != null) {
-            SET("major_id = #{majorId,jdbcType=INTEGER}");
+        if (record.getMajorDict() != null) {
+            SET("major_dict = #{majorDict,jdbcType=VARCHAR}");
         }
         
-        if (record.getEducationId() != null) {
-            SET("education_id = #{educationId,jdbcType=INTEGER}");
+        if (record.getEducationDict() != null) {
+            SET("education_dict = #{educationDict,jdbcType=VARCHAR}");
         }
         
         if (record.getGraduate() != null) {
@@ -604,7 +604,7 @@ public class UserSqlProvider {
         return SQL();
     }
 
-    protected void applyWhere(UserExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(UsersExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

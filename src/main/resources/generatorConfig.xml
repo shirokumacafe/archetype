@@ -38,7 +38,7 @@
 
 
 
-        <table tableName="menu" domainObjectName="Menu">
+        <table tableName="users" domainObjectName="Users">
             <!--<generatedKey column="RID" identity="false" sqlStatement="select SEQ_tuser.nextval from dual"></generatedKey>-->
         </table>
 

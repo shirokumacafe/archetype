@@ -60,8 +60,8 @@
 
         //添加tab页
         var addTabPane = function(data){
-            var title = data.menuName;
-            var id = data.menuId;
+            var title = data.name;
+            var id = data.id;
             var url = data.link;
             var p = registry.byId("contentTabs");
             var c = p.getChildren();
@@ -89,7 +89,7 @@
         var menuStore = new Memory({
             data:${menus},
             getChildren: function(object){
-                return this.query({pId: object.menuId});
+                return this.query({pId: object.id});
             }
         });
 
@@ -99,17 +99,14 @@
         var accordion = registry.byId("accordion");
 
         //生成选项卡与树
-        menuStore.query({pId:0}).forEach(function(data){
-
+        menuStore.query({pId:'ROOT'}).forEach(function(data){
             var menuModel = new ObjectStoreModel({
                 store: menuStore,
-                query: {menuId: data.menuId},
-                labelAttr:'menuName',
+                query: {id: data.id},
                 mayHaveChildren: function(object){
                     return this.store.getChildren(object).length > 0;
                 }
             });
-
             var menuTree = new Tree({
                 model: menuModel,
                 showRoot:false,
@@ -120,8 +117,8 @@
             });
 
             var ap = new ContentPane({
-                title: data.menuName,
-                 content: menuTree
+                title: data.name,
+                content: menuTree
             });
             accordion.addChild(ap);
         });
@@ -147,7 +144,7 @@
 <body class="claro">
 <div id="loader"><div id="loaderInner" style="direction:ltr;white-space:nowrap;overflow:visible;">努力载入中 ... </div></div>
 
-<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true" id="main">
+<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true" id="main" class="borderContainer">
     <div data-dojo-type="dojox/layout/ExpandoPane" splitter="true" duration="125" region="left" title="主菜单" maxSize="275" style="width: 275px;">
         <div data-dojo-type="dijit/layout/AccordionContainer" id="accordion"></div>
     </div>

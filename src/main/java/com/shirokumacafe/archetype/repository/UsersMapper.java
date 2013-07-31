@@ -1,7 +1,7 @@
 package com.shirokumacafe.archetype.repository;
 
-import com.shirokumacafe.archetype.entity.User;
-import com.shirokumacafe.archetype.entity.UserExample;
+import com.shirokumacafe.archetype.entity.Users;
+import com.shirokumacafe.archetype.entity.UsersExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
@@ -17,34 +17,34 @@ import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.JdbcType;
 
-public interface UserMapper {
-    @SelectProvider(type=UserSqlProvider.class, method="countByExample")
-    int countByExample(UserExample example);
+public interface UsersMapper {
+    @SelectProvider(type=UsersSqlProvider.class, method="countByExample")
+    int countByExample(UsersExample example);
 
-    @DeleteProvider(type=UserSqlProvider.class, method="deleteByExample")
-    int deleteByExample(UserExample example);
+    @DeleteProvider(type=UsersSqlProvider.class, method="deleteByExample")
+    int deleteByExample(UsersExample example);
 
     @Delete({
-        "delete from user",
+        "delete from users",
         "where user_id = #{userId,jdbcType=INTEGER}"
     })
     int deleteByPrimaryKey(Integer userId);
 
     @Insert({
-        "insert into user (user_id, user_code, ",
+        "insert into users (user_id, user_code, ",
         "user_name, login_name, ",
         "password, salt, ",
         "sex, idcard_address, ",
         "idcard, home_address, ",
         "tel, contact_tel, ",
-        "contact_name, bank_id, ",
+        "contact_name, bank_dict, ",
         "bank_account, birthday, ",
-        "state, postion_level_id, ",
+        "state, postion_level_dict, ",
         "salary, postion_state, ",
         "join_date, leave_date, regular_date, ",
-        "nation_id, photo, ",
-        "remark, postion_id, ",
-        "major_id, education_id, ",
+        "nation_dict, photo, ",
+        "remark, postion_dict, ",
+        "major_dict, education_dict, ",
         "graduate, polity, ",
         "qq, email, create_id, ",
         "update_id, create_time, ",
@@ -55,25 +55,25 @@ public interface UserMapper {
         "#{sex,jdbcType=INTEGER}, #{idcardAddress,jdbcType=VARCHAR}, ",
         "#{idcard,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, ",
         "#{tel,jdbcType=VARCHAR}, #{contactTel,jdbcType=VARCHAR}, ",
-        "#{contactName,jdbcType=VARCHAR}, #{bankId,jdbcType=INTEGER}, ",
+        "#{contactName,jdbcType=VARCHAR}, #{bankDict,jdbcType=VARCHAR}, ",
         "#{bankAccount,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, ",
-        "#{state,jdbcType=INTEGER}, #{postionLevelId,jdbcType=INTEGER}, ",
+        "#{state,jdbcType=INTEGER}, #{postionLevelDict,jdbcType=VARCHAR}, ",
         "#{salary,jdbcType=NUMERIC}, #{postionState,jdbcType=INTEGER}, ",
         "#{joinDate,jdbcType=DATE}, #{leaveDate,jdbcType=DATE}, #{regularDate,jdbcType=DATE}, ",
-        "#{nationId,jdbcType=INTEGER}, #{photo,jdbcType=VARCHAR}, ",
-        "#{remark,jdbcType=VARCHAR}, #{postionId,jdbcType=INTEGER}, ",
-        "#{majorId,jdbcType=INTEGER}, #{educationId,jdbcType=INTEGER}, ",
+        "#{nationDict,jdbcType=VARCHAR}, #{photo,jdbcType=VARCHAR}, ",
+        "#{remark,jdbcType=VARCHAR}, #{postionDict,jdbcType=VARCHAR}, ",
+        "#{majorDict,jdbcType=VARCHAR}, #{educationDict,jdbcType=VARCHAR}, ",
         "#{graduate,jdbcType=VARCHAR}, #{polity,jdbcType=VARCHAR}, ",
         "#{qq,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, ",
         "#{updateId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{updateTime,jdbcType=TIMESTAMP})"
     })
-    int insert(User record);
+    int insert(Users record);
 
-    @InsertProvider(type=UserSqlProvider.class, method="insertSelective")
-    int insertSelective(User record);
+    @InsertProvider(type=UsersSqlProvider.class, method="insertSelective")
+    int insertSelective(Users record);
 
-    @SelectProvider(type=UserSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=UsersSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="user_code", property="userCode", jdbcType=JdbcType.VARCHAR),
@@ -88,22 +88,22 @@ public interface UserMapper {
         @Result(column="tel", property="tel", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact_tel", property="contactTel", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact_name", property="contactName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="bank_id", property="bankId", jdbcType=JdbcType.INTEGER),
+        @Result(column="bank_dict", property="bankDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="bank_account", property="bankAccount", jdbcType=JdbcType.VARCHAR),
         @Result(column="birthday", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
-        @Result(column="postion_level_id", property="postionLevelId", jdbcType=JdbcType.INTEGER),
+        @Result(column="postion_level_dict", property="postionLevelDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="salary", property="salary", jdbcType=JdbcType.NUMERIC),
         @Result(column="postion_state", property="postionState", jdbcType=JdbcType.INTEGER),
         @Result(column="join_date", property="joinDate", jdbcType=JdbcType.DATE),
         @Result(column="leave_date", property="leaveDate", jdbcType=JdbcType.DATE),
         @Result(column="regular_date", property="regularDate", jdbcType=JdbcType.DATE),
-        @Result(column="nation_id", property="nationId", jdbcType=JdbcType.INTEGER),
+        @Result(column="nation_dict", property="nationDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="photo", property="photo", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="postion_id", property="postionId", jdbcType=JdbcType.INTEGER),
-        @Result(column="major_id", property="majorId", jdbcType=JdbcType.INTEGER),
-        @Result(column="education_id", property="educationId", jdbcType=JdbcType.INTEGER),
+        @Result(column="postion_dict", property="postionDict", jdbcType=JdbcType.VARCHAR),
+        @Result(column="major_dict", property="majorDict", jdbcType=JdbcType.VARCHAR),
+        @Result(column="education_dict", property="educationDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="graduate", property="graduate", jdbcType=JdbcType.VARCHAR),
         @Result(column="polity", property="polity", jdbcType=JdbcType.VARCHAR),
         @Result(column="qq", property="qq", jdbcType=JdbcType.VARCHAR),
@@ -113,9 +113,9 @@ public interface UserMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<User> selectByExampleWithRowbounds(UserExample example, RowBounds rowBounds);
+    List<Users> selectByExampleWithRowbounds(UsersExample example, RowBounds rowBounds);
 
-    @SelectProvider(type=UserSqlProvider.class, method="selectByExample")
+    @SelectProvider(type=UsersSqlProvider.class, method="selectByExample")
     @Results({
         @Result(column="user_id", property="userId", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="user_code", property="userCode", jdbcType=JdbcType.VARCHAR),
@@ -130,22 +130,22 @@ public interface UserMapper {
         @Result(column="tel", property="tel", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact_tel", property="contactTel", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact_name", property="contactName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="bank_id", property="bankId", jdbcType=JdbcType.INTEGER),
+        @Result(column="bank_dict", property="bankDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="bank_account", property="bankAccount", jdbcType=JdbcType.VARCHAR),
         @Result(column="birthday", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
-        @Result(column="postion_level_id", property="postionLevelId", jdbcType=JdbcType.INTEGER),
+        @Result(column="postion_level_dict", property="postionLevelDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="salary", property="salary", jdbcType=JdbcType.NUMERIC),
         @Result(column="postion_state", property="postionState", jdbcType=JdbcType.INTEGER),
         @Result(column="join_date", property="joinDate", jdbcType=JdbcType.DATE),
         @Result(column="leave_date", property="leaveDate", jdbcType=JdbcType.DATE),
         @Result(column="regular_date", property="regularDate", jdbcType=JdbcType.DATE),
-        @Result(column="nation_id", property="nationId", jdbcType=JdbcType.INTEGER),
+        @Result(column="nation_dict", property="nationDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="photo", property="photo", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="postion_id", property="postionId", jdbcType=JdbcType.INTEGER),
-        @Result(column="major_id", property="majorId", jdbcType=JdbcType.INTEGER),
-        @Result(column="education_id", property="educationId", jdbcType=JdbcType.INTEGER),
+        @Result(column="postion_dict", property="postionDict", jdbcType=JdbcType.VARCHAR),
+        @Result(column="major_dict", property="majorDict", jdbcType=JdbcType.VARCHAR),
+        @Result(column="education_dict", property="educationDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="graduate", property="graduate", jdbcType=JdbcType.VARCHAR),
         @Result(column="polity", property="polity", jdbcType=JdbcType.VARCHAR),
         @Result(column="qq", property="qq", jdbcType=JdbcType.VARCHAR),
@@ -155,16 +155,16 @@ public interface UserMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
-    List<User> selectByExample(UserExample example);
+    List<Users> selectByExample(UsersExample example);
 
     @Select({
         "select",
         "user_id, user_code, user_name, login_name, password, salt, sex, idcard_address, ",
-        "idcard, home_address, tel, contact_tel, contact_name, bank_id, bank_account, ",
-        "birthday, state, postion_level_id, salary, postion_state, join_date, leave_date, ",
-        "regular_date, nation_id, photo, remark, postion_id, major_id, education_id, ",
+        "idcard, home_address, tel, contact_tel, contact_name, bank_dict, bank_account, ",
+        "birthday, state, postion_level_dict, salary, postion_state, join_date, leave_date, ",
+        "regular_date, nation_dict, photo, remark, postion_dict, major_dict, education_dict, ",
         "graduate, polity, qq, email, create_id, update_id, create_time, update_time",
-        "from user",
+        "from users",
         "where user_id = #{userId,jdbcType=INTEGER}"
     })
     @Results({
@@ -181,22 +181,22 @@ public interface UserMapper {
         @Result(column="tel", property="tel", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact_tel", property="contactTel", jdbcType=JdbcType.VARCHAR),
         @Result(column="contact_name", property="contactName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="bank_id", property="bankId", jdbcType=JdbcType.INTEGER),
+        @Result(column="bank_dict", property="bankDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="bank_account", property="bankAccount", jdbcType=JdbcType.VARCHAR),
         @Result(column="birthday", property="birthday", jdbcType=JdbcType.DATE),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
-        @Result(column="postion_level_id", property="postionLevelId", jdbcType=JdbcType.INTEGER),
+        @Result(column="postion_level_dict", property="postionLevelDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="salary", property="salary", jdbcType=JdbcType.NUMERIC),
         @Result(column="postion_state", property="postionState", jdbcType=JdbcType.INTEGER),
         @Result(column="join_date", property="joinDate", jdbcType=JdbcType.DATE),
         @Result(column="leave_date", property="leaveDate", jdbcType=JdbcType.DATE),
         @Result(column="regular_date", property="regularDate", jdbcType=JdbcType.DATE),
-        @Result(column="nation_id", property="nationId", jdbcType=JdbcType.INTEGER),
+        @Result(column="nation_dict", property="nationDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="photo", property="photo", jdbcType=JdbcType.VARCHAR),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="postion_id", property="postionId", jdbcType=JdbcType.INTEGER),
-        @Result(column="major_id", property="majorId", jdbcType=JdbcType.INTEGER),
-        @Result(column="education_id", property="educationId", jdbcType=JdbcType.INTEGER),
+        @Result(column="postion_dict", property="postionDict", jdbcType=JdbcType.VARCHAR),
+        @Result(column="major_dict", property="majorDict", jdbcType=JdbcType.VARCHAR),
+        @Result(column="education_dict", property="educationDict", jdbcType=JdbcType.VARCHAR),
         @Result(column="graduate", property="graduate", jdbcType=JdbcType.VARCHAR),
         @Result(column="polity", property="polity", jdbcType=JdbcType.VARCHAR),
         @Result(column="qq", property="qq", jdbcType=JdbcType.VARCHAR),
@@ -206,19 +206,19 @@ public interface UserMapper {
         @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
         @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
-    User selectByPrimaryKey(Integer userId);
+    Users selectByPrimaryKey(Integer userId);
 
-    @UpdateProvider(type=UserSqlProvider.class, method="updateByExampleSelective")
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+    @UpdateProvider(type=UsersSqlProvider.class, method="updateByExampleSelective")
+    int updateByExampleSelective(@Param("record") Users record, @Param("example") UsersExample example);
 
-    @UpdateProvider(type=UserSqlProvider.class, method="updateByExample")
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+    @UpdateProvider(type=UsersSqlProvider.class, method="updateByExample")
+    int updateByExample(@Param("record") Users record, @Param("example") UsersExample example);
 
-    @UpdateProvider(type=UserSqlProvider.class, method="updateByPrimaryKeySelective")
-    int updateByPrimaryKeySelective(User record);
+    @UpdateProvider(type=UsersSqlProvider.class, method="updateByPrimaryKeySelective")
+    int updateByPrimaryKeySelective(Users record);
 
     @Update({
-        "update user",
+        "update users",
         "set user_code = #{userCode,jdbcType=VARCHAR},",
           "user_name = #{userName,jdbcType=VARCHAR},",
           "login_name = #{loginName,jdbcType=VARCHAR},",
@@ -231,22 +231,22 @@ public interface UserMapper {
           "tel = #{tel,jdbcType=VARCHAR},",
           "contact_tel = #{contactTel,jdbcType=VARCHAR},",
           "contact_name = #{contactName,jdbcType=VARCHAR},",
-          "bank_id = #{bankId,jdbcType=INTEGER},",
+          "bank_dict = #{bankDict,jdbcType=VARCHAR},",
           "bank_account = #{bankAccount,jdbcType=VARCHAR},",
           "birthday = #{birthday,jdbcType=DATE},",
           "state = #{state,jdbcType=INTEGER},",
-          "postion_level_id = #{postionLevelId,jdbcType=INTEGER},",
+          "postion_level_dict = #{postionLevelDict,jdbcType=VARCHAR},",
           "salary = #{salary,jdbcType=NUMERIC},",
           "postion_state = #{postionState,jdbcType=INTEGER},",
           "join_date = #{joinDate,jdbcType=DATE},",
           "leave_date = #{leaveDate,jdbcType=DATE},",
           "regular_date = #{regularDate,jdbcType=DATE},",
-          "nation_id = #{nationId,jdbcType=INTEGER},",
+          "nation_dict = #{nationDict,jdbcType=VARCHAR},",
           "photo = #{photo,jdbcType=VARCHAR},",
           "remark = #{remark,jdbcType=VARCHAR},",
-          "postion_id = #{postionId,jdbcType=INTEGER},",
-          "major_id = #{majorId,jdbcType=INTEGER},",
-          "education_id = #{educationId,jdbcType=INTEGER},",
+          "postion_dict = #{postionDict,jdbcType=VARCHAR},",
+          "major_dict = #{majorDict,jdbcType=VARCHAR},",
+          "education_dict = #{educationDict,jdbcType=VARCHAR},",
           "graduate = #{graduate,jdbcType=VARCHAR},",
           "polity = #{polity,jdbcType=VARCHAR},",
           "qq = #{qq,jdbcType=VARCHAR},",
@@ -257,5 +257,5 @@ public interface UserMapper {
           "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where user_id = #{userId,jdbcType=INTEGER}"
     })
-    int updateByPrimaryKey(User record);
+    int updateByPrimaryKey(Users record);
 }

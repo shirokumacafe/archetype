@@ -1,5 +1,6 @@
 package com.shirokumacafe.archetype.common.utilities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.text.DateFormat;
@@ -23,7 +24,7 @@ public class Responses {
         }
     };
 
-    private static JsonMapper objectMapper = JsonMapper.nonDefaultMapper();
+    private static JsonMapper objectMapper = new JsonMapper(JsonInclude.Include.ALWAYS);
 
     static{
         //设置时间格式
@@ -44,6 +45,7 @@ public class Responses {
         map.put(MSG,errors);
         return map;
     }
+
     /**
      * 创建后台验证错误
      */
@@ -53,6 +55,7 @@ public class Responses {
         map.put(MSG,"系统出错！");
         return map;
     }
+
     /**
      * 后台操作成功，返回对象
      */
@@ -62,6 +65,7 @@ public class Responses {
         map.put(MSG,msg);
         return map;
     }
+
     /**
      * 后台操作成功，返回对象
      */
@@ -71,6 +75,7 @@ public class Responses {
         map.put(MSG,msg);
         return map;
     }
+
     /**
      * 后台操作成功
      */
@@ -79,6 +84,7 @@ public class Responses {
         map.put(SUCCESS,true);
         return map;
     }
+
     /**
      * 输出json
      */

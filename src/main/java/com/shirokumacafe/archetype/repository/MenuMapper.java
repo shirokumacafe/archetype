@@ -26,23 +26,17 @@ public interface MenuMapper {
 
     @Delete({
         "delete from menu",
-        "where menu_id = #{menuId,jdbcType=INTEGER}"
+        "where menu_code = #{menuCode,jdbcType=VARCHAR}"
     })
-    int deleteByPrimaryKey(Integer menuId);
+    int deleteByPrimaryKey(String menuCode);
 
     @Insert({
-        "insert into menu (menu_id, menu_name, ",
-        "menu_code, p_id, link, ",
-        "orderno, state, ",
-        "btn, level, create_id, ",
-        "update_id, create_time, ",
-        "update_time)",
-        "values (#{menuId,jdbcType=INTEGER}, #{menuName,jdbcType=VARCHAR}, ",
-        "#{menuCode,jdbcType=VARCHAR}, #{pId,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR}, ",
-        "#{orderno,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, ",
-        "#{btn,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, ",
-        "#{updateId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "insert into menu (menu_code, menu_parent, ",
+        "menu_name, link, ",
+        "sort, state, btn)",
+        "values (#{menuCode,jdbcType=VARCHAR}, #{menuParent,jdbcType=VARCHAR}, ",
+        "#{menuName,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, ",
+        "#{sort,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{btn,jdbcType=INTEGER})"
     })
     int insert(Menu record);
 
@@ -51,63 +45,44 @@ public interface MenuMapper {
 
     @SelectProvider(type=MenuSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="menu_id", property="menuId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="menu_code", property="menuCode", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="menu_parent", property="menuParent", jdbcType=JdbcType.VARCHAR),
         @Result(column="menu_name", property="menuName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="menu_code", property="menuCode", jdbcType=JdbcType.VARCHAR),
-        @Result(column="p_id", property="pId", jdbcType=JdbcType.INTEGER),
         @Result(column="link", property="link", jdbcType=JdbcType.VARCHAR),
-        @Result(column="orderno", property="orderno", jdbcType=JdbcType.INTEGER),
+        @Result(column="sort", property="sort", jdbcType=JdbcType.INTEGER),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
-        @Result(column="btn", property="btn", jdbcType=JdbcType.INTEGER),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_id", property="createId", jdbcType=JdbcType.INTEGER),
-        @Result(column="update_id", property="updateId", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="btn", property="btn", jdbcType=JdbcType.INTEGER)
     })
     List<Menu> selectByExampleWithRowbounds(MenuExample example, RowBounds rowBounds);
 
     @SelectProvider(type=MenuSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="menu_id", property="menuId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="menu_code", property="menuCode", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="menu_parent", property="menuParent", jdbcType=JdbcType.VARCHAR),
         @Result(column="menu_name", property="menuName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="menu_code", property="menuCode", jdbcType=JdbcType.VARCHAR),
-        @Result(column="p_id", property="pId", jdbcType=JdbcType.INTEGER),
         @Result(column="link", property="link", jdbcType=JdbcType.VARCHAR),
-        @Result(column="orderno", property="orderno", jdbcType=JdbcType.INTEGER),
+        @Result(column="sort", property="sort", jdbcType=JdbcType.INTEGER),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
-        @Result(column="btn", property="btn", jdbcType=JdbcType.INTEGER),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_id", property="createId", jdbcType=JdbcType.INTEGER),
-        @Result(column="update_id", property="updateId", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="btn", property="btn", jdbcType=JdbcType.INTEGER)
     })
     List<Menu> selectByExample(MenuExample example);
 
     @Select({
         "select",
-        "menu_id, menu_name, menu_code, p_id, link, orderno, state, btn, level, create_id, ",
-        "update_id, create_time, update_time",
+        "menu_code, menu_parent, menu_name, link, sort, state, btn",
         "from menu",
-        "where menu_id = #{menuId,jdbcType=INTEGER}"
+        "where menu_code = #{menuCode,jdbcType=VARCHAR}"
     })
     @Results({
-        @Result(column="menu_id", property="menuId", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="menu_code", property="menuCode", jdbcType=JdbcType.VARCHAR, id=true),
+        @Result(column="menu_parent", property="menuParent", jdbcType=JdbcType.VARCHAR),
         @Result(column="menu_name", property="menuName", jdbcType=JdbcType.VARCHAR),
-        @Result(column="menu_code", property="menuCode", jdbcType=JdbcType.VARCHAR),
-        @Result(column="p_id", property="pId", jdbcType=JdbcType.INTEGER),
         @Result(column="link", property="link", jdbcType=JdbcType.VARCHAR),
-        @Result(column="orderno", property="orderno", jdbcType=JdbcType.INTEGER),
+        @Result(column="sort", property="sort", jdbcType=JdbcType.INTEGER),
         @Result(column="state", property="state", jdbcType=JdbcType.INTEGER),
-        @Result(column="btn", property="btn", jdbcType=JdbcType.INTEGER),
-        @Result(column="level", property="level", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_id", property="createId", jdbcType=JdbcType.INTEGER),
-        @Result(column="update_id", property="updateId", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="btn", property="btn", jdbcType=JdbcType.INTEGER)
     })
-    Menu selectByPrimaryKey(Integer menuId);
+    Menu selectByPrimaryKey(String menuCode);
 
     @UpdateProvider(type=MenuSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") Menu record, @Param("example") MenuExample example);
@@ -120,19 +95,13 @@ public interface MenuMapper {
 
     @Update({
         "update menu",
-        "set menu_name = #{menuName,jdbcType=VARCHAR},",
-          "menu_code = #{menuCode,jdbcType=VARCHAR},",
-          "p_id = #{pId,jdbcType=INTEGER},",
+        "set menu_parent = #{menuParent,jdbcType=VARCHAR},",
+          "menu_name = #{menuName,jdbcType=VARCHAR},",
           "link = #{link,jdbcType=VARCHAR},",
-          "orderno = #{orderno,jdbcType=INTEGER},",
+          "sort = #{sort,jdbcType=INTEGER},",
           "state = #{state,jdbcType=INTEGER},",
-          "btn = #{btn,jdbcType=INTEGER},",
-          "level = #{level,jdbcType=INTEGER},",
-          "create_id = #{createId,jdbcType=INTEGER},",
-          "update_id = #{updateId,jdbcType=INTEGER},",
-          "create_time = #{createTime,jdbcType=TIMESTAMP},",
-          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
-        "where menu_id = #{menuId,jdbcType=INTEGER}"
+          "btn = #{btn,jdbcType=INTEGER}",
+        "where menu_code = #{menuCode,jdbcType=VARCHAR}"
     })
     int updateByPrimaryKey(Menu record);
 }

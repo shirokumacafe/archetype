@@ -3,7 +3,7 @@ package com.shirokumacafe.archetype.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class User {
+public class Users {
     private Integer userId;
 
     private String userCode;
@@ -30,7 +30,7 @@ public class User {
 
     private String contactName;
 
-    private Integer bankId;
+    private String bankDict;
 
     private String bankAccount;
 
@@ -38,7 +38,7 @@ public class User {
 
     private Integer state;
 
-    private Integer postionLevelId;
+    private String postionLevelDict;
 
     private BigDecimal salary;
 
@@ -50,17 +50,17 @@ public class User {
 
     private Date regularDate;
 
-    private Integer nationId;
+    private String nationDict;
 
     private String photo;
 
     private String remark;
 
-    private Integer postionId;
+    private String postionDict;
 
-    private Integer majorId;
+    private String majorDict;
 
-    private Integer educationId;
+    private String educationDict;
 
     private String graduate;
 
@@ -182,12 +182,12 @@ public class User {
         this.contactName = contactName == null ? null : contactName.trim();
     }
 
-    public Integer getBankId() {
-        return bankId;
+    public String getBankDict() {
+        return bankDict;
     }
 
-    public void setBankId(Integer bankId) {
-        this.bankId = bankId;
+    public void setBankDict(String bankDict) {
+        this.bankDict = bankDict == null ? null : bankDict.trim();
     }
 
     public String getBankAccount() {
@@ -214,12 +214,12 @@ public class User {
         this.state = state;
     }
 
-    public Integer getPostionLevelId() {
-        return postionLevelId;
+    public String getPostionLevelDict() {
+        return postionLevelDict;
     }
 
-    public void setPostionLevelId(Integer postionLevelId) {
-        this.postionLevelId = postionLevelId;
+    public void setPostionLevelDict(String postionLevelDict) {
+        this.postionLevelDict = postionLevelDict == null ? null : postionLevelDict.trim();
     }
 
     public BigDecimal getSalary() {
@@ -262,12 +262,12 @@ public class User {
         this.regularDate = regularDate;
     }
 
-    public Integer getNationId() {
-        return nationId;
+    public String getNationDict() {
+        return nationDict;
     }
 
-    public void setNationId(Integer nationId) {
-        this.nationId = nationId;
+    public void setNationDict(String nationDict) {
+        this.nationDict = nationDict == null ? null : nationDict.trim();
     }
 
     public String getPhoto() {
@@ -286,28 +286,28 @@ public class User {
         this.remark = remark == null ? null : remark.trim();
     }
 
-    public Integer getPostionId() {
-        return postionId;
+    public String getPostionDict() {
+        return postionDict;
     }
 
-    public void setPostionId(Integer postionId) {
-        this.postionId = postionId;
+    public void setPostionDict(String postionDict) {
+        this.postionDict = postionDict == null ? null : postionDict.trim();
     }
 
-    public Integer getMajorId() {
-        return majorId;
+    public String getMajorDict() {
+        return majorDict;
     }
 
-    public void setMajorId(Integer majorId) {
-        this.majorId = majorId;
+    public void setMajorDict(String majorDict) {
+        this.majorDict = majorDict == null ? null : majorDict.trim();
     }
 
-    public Integer getEducationId() {
-        return educationId;
+    public String getEducationDict() {
+        return educationDict;
     }
 
-    public void setEducationId(Integer educationId) {
-        this.educationId = educationId;
+    public void setEducationDict(String educationDict) {
+        this.educationDict = educationDict == null ? null : educationDict.trim();
     }
 
     public String getGraduate() {

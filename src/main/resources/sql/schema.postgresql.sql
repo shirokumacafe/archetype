@@ -1,11 +1,11 @@
-drop table if exists "user";
+drop table if exists users;
 
 /*==============================================================*/
-/* Table: "user"                                                */
+/* Table: user                                                */
 /*==============================================================*/
-create table "user" (
+create table users (
    user_id              SERIAL not null,
-   user_code            VARCHAR(32)          null,
+   user_code            varchar(32)          null,
    user_name            varchar(32)          null,
    login_name           varchar(32)          null,
    password             varchar(255)         null,
@@ -17,22 +17,22 @@ create table "user" (
    tel                  varchar(32)          null,
    contact_tel          varchar(32)          null,
    contact_name         varchar(32)          null,
-   bank_id              int                  null,
+   bank_dict              varchar(32)                  null,
    bank_account         varchar(32)          null,
    birthday             date                 null,
    state                int                  null,
-   postion_level_id     int                  null,
+   postion_level_dict     varchar(32)                  null,
    salary               decimal(8,2)         null,
    postion_state        int                  null,
    join_date            date                 null,
    leave_date           date                 null,
    regular_date         date                 null,
-   nation_id            int                  null,
+   nation_dict            varchar(32)                  null,
    photo                varchar(64)          null,
    remark               varchar(255)         null,
-   postion_id           int                  null,
-   major_id             int                  null,
-   education_id         int                  null,
+   postion_dict           varchar(32)                  null,
+   major_dict             varchar(32)                  null,
+   education_dict         varchar(32)                  null,
    graduate             varchar(32)          null,
    polity               varchar(32)          null,
    qq                   varchar(32)          null,
@@ -62,7 +62,7 @@ create table department (
    dept_address         varchar(32)          null,
    dept_email           varchar(32)          null,
    p_id                 int                  null,
-   orderno              int                  null,
+   sort              int                  null,
    create_id            int                  null,
    update_id            int                  null,
    create_time          TIMESTAMP WITH TIME ZONE null,
@@ -70,23 +70,18 @@ create table department (
    constraint PK_DEPARTMENT primary key (dept_id)
 );
 
-drop table if exists base;
+drop table if exists dict;
 
 /*==============================================================*/
-/* Table: base                                                  */
+/* Table: dict                                                  */
 /*==============================================================*/
-create table base (
-   base_id              SERIAL not null,
-   base_name            varchar(32)          null,
-   base_code            varchar(32)          null,
-   base_type            varchar(32)          null,
+create table dict (
+   dict_code            varchar(32)          not null,
+   dict_name            varchar(32)          null,
+   dict_type            varchar(32)          null,
    state                int                  null,
    remark               varchar(255)         null,
-   create_id            int                  null,
-   update_id            int                  null,
-   create_time          TIMESTAMP WITH TIME ZONE null,
-   update_time          TIMESTAMP WITH TIME ZONE null,
-   constraint PK_BASE primary key (base_id)
+   constraint PK_BASE primary key (dict_code)
 );
 
 drop table if exists role;
@@ -95,8 +90,8 @@ drop table if exists role;
 /* Table: role                                                  */
 /*==============================================================*/
 create table role (
-   role_id              SERIAL not null,
-   role_name            varchar(32)          null,
+   role_code            varchar(32),
+   role_name            varchar(32)   unique null,
    sys                  int                  null,
    remark               varchar(255)         null,
    state                int                  null,
@@ -104,7 +99,7 @@ create table role (
    update_id            int                  null,
    create_time          TIMESTAMP WITH TIME ZONE null,
    update_time          TIMESTAMP WITH TIME ZONE null,
-   constraint PK_ROLE primary key (role_id)
+   constraint PK_ROLE primary key (role_code)
 );
 
 drop table if exists menu;
@@ -113,20 +108,14 @@ drop table if exists menu;
 /* Table: menu                                                  */
 /*==============================================================*/
 create table menu (
-   menu_id              SERIAL not null,
+   menu_code            varchar(32)    not null,
+   menu_parent          varchar(32)         not null,
    menu_name            varchar(32)          null,
-   menu_code            varchar(32)          null,
-   p_id                 int                  null,
    link                 varchar(32)          null,
-   orderno              int                  null,
+   sort                  int                  null,
    state                int                  null,
    btn                  int                  null,
-   level                int                  null,
-   create_id            int                  null,
-   update_id            int                  null,
-   create_time          TIMESTAMP WITH TIME ZONE null,
-   update_time          TIMESTAMP WITH TIME ZONE null,
-   constraint PK_MENU primary key (menu_id)
+   constraint PK_MENU primary key (menu_code)
 );
 
 drop table if exists role_menu;
@@ -136,9 +125,9 @@ drop table if exists role_menu;
 /*==============================================================*/
 drop table if exists role_menu;
 create table role_menu (
-   role_id              int                  not null,
-   menu_id              int                  not null,
-   constraint PK_ROLE_MENU primary key (role_id, menu_id)
+   role_code              varchar(32)                  not null,
+   menu_code              varchar(32)                  not null,
+   constraint PK_ROLE_MENU primary key (role_code, menu_code)
 );
 /*==============================================================*/
 /* Table: user_dept                                             */

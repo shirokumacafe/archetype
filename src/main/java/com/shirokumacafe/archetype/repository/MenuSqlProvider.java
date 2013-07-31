@@ -41,28 +41,24 @@ public class MenuSqlProvider {
         BEGIN();
         INSERT_INTO("menu");
         
-        if (record.getMenuId() != null) {
-            VALUES("menu_id", "#{menuId,jdbcType=INTEGER}");
+        if (record.getMenuCode() != null) {
+            VALUES("menu_code", "#{menuCode,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMenuParent() != null) {
+            VALUES("menu_parent", "#{menuParent,jdbcType=VARCHAR}");
         }
         
         if (record.getMenuName() != null) {
             VALUES("menu_name", "#{menuName,jdbcType=VARCHAR}");
         }
         
-        if (record.getMenuCode() != null) {
-            VALUES("menu_code", "#{menuCode,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getpId() != null) {
-            VALUES("p_id", "#{pId,jdbcType=INTEGER}");
-        }
-        
         if (record.getLink() != null) {
             VALUES("link", "#{link,jdbcType=VARCHAR}");
         }
         
-        if (record.getOrderno() != null) {
-            VALUES("orderno", "#{orderno,jdbcType=INTEGER}");
+        if (record.getSort() != null) {
+            VALUES("sort", "#{sort,jdbcType=INTEGER}");
         }
         
         if (record.getState() != null) {
@@ -73,48 +69,22 @@ public class MenuSqlProvider {
             VALUES("btn", "#{btn,jdbcType=INTEGER}");
         }
         
-        if (record.getLevel() != null) {
-            VALUES("level", "#{level,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateId() != null) {
-            VALUES("create_id", "#{createId,jdbcType=INTEGER}");
-        }
-        
-        if (record.getUpdateId() != null) {
-            VALUES("update_id", "#{updateId,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateTime() != null) {
-            VALUES("create_time", "#{createTime,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateTime() != null) {
-            VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
-        }
-        
         return SQL();
     }
 
     public String selectByExample(MenuExample example) {
         BEGIN();
         if (example != null && example.isDistinct()) {
-            SELECT_DISTINCT("menu_id");
+            SELECT_DISTINCT("menu_code");
         } else {
-            SELECT("menu_id");
+            SELECT("menu_code");
         }
+        SELECT("menu_parent");
         SELECT("menu_name");
-        SELECT("menu_code");
-        SELECT("p_id");
         SELECT("link");
-        SELECT("orderno");
+        SELECT("sort");
         SELECT("state");
         SELECT("btn");
-        SELECT("level");
-        SELECT("create_id");
-        SELECT("update_id");
-        SELECT("create_time");
-        SELECT("update_time");
         FROM("menu");
         applyWhere(example, false);
         
@@ -132,28 +102,24 @@ public class MenuSqlProvider {
         BEGIN();
         UPDATE("menu");
         
-        if (record.getMenuId() != null) {
-            SET("menu_id = #{record.menuId,jdbcType=INTEGER}");
+        if (record.getMenuCode() != null) {
+            SET("menu_code = #{record.menuCode,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getMenuParent() != null) {
+            SET("menu_parent = #{record.menuParent,jdbcType=VARCHAR}");
         }
         
         if (record.getMenuName() != null) {
             SET("menu_name = #{record.menuName,jdbcType=VARCHAR}");
         }
         
-        if (record.getMenuCode() != null) {
-            SET("menu_code = #{record.menuCode,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getpId() != null) {
-            SET("p_id = #{record.pId,jdbcType=INTEGER}");
-        }
-        
         if (record.getLink() != null) {
             SET("link = #{record.link,jdbcType=VARCHAR}");
         }
         
-        if (record.getOrderno() != null) {
-            SET("orderno = #{record.orderno,jdbcType=INTEGER}");
+        if (record.getSort() != null) {
+            SET("sort = #{record.sort,jdbcType=INTEGER}");
         }
         
         if (record.getState() != null) {
@@ -164,26 +130,6 @@ public class MenuSqlProvider {
             SET("btn = #{record.btn,jdbcType=INTEGER}");
         }
         
-        if (record.getLevel() != null) {
-            SET("level = #{record.level,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateId() != null) {
-            SET("create_id = #{record.createId,jdbcType=INTEGER}");
-        }
-        
-        if (record.getUpdateId() != null) {
-            SET("update_id = #{record.updateId,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateTime() != null) {
-            SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateTime() != null) {
-            SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
-        }
-        
         applyWhere(example, true);
         return SQL();
     }
@@ -192,19 +138,13 @@ public class MenuSqlProvider {
         BEGIN();
         UPDATE("menu");
         
-        SET("menu_id = #{record.menuId,jdbcType=INTEGER}");
-        SET("menu_name = #{record.menuName,jdbcType=VARCHAR}");
         SET("menu_code = #{record.menuCode,jdbcType=VARCHAR}");
-        SET("p_id = #{record.pId,jdbcType=INTEGER}");
+        SET("menu_parent = #{record.menuParent,jdbcType=VARCHAR}");
+        SET("menu_name = #{record.menuName,jdbcType=VARCHAR}");
         SET("link = #{record.link,jdbcType=VARCHAR}");
-        SET("orderno = #{record.orderno,jdbcType=INTEGER}");
+        SET("sort = #{record.sort,jdbcType=INTEGER}");
         SET("state = #{record.state,jdbcType=INTEGER}");
         SET("btn = #{record.btn,jdbcType=INTEGER}");
-        SET("level = #{record.level,jdbcType=INTEGER}");
-        SET("create_id = #{record.createId,jdbcType=INTEGER}");
-        SET("update_id = #{record.updateId,jdbcType=INTEGER}");
-        SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
-        SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
         MenuExample example = (MenuExample) parameter.get("example");
         applyWhere(example, true);
@@ -215,24 +155,20 @@ public class MenuSqlProvider {
         BEGIN();
         UPDATE("menu");
         
+        if (record.getMenuParent() != null) {
+            SET("menu_parent = #{menuParent,jdbcType=VARCHAR}");
+        }
+        
         if (record.getMenuName() != null) {
             SET("menu_name = #{menuName,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getMenuCode() != null) {
-            SET("menu_code = #{menuCode,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getpId() != null) {
-            SET("p_id = #{pId,jdbcType=INTEGER}");
         }
         
         if (record.getLink() != null) {
             SET("link = #{link,jdbcType=VARCHAR}");
         }
         
-        if (record.getOrderno() != null) {
-            SET("orderno = #{orderno,jdbcType=INTEGER}");
+        if (record.getSort() != null) {
+            SET("sort = #{sort,jdbcType=INTEGER}");
         }
         
         if (record.getState() != null) {
@@ -243,27 +179,7 @@ public class MenuSqlProvider {
             SET("btn = #{btn,jdbcType=INTEGER}");
         }
         
-        if (record.getLevel() != null) {
-            SET("level = #{level,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateId() != null) {
-            SET("create_id = #{createId,jdbcType=INTEGER}");
-        }
-        
-        if (record.getUpdateId() != null) {
-            SET("update_id = #{updateId,jdbcType=INTEGER}");
-        }
-        
-        if (record.getCreateTime() != null) {
-            SET("create_time = #{createTime,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateTime() != null) {
-            SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
-        }
-        
-        WHERE("menu_id = #{menuId,jdbcType=INTEGER}");
+        WHERE("menu_code = #{menuCode,jdbcType=VARCHAR}");
         
         return SQL();
     }
