@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<c:set var="dojo" value="//ajax.googleapis.com/ajax/libs/dojo/1.9.0"/>
+<c:set var="dojo" value="//ajax.googleapis.com/ajax/libs/dojo/1.9.1"/>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -30,6 +30,7 @@
 //            { name: "dojo", location: "dojo" },
 //            { name: "dijit", location: "dijit" },
 //            { name: "dojox", location: "dojox" },
+            { name: "templates", location: "templates" },
             { name:"dgrid", location: "dgrid" },
             { name:"put-selector", location: "put-selector" },
             { name:"xstyle", location: "xstyle" }
