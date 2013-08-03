@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="${ctx}/static/dgrid/css/dgrid.css">
 <link rel="stylesheet" href="${ctx}/static/dgrid/css/skins/claro.css">
 <link rel="stylesheet" href="${ctx}/static/styles/base.css">
-<link rel="stylesheet" href="${ctx}/static/styles/app.css">
+<link rel="stylesheet" href="${ctx}/static/styles/default.css">
 <script>
     var dojoConfig = {
         baseUrl:"${ctx}/static/",
