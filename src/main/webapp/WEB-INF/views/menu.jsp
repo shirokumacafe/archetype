@@ -3,52 +3,68 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <html>
 <head>
-
     <script>
-        var data = [
-            { id:1,code: "Bob1", name: "Barker1" },
-            { id:2,code: "Bob2", name: "Barker2" },
-            { id:3,code: "Bob3", name: "Barker2" },
-            { id:4,code: "Bob4", name: "Barker2" },
-            { id:5,code: "Bob5", name: "Barker2" },
-            { id:6,code: "Bob6", name: "Barker2" },
-            { id:7,code: "Bob7", name: "Barker2" },
-            { id:8,code: "Bob8", name: "Barker2" },
-            { id:9,code: "Bob9", name: "Barker2" },
-            { id:10,code: "Bob10", name: "Barker3" },
-            { id:11,code: "Bob11", name: "Barker3" }
-        ];
         require([
             "dojo/aspect",
             "dojo/dom",
             "dojo/json",
             "dojo/on",
             "dojo/request",
+            "dojo/store/JsonRest",
             "dijit/registry",
             "dijit/form/Button",
             "dgrid/Grid",
+            "dijit/tree/ObjectStoreModel",
+            "dijit/Tree",
             "dgrid/extensions/Pagination",
             "dgrid/Selection",
             "dgrid/Keyboard",
             "dojo/store/Memory",
             "dojo/_base/declare"
-        ], function(aspect,dom,JSON,on,request,registry,Button,Grid,Pagination,Selection,Keyboard,Memory,declare){
+        ], function(aspect,dom,JSON,on,request,JsonRest,registry,Button,Grid,ObjectStoreModel,Tree,Pagination,Selection,Keyboard,Memory,declare){
             var CustomGrid = declare([Grid, Keyboard, Selection ,Pagination]);
-            var tabStore = new Memory({identifier: "id",data:data});
-            var grid = new CustomGrid({
-                store:tabStore,
+            var menuStore = new JsonRest({
+                target: "${ctx}/menu/list"
+            });
+            var rootGrid = new CustomGrid({
+                store:menuStore,
                 columns: {
-                    code: "编号",
                     name: "姓名"
                 },
                 selectionMode: "single",
                 pagingLinks: false,
                 pagingTextBox: true,
                 firstLastArrows: true
-            }, "grid-tab");
+            });
+            <%--var treeData = ${menus};--%>
+            <%--treeData.push({"id":"ROOT","name":"ROOT"});--%>
+            <%--var store = new Memory({--%>
+                <%--data:treeData,--%>
+                <%--getChildren: function(object){--%>
+                    <%--return this.query({pId: object.id});--%>
+                <%--}--%>
+            <%--});--%>
+            <%--//数据模型--%>
+            <%--var model = new ObjectStoreModel({--%>
+                <%--store: store,--%>
+                <%--query: {id: 'ROOT'},--%>
+                <%--mayHaveChildren: function(object){--%>
+                    <%--return this.store.getChildren(object).length > 0;--%>
+                <%--}--%>
+            <%--});--%>
 
+            <%--//树--%>
+            <%--var tree = new Tree({--%>
+                <%--model: model,--%>
+                <%--showRoot:false,--%>
+                <%--openOnClick:true,--%>
+                <%--onClick: function(item, node){--%>
+<%--//                    addTabPane(item);--%>
+                <%--}--%>
+            <%--});--%>
             //bugfix:解决dijit初始化的问题，代替了ready
             aspect.after(_container_,"onLoad", function(){
+                registry.byId("menu-rootContentPane").addChild(rootGrid);
                 <%--//会重复用到的dijit--%>
                 <%--var dialogTab = registry.byId("dialog-tab");--%>
                 <%--var formDialogTab = registry.byId("form-dialog-tab");--%>
@@ -101,16 +117,40 @@
 </head>
 <body>
 <div data-dojo-type="dijit/layout/BorderContainer" class="borderContainer">
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" class="w300">Top pane</div>
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" class="w300" id="menu-rootContentPane"></div>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" class="w300" >
         <div data-dojo-type="dijit/Toolbar">
-        <button data-dojo-type="dijit/form/Button" type="button" >添加</button>
-        <button data-dojo-type="dijit/form/Button" type="button" >修改</button>
-        <button data-dojo-type="dijit/form/Button" type="button">删除</button>
-        <button data-dojo-type="dijit/form/Button" type="button" >查看</button>
+            <button data-dojo-type="dijit/form/Button" type="button" >添加</button>
+            <button data-dojo-type="dijit/form/Button" type="button" >修改</button>
+            <button data-dojo-type="dijit/form/Button" type="button">删除</button>
+            <button data-dojo-type="dijit/form/Button" type="button" >查看</button>
+        </div>
+        <div data-dojo-type="dijit/form/Form"  id="form-dialog-tab">
+            <div class="dijitDialogPaneContentArea">
+                <div>
+                    <label>内容3：</label><input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="code" id="menu-codeInput">
+                </div>
+                <div>
+                    <label>内容3：</label><input data-dojo-type="dijit/form/ValidationTextBox" data-dojo-props="required:true" name="name" id="menu-nameInput">
+                </div>
+
+            <div>
+
+        </div>
+
+        </div>
+        <div class="dijitDialogPaneActionBar">
+        <button type="button" data-dojo-type="dijit/form/Button" id="submit-form-tab">确定</button>
+        <button type="button" data-dojo-type="dijit/form/Button" id="cancel-form-tab">关闭
+        <%--<script type="dojo/on" data-dojo-event="click">--%>
+        <%--var registry = require("dijit/registry");--%>
+        <%--registry.byId("dialog-tab").hide();--%>
+        <%--</script>--%>
+        </button>
+        </div>
         </div>
     </div>
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'" class="w300">Top pane</div>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" class="w300">Top pane</div>
 </div>
 <%--<div data-dojo-type="dijit/Toolbar">--%>
     <%--<label>用户名:<input data-dojo-type="dijit/form/TextBox" data-dojo-props="trim:true" name="username" class="w100" id="username-toolbar-tab"/></label>--%>
