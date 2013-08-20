@@ -1,7 +1,9 @@
 package com.shirokumacafe.archetype.service;
 
 import com.shirokumacafe.archetype.entity.Menu;
+import com.shirokumacafe.archetype.entity.MenuExample;
 import com.shirokumacafe.archetype.repository.MenuMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,30 @@ public class MenuService {
 
     }
 
+    /**
+     * 获取根节点
+     */
+    public List<Menu> findRootMenu(){
+        MenuExample example = new MenuExample();
+        MenuExample.Criteria criteria = example.createCriteria();
+        criteria.andMenuParentEqualTo("ROOT");
+        List<Menu> menus = menuMapper.selectByExample(example);
+        return menus;
+
+    }
+
+    /**
+     * 根据父亲代码找到子节点
+     */
+    public List<Menu> findMenu(String code){
+        MenuExample example = new MenuExample();
+        MenuExample.Criteria criteria = example.createCriteria();
+        criteria.andMenuCodeEqualTo(code);
+        List<Menu> menus = menuMapper.selectByExample(example);
+        return menus;
+
+    }
+
     public void add(Menu menu){
         menuMapper.insert(menu);
     }
@@ -41,4 +67,5 @@ public class MenuService {
     public void delete(Menu menu){
         menuMapper.deleteByPrimaryKey(menu.getMenuCode());
     }
+
 }

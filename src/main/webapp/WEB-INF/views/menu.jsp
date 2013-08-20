@@ -10,32 +10,35 @@
             "dojo/json",
             "dojo/on",
             "dojo/request",
-            "dojo/store/JsonRest",
             "dijit/registry",
             "dijit/form/Button",
-            "dgrid/Grid",
+            "dijit/Toolbar",
+            "dgrid/OnDemandGrid",
             "dijit/tree/ObjectStoreModel",
-            "dijit/Tree",
-            "dgrid/extensions/Pagination",
             "dgrid/Selection",
             "dgrid/Keyboard",
             "dojo/store/Memory",
             "dojo/_base/declare"
-        ], function(aspect,dom,JSON,on,request,JsonRest,registry,Button,Grid,ObjectStoreModel,Tree,Pagination,Selection,Keyboard,Memory,declare){
-            var CustomGrid = declare([Grid, Keyboard, Selection ,Pagination]);
-            var menuStore = new JsonRest({
-                target: "${ctx}/menu/list"
-            });
+        ], function(aspect,dom,JSON,on,request,registry,Button,Toolbar,Grid,ObjectStoreModel,Selection,Keyboard,Memory,declare){
+            var CustomGrid = declare([Grid, Keyboard, Selection ]);
+
             var rootGrid = new CustomGrid({
-                store:menuStore,
+                store:new Memory({data:${menus}}),
                 columns: {
-                    name: "姓名"
+                    id: "标识",
+                    name: "名称"
                 },
-                selectionMode: "single",
-                pagingLinks: false,
-                pagingTextBox: true,
-                firstLastArrows: true
-            });
+                selectionMode: "single"
+            },"menu-rootGrid");
+
+            var childGrid = new CustomGrid({
+                store:new Memory({data:${menus}}),
+                columns: {
+                    id: "标识",
+                    name: "名称"
+                },
+                selectionMode: "single"
+            },"menu-childGrid");
             <%--var treeData = ${menus};--%>
             <%--treeData.push({"id":"ROOT","name":"ROOT"});--%>
             <%--var store = new Memory({--%>
@@ -64,7 +67,7 @@
             <%--});--%>
             //bugfix:解决dijit初始化的问题，代替了ready
             aspect.after(_container_,"onLoad", function(){
-                registry.byId("menu-rootContentPane").addChild(rootGrid);
+//                registry.byId("menu-rootGrid").addChild(rootGrid);
                 <%--//会重复用到的dijit--%>
                 <%--var dialogTab = registry.byId("dialog-tab");--%>
                 <%--var formDialogTab = registry.byId("form-dialog-tab");--%>
@@ -117,7 +120,15 @@
 </head>
 <body>
 <div data-dojo-type="dijit/layout/BorderContainer" class="borderContainer">
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" class="w300" id="menu-rootContentPane"></div>
+
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" class="w300 p1">
+        <div data-dojo-type="dijit/Toolbar">
+            <button data-dojo-type="dijit/form/Button" type="button">添加</button>
+            <button data-dojo-type="dijit/form/Button" type="button">修改</button>
+            <button data-dojo-type="dijit/form/Button" type="button">删除</button>
+        </div>
+        <div id="menu-rootGrid"></div>
+    </div>
     <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" class="w300" >
         <div data-dojo-type="dijit/Toolbar">
             <button data-dojo-type="dijit/form/Button" type="button" >添加</button>

@@ -31,6 +31,9 @@ html, body {
     height: 100%;
     width: 100%;
 }
+.dijitContentPane .p1 {
+    padding:1px;
+}
 .dijitDialogPaneContentArea label {
     display:inline-block;
     /**display:inline;*/
@@ -40,10 +43,9 @@ html, body {
     line-height: 26px;
 }
 .dgrid {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
     height: auto;
+}
+.dgrid .dgrid-scroller {
+    position: relative;
+    overflow: hidden;
 }
