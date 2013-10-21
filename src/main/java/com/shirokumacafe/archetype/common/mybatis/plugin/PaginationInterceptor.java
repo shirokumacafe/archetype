@@ -6,6 +6,7 @@ import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
@@ -23,7 +24,7 @@ public class PaginationInterceptor implements Interceptor{
 	public Object intercept(Invocation invocation) throws Throwable {
 		StatementHandler statementHandler = (StatementHandler)invocation.getTarget();
 		BoundSql boundSql = statementHandler.getBoundSql();
-		MetaObject metaStatementHandler = MetaObject.forObject(statementHandler);
+		MetaObject metaStatementHandler = MetaObject.forObject(statementHandler, SystemMetaObject.DEFAULT_OBJECT_FACTORY,SystemMetaObject.DEFAULT_OBJECT_WRAPPER_FACTORY);
 		RowBounds rowBounds = (RowBounds)metaStatementHandler.getValue("delegate.rowBounds");
 		if(rowBounds == null || rowBounds == RowBounds.DEFAULT){
 			return invocation.proceed();
@@ -38,7 +39,7 @@ public class PaginationInterceptor implements Interceptor{
 		if(databaseType == null){
 			throw new RuntimeException("the value of the dialect property in configuration.xml is not defined : " + configuration.getVariables().getProperty("dialect"));
 		}
-		Dialect dialect = null;
+		Dialect dialect;
 		switch(databaseType){
 			case MYSQL:
 				dialect = new MySql5Dialect();

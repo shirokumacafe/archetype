@@ -3,19 +3,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.shirokumacafe</groupId>
 	<artifactId>archetype</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>war</packaging>
 	<name>archetype</name>
 
     <properties>
         <!-- 主要依赖库的版本定义 -->
-        <spring.version>3.2.3.RELEASE</spring.version>
-        <mybatis.version>3.1.1</mybatis.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
+        <mybatis.version>3.2.3</mybatis.version>
         <mybatis-spring.version>1.2.0</mybatis-spring.version>
         <tomcat-jdbc.version>7.0.42</tomcat-jdbc.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <shiro.version>1.2.2</shiro.version>
-        <jackson.version>2.1.5</jackson.version>
+        <jackson.version>2.2.3</jackson.version>
         <slf4j.version>1.7.5</slf4j.version>
         <logback.version>1.0.13</logback.version>
         <commons-lang3.version>3.1</commons-lang3.version>
@@ -39,6 +39,10 @@
         <jdbc.driver.version>9.1-901.jdbc4</jdbc.driver.version>
 
     </properties>
+
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
 
     <repositories>
         <!-- 如有Nexus私服, 取消注释并指向正确的服务器地址.
@@ -187,6 +191,7 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -194,21 +199,21 @@
             <scope>runtime</scope>
         </dependency>
 
-		<!-- 代码直接调用log4j会被桥接到slf4j -->
+        <!-- 代码直接调用log4j会被桥接到slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>log4j-over-slf4j</artifactId>
             <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-		<!-- 代码直接调用common-logging会被桥接到slf4j -->
+        <!-- 代码直接调用common-logging会被桥接到slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${slf4j.version}</version>
             <scope>runtime</scope>
         </dependency>
-		<!-- 代码直接调用java.util.logging会被桥接到slf4j -->
+        <!-- 代码直接调用java.util.logging会被桥接到slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
@@ -217,9 +222,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.bgee.log4jdbc-log4j2</groupId>
-            <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
-            <version>1.15</version>
+            <groupId>com.googlecode.log4jdbc</groupId>
+            <artifactId>log4jdbc</artifactId>
+            <version>1.2</version>
             <scope>runtime</scope>
         </dependency>
         <!-- LOGGING end -->
@@ -422,35 +427,6 @@
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.6</version>
                 </plugin>
-
-                <!-- install插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-
-                <!-- clean插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-
-                <!-- ant插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.7</version>
-                </plugin>
-
-                <!-- dependency插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>2.8</version>
-                </plugin>
-
         </plugins>
     </build>
 
