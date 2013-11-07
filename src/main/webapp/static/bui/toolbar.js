@@ -403,9 +403,12 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
         ID_NEXT = 'next',
         ID_LAST = 'last',
         ID_SKIP = 'skip',
+        ID_REFRESH = 'refresh',
         ID_TOTAL_PAGE = 'totalPage',
         ID_CURRENT_PAGE = 'curPage',
-        ID_TOTAL_COUNT = 'totalCount';
+        ID_TOTAL_COUNT = 'totalCount',
+        ID_BUTTONS = [ID_FIRST,ID_PREV,ID_NEXT,ID_LAST,ID_SKIP,ID_REFRESH],
+        ID_TEXTS = [ID_TOTAL_PAGE,ID_CURRENT_PAGE,ID_TOTAL_COUNT];
 
     /**
      * 分页栏
@@ -430,11 +433,26 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
                     children = _self.get('children'),
                     items = _self.get('items'),
                     store = _self.get('store');
-                if(!items || items.length){
+                if(!items){
                     items = _self._getItems();
                     BUI.each(items, function (item) {
                         children.push(item);//item
                     });
+                }else{
+                    BUI.each(items, function (item,index) { //转换对应的分页栏
+                        if(BUI.isString(item)){
+                            if(BUI.Array.contains(item,ID_BUTTONS)){
+                                item = _self._getButtonItem(item);
+                            }else if(BUI.Array.contains(item,ID_TEXTS)){
+                            
+                                item = _self._getTextItem(item);
+                            }else{
+                                item = {xtype : item};
+                            }
+
+                        }
+                        children.push(item);
+                    }); 
                 }
                 
                 if (store && store.get('pageSize')) {
@@ -486,7 +504,7 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
                 
                 //设置加载数据后翻页栏的状态
                 totalCount = store.getTotalCount();
-                end = totalCount - start > pageSize ? start + store.getCount() : totalCount;
+                end = totalCount - start > pageSize ? start + store.getCount() - 1: totalCount;
                 totalPage = parseInt((totalCount + pageSize - 1) / pageSize, 10);
                 totalPage = totalPage > 0 ? totalPage : 1;
                 curPage = parseInt(start / pageSize, 10) + 1;
@@ -528,6 +546,11 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
                 //skip to one page
                 _self._bindButtonItemEvent(ID_SKIP, function () {
                     handleSkip();
+                });
+
+                //refresh
+                _self._bindButtonItemEvent(ID_REFRESH, function () {
+                    _self.jumpToPage(_self.get('curPage'));
                 });
                 //input page number and press key "enter"
                 var curPage = _self.getItem(ID_CURRENT_PAGE);
@@ -627,8 +650,7 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
             //get text item's template
             _getTextItemTpl:function (id) {
                 var _self = this,
-                    obj = {};
-                obj[id] = _self.get(id);
+                    obj = _self.getAttrVals();
                 return BUI.substitute(this.get(id + 'Tpl'), obj);
             },
             //Whether to allow jump, if it had been in the current page or not within the scope of effective page, not allowed to jump
@@ -664,6 +686,7 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
             //show the information of current page , total count of pages and total count of records
             _setNumberPages:function () {
                 var _self = this,
+                    items = _self.getItems();/*,
                     totalPageItem = _self.getItem(ID_TOTAL_PAGE),
                     totalCountItem = _self.getItem(ID_TOTAL_COUNT);
                 if (totalPageItem) {
@@ -672,20 +695,32 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
                 _self._setCurrentPageValue(_self.get(ID_CURRENT_PAGE));
                 if (totalCountItem) {
                     totalCountItem.set('content', _self._getTextItemTpl(ID_TOTAL_COUNT));
-                }
+                }*/
+                BUI.each(items,function(item){
+                    if(item.__xclass === 'bar-item-text'){
+                        item.set('content', _self._getTextItemTpl(item.get('id')));
+                    }
+                });
+
             },
             _getCurrentPageValue:function (curItem) {
                 var _self = this;
                 curItem = curItem || _self.getItem(ID_CURRENT_PAGE);
-                var textEl = curItem.get('el').find('input');
-                return textEl.val();
+                if(curItem){
+                    var textEl = curItem.get('el').find('input');
+                    return textEl.val();
+                }
+                
             },
             //show current page in textbox
             _setCurrentPageValue:function (value, curItem) {
                 var _self = this;
                 curItem = curItem || _self.getItem(ID_CURRENT_PAGE);
-                var textEl = curItem.get('el').find('input');
-                textEl.val(value);
+                if(curItem){
+                    var textEl = curItem.get('el').find('input');
+                    textEl.val(value);
+                }
+                
             }
         }, {
             ATTRS:
@@ -765,6 +800,12 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
                 skipCls:{
                     value:PREFIX + 'pb-skip'
                 },
+                refreshText : {
+                    value : '刷新'
+                },
+                refreshCls : {
+                    value:PREFIX + 'pb-refresh'
+                },
                 /**
                  * the template of total page info
                  * @default {String} '共 {totalPage} 页'
@@ -778,14 +819,17 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
                  */
                 curPageTpl:{
                     value:'第 <input type="text" '+
-                        'autocomplete="off" class="'+PREFIX+'pb-page" size="20" name="inputItem"> 页'
+                        'autocomplete="off" class="'+PREFIX+'pb-page" size="20" value="{curPage}" name="inputItem"> 页'
                 },
                 /**
                  * the template of total count info
-                 * @default {String} '第 &lt;input type="text" autocomplete="off" class="bui-pb-page" size="20" name="inputItem"&gt; 页'
+                 * @default {String} '共{totalCount}条记录'
                  */
                 totalCountTpl:{
                     value:'共{totalCount}条记录'
+                },
+                autoInitItems : {
+                    value : false
                 },
                 /**
                  * current page of the paging bar
@@ -832,6 +876,7 @@ define('bui/toolbar/pagingbar',['bui/toolbar/bar'],function(require) {
             ID_NEXT:ID_NEXT,
             ID_LAST:ID_LAST,
             ID_SKIP:ID_SKIP,
+            ID_REFRESH: ID_REFRESH,
             ID_TOTAL_PAGE:ID_TOTAL_PAGE,
             ID_CURRENT_PAGE:ID_CURRENT_PAGE,
             ID_TOTAL_COUNT:ID_TOTAL_COUNT

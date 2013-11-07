@@ -22,12 +22,10 @@ if(!baseUrl){//如果未指定项目路径，进行匹配。
 BUI.config({
     alias : {
         'common' : baseUrl + jsBase + '/common',
-        'js' : baseUrl + jsBase + '/js',
         'module' : baseUrl + jsBase + '/module'
     },
     map : [ //调试环境下使用'*.js'，如果发布上线前，使用*-min.js去掉下面的map
         [/common\/(.*)-min.js/,'common/$1.js'],
-        [/js\/(.*)-min.js/,'js/$1.js'],
         [/module\/(.*)-min.js/,'module/$1.js']
     ]
 });

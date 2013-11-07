@@ -1298,7 +1298,7 @@ define('bui/data/treestore',['bui/common','bui/data/node','bui/data/abstractstor
       var _self = this;
 
       node = _self._add(node,parent,index);
-      _self.fire('add',{node : node,index : index});
+      _self.fire('add',{node : node,record : node,index : index});
       return node;
     },
     //
@@ -1350,9 +1350,25 @@ define('bui/data/treestore',['bui/common','bui/data/node','bui/data/abstractstor
       if(parent.children.length === 0){
         parent.leaf = true;
       }
-      this.fire('remove',{node : node , index : index});
+      this.fire('remove',{node : node ,record : node , index : index});
       node.parent = null;
       return node;
+    },
+    /**
+    * 设置记录的值 ，触发 update 事件
+    * <pre><code>
+    *  store.setValue(obj,'value','new value');
+    * </code></pre>
+    * @param {Object} obj 修改的记录
+    * @param {String} field 修改的字段名
+    * @param {Object} value 修改的值
+    */
+    setValue : function(node,field,value){
+      var 
+        _self = this;
+        node[field] = value;
+
+      _self.fire('update',{node:node,record : node,field:field,value:value});
     },
     /**
      * 更新节点
@@ -1364,7 +1380,7 @@ define('bui/data/treestore',['bui/common','bui/data/node','bui/data/abstractstor
      * @return {BUI.Data.Node} 更新节点
      */
     update : function(node){
-      this.fire('update',{node : node});
+      this.fire('update',{node : node,record : node});
     },
     /**
      * 返回缓存的数据，根节点的直接子节点集合
@@ -1582,7 +1598,7 @@ define('bui/data/treestore',['bui/common','bui/data/node','bui/data/abstractstor
         return true;
       }
       
-      return node.loaded || node.leaf || (node.children && node.children.length);
+      return node.loaded || node.leaf;
     },
     /**
      * 加载节点的子节点
@@ -1600,16 +1616,18 @@ define('bui/data/treestore',['bui/common','bui/data/node','bui/data/abstractstor
       if(pidField){
         params[pidField] = node.id;
       }
-      _self.load(params);
-
-      /*if(!_self.get('url') && _self.get('data')){ //如果不从远程加载数据，不是根节点的话，取消加载
-        
-        _self.load(params);
-        return;
-      }else{
-        _self.load({id:node.id,path : ''});
-      }*/
-      
+      _self.load(params);  
+    },
+    /**
+     * 重新加载节点
+     * @param  {BUI.Data.Node} node node节点
+     */
+    reloadNode : function(node){
+      var _self = this;
+      node = node || _self.get('root');
+      node.loaded = false;
+      //node.children = [];
+      _self.loadNode(node);
     },
     /**
      * 加载节点，根据path
@@ -2260,14 +2278,15 @@ define('bui/data/store',['bui/data/proxy','bui/data/abstractstore','bui/data/sor
     * </code></pre>
     * @param {Object} obj 修改的记录
     * @param {Boolean} [isMatch = false] 是否需要进行匹配，检测指定的记录是否在集合中
+    * @param {Function} [match = matchFunction] 匹配函数
     */
-    update : function(obj,isMatch){
+    update : function(obj,isMatch,match){
       var record = obj,
         _self = this,
         match = null,
         index = null;
       if(isMatch){
-        match = _self._getDefaultMatch();
+        match = match || _self._getDefaultMatch();
         index = _self.findIndexBy(obj,match);
         if(index >=0){
           record = _self.getResult()[index];
@@ -2365,7 +2384,7 @@ define('bui/data/store',['bui/data/proxy','bui/data/abstractstore','bui/data/sor
 
       _self._sortData(field,direction);
 
-      _self.fire('localsort');
+      _self.fire('localsort',{field:field,direction:direction});
     },
     _sortData : function(field,direction,data){
       var _self = this;

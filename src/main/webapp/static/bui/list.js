@@ -515,6 +515,9 @@ define('bui/list/domlist',['bui/common'],function (require) {
         itemContainer = _self.get('view').getItemContainer();
 
       itemContainer.delegate('.'+itemCls,'click',function(ev){
+        if(_self.get('disabled')){ //控件禁用后，阻止事件
+          return;
+        }
         var itemEl = $(ev.currentTarget),
           item = _self.getItemByElement(itemEl);
         if(_self.isItemDisabled(item,itemEl)){ //禁用状态下阻止选中
@@ -527,6 +530,9 @@ define('bui/list/domlist',['bui/common'],function (require) {
       });
       if(selectedEvent !== 'click'){ //如果选中事件不等于click，则进行监听选中
         itemContainer.delegate('.'+itemCls,selectedEvent,function(ev){
+          if(_self.get('disabled')){ //控件禁用后，阻止事件
+            return;
+          }
           var itemEl = $(ev.currentTarget),
             item = _self.getItemByElement(itemEl);
           if(_self.isItemDisabled(item,itemEl)){ //禁用状态下阻止选中
@@ -540,6 +546,9 @@ define('bui/list/domlist',['bui/common'],function (require) {
       }
 
       itemContainer.delegate('.' + itemCls,'dblclick',function(ev){
+        if(_self.get('disabled')){ //控件禁用后，阻止事件
+          return;
+        }
         var itemEl = $(ev.currentTarget),
           item = _self.getItemByElement(itemEl);
         if(_self.isItemDisabled(item,itemEl)){ //禁用状态下阻止选中
@@ -1227,11 +1236,91 @@ define('bui/list/keynav',function () {
 
   return KeyNav;
 });/**
+ * @fileOverview 列表排序
+ * @ignore
+ */
+
+define('bui/list/sortable',['bui/common','bui/data'],function (require) {
+
+  var BUI = require('bui/common'),
+    DataSortable = require('bui/data').Sortable;
+
+  /**
+   * @class BUI.List.Sortable
+   * 列表排序的扩展
+   * @extends BUI.Data.Sortable
+   */
+  var Sortable = function(){
+
+  };
+
+
+
+  Sortable.ATTRS = BUI.merge(true,DataSortable.ATTRS, {
+
+  });
+
+  BUI.augment(Sortable,DataSortable,{
+    
+    /**
+     * @protected
+     * @override
+     * @ignore
+     * 覆写比较方法
+     */
+    compare : function(obj1,obj2,field,direction){
+      var _self = this,
+        dir;
+      field = field || _self.get('sortField');
+      direction = direction || _self.get('sortDirection');
+      //如果未指定排序字段，或方向，则按照默认顺序
+      if(!field || !direction){
+        return 1;
+      }
+      dir = direction === 'ASC' ? 1 : -1;
+      if(!$.isPlainObject(obj1)){
+        obj1 = _self.getItemByElement(obj1);
+      }
+      if(!$.isPlainObject(obj2)){
+        obj2 = _self.getItemByElement(obj2);
+      }
+
+      return _self.get('compareFunction')(obj1[field],obj2[field]) * dir;
+    },
+    /**
+     * 获取排序的集合
+     * @protected
+     * @return {Array} 排序集合
+     */
+    getSortData : function(){
+      return this.get('view').getAllElements();
+    },
+    /**
+     * 列表排序
+     * @param  {string} field  字段名
+     * @param  {string} direction 排序方向 ASC,DESC
+     */
+    sort : function(field,direction){
+      var _self = this,
+        sortedElements = _self.sortData(field,direction),
+        itemContainer = _self.get('view').getItemContainer();
+      if(!_self.get('store')){
+        _self.sortData(field,direction,_self.get('items'));
+      }
+      BUI.each(sortedElements,function(el){
+        $(el).appendTo(itemContainer);
+      });
+    }
+
+  });
+
+  return Sortable;
+});/**
  * @fileOverview 简单列表，直接使用DOM作为列表项
  * @ignore
  */
 
-define('bui/list/simplelist',['bui/common','bui/list/domlist','bui/list/keynav'],function (require) {
+define('bui/list/simplelist',['bui/common','bui/list/domlist','bui/list/keynav','bui/list/sortable'],function (require) {
 
   /**
    * @name BUI.List
@@ -1242,6 +1331,7 @@ define('bui/list/simplelist',['bui/common','bui/list/domlist','bui/list/keynav']
     UIBase = BUI.Component.UIBase,
     DomList = require('bui/list/domlist'),
     KeyNav = require('bui/list/keynav'),
+    Sortable = require('bui/list/sortable'),
     CLS_ITEM = BUI.prefix + 'list-item';
   
   /**
@@ -1309,7 +1399,7 @@ define('bui/list/simplelist',['bui/common','bui/list/domlist','bui/list/keynav']
    * @mixins BUI.List.KeyNav
    * @mixins BUI.Component.UIBase.Bindable
    */
-  var  simpleList = BUI.Component.Controller.extend([DomList,UIBase.Bindable,KeyNav],
+  var  simpleList = BUI.Component.Controller.extend([DomList,UIBase.Bindable,KeyNav,Sortable],
   /**
    * @lends BUI.List.SimpleList.prototype
    * @ignore
@@ -1325,6 +1415,9 @@ define('bui/list/simplelist',['bui/common','bui/list/domlist','bui/list/keynav']
         itemContainer = _self.get('view').getItemContainer();
 
       itemContainer.delegate('.'+itemCls,'mouseover',function(ev){
+        if(_self.get('disabled')){ //控件禁用后，阻止事件
+          return;
+        }
         var element = ev.currentTarget,
           item = _self.getItemByElement(element);
         if(_self.isItemDisabled(ev.item,ev.currentTarget)){ //如果禁用
@@ -1337,6 +1430,9 @@ define('bui/list/simplelist',['bui/common','bui/list/domlist','bui/list/keynav']
           _self.setItemStatus(item,'hover',true,element);
         }
       }).delegate('.'+itemCls,'mouseout',function(ev){
+        if(_self.get('disabled')){ //控件禁用后，阻止事件
+          return;
+        }
         var sender = $(ev.currentTarget);
         _self.get('view').setElementHover(sender,false);
       });
@@ -1371,7 +1467,8 @@ define('bui/list/simplelist',['bui/common','bui/list/domlist','bui/list/keynav']
     * @protected
     */
     onLocalSort : function(e){
-      this.onLoad(e);
+      //this.onLoad(e);
+      this.sort(e.field ,e.direction);
     },
     /**
      * 加载数据

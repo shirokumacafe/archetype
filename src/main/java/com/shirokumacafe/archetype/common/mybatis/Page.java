@@ -13,48 +13,63 @@ import java.util.List;
  */
 public class Page<T> {
 
-    private int total=0;
+    private int results=0;
 
-    private List<T> root=new ArrayList<T>();
+    private List<T> rows=new ArrayList<T>();
 
-    private int offset;
+    private int start;
 
     private int limit;
 
-    public Page(int offset, int limit){
-        this.offset=offset;
+    private Boolean hasError;
+
+    private String error;
+
+    public Page(){
+
+    }
+
+    public Page(int start, int limit){
+        this.start=start;
         this.limit=limit;
     }
 
     public RowBounds createRowBounds(){
-        RowBounds rowBounds=new RowBounds(offset,limit);
+        RowBounds rowBounds=new RowBounds(start,limit);
         return  rowBounds;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
+    public int getResults() {
+        return results;
     }
 
-    public int getTotal() {
-        return total;
+    public void setResults(int results) {
+        this.results = results;
     }
 
-    @JsonProperty("rows")
-    public List<T> getRoot() {
-        return root;
+    public List<T> getRows() {
+        return rows;
     }
 
-    public void setRoot(List<T> root) {
-        this.root = root;
+    public void setRows(List<T> rows) {
+        this.rows = rows;
+    }
+
+    public void setHasError(Boolean hasError) {
+        this.hasError = hasError;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     @JsonIgnore
-    public int getOffset() {
-        return offset;
+    public int getStart() {
+        return start;
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
+    public void setStart(int start) {
+        this.start = start;
     }
 
     @JsonIgnore
@@ -65,4 +80,5 @@ public class Page<T> {
     public void setLimit(int limit) {
         this.limit = limit;
     }
+
 }

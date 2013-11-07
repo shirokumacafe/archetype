@@ -16,7 +16,6 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.JdbcType;
-
 public interface MenuMapper {
     @SelectProvider(type=MenuSqlProvider.class, method="countByExample")
     int countByExample(MenuExample example);

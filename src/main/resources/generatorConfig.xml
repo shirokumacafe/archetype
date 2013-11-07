@@ -39,6 +39,7 @@
 
 
         <table tableName="users" domainObjectName="Users">
+            <generatedKey column="user_id" sqlStatement="JDBC"/>
             <!--<generatedKey column="RID" identity="false" sqlStatement="select SEQ_tuser.nextval from dual"></generatedKey>-->
         </table>
 

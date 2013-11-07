@@ -139,7 +139,7 @@ iframe {
 }
 
 .nav-item-inner,.dl4-hide-list  .dl-hover{
-  background:url('http://img01.taobaocdn.com/tps/i1/T1eQj0XndXXXXp89vi-806-614.png') no-repeat 0 0  transparent;
+  background:url('../bui/img/icon-806-614.png') no-repeat 0 0  transparent;
 }
 
 .nav-list .dl-hover{
@@ -215,16 +215,16 @@ iframe {
 }
 .dl-hide-list .nav-item-inner{
     background-color: #E8E9EE;
-	font-size: 12px;
-	color: #666;
-	height: 23px;
-	margin: 0 5px;
+        font-size: 12px;
+        color: #666;
+        height: 23px;
+        margin: 0 5px;
 }
 
 .dl-hide-list .nav-item:hover .nav-item-inner{
-	background-color: #e0e6fc;
-	border: 1px solid #a9b9f5;
-	border-radius: 2px;
+        background-color: #e0e6fc;
+        border: 1px solid #a9b9f5;
+        border-radius: 2px;
 }
 
 .nav-list .dl-hover .nav-item-mask,.nav-list .dl-last .nav-item-mask{
@@ -434,7 +434,7 @@ iframe {
 }
 
 .dl-selected .dl-hide-current {
-  background-image: url('http://img04.taobaocdn.com/tps/i4/T1SMojXedaXXXCL3TD-469-300.png');
+  background-image: url('../bui/img/sprite-469-300.png');
 }
 
 .dl-tab-content {

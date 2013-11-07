@@ -29,7 +29,10 @@ public class H2Dialect extends Dialect {
 
     @Override
     public String getLimitString(String sql, int skipResults, int maxResults) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return new StringBuffer(sql.length() + 40).
+                append(sql).
+                append(" offset "+skipResults +" limit "+maxResults).
+                toString();
     }
 
 

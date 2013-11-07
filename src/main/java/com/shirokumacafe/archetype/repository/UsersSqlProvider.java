@@ -41,10 +41,6 @@ public class UsersSqlProvider {
         BEGIN();
         INSERT_INTO("users");
         
-        if (record.getUserId() != null) {
-            VALUES("user_id", "#{userId,jdbcType=INTEGER}");
-        }
-        
         if (record.getUserCode() != null) {
             VALUES("user_code", "#{userCode,jdbcType=VARCHAR}");
         }

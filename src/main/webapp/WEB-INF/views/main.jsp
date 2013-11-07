@@ -18,7 +18,7 @@
 <div class="content">
     <div class="dl-main-nav">
         <ul id="J_Nav"  class="nav-list ks-clear">
-            <li class="nav-item dl-selected"><div class="nav-item-inner nav-home">首页</div></li>
+            <li class="nav-item"><div class="nav-item-inner nav-home">首页</div></li>
             <li class="nav-item"><div class="nav-item-inner nav-inventory">搜索页</div></li>
         </ul>
     </div>
@@ -26,15 +26,15 @@
     </ul>
 </div>
 <script>
-    BUI.use('js/main',function(){
+
+    BUI.use('common/main',function(){
         var config = [{
             id:'home',
-//            homePage:'main-menu',
             menu:[{
-                text:'首页内容',
+                text:'系统设置',
                 items:[
-                    {id:'main-menu',text:'顶部导航',href:'main/menu'},
-                    {id:'second-menu',text:'二级菜单',href:'main/second-menu'}
+                    {id:'HYGL',text:'用户管理',href:'${ctx}/user'},
+                    {id:'CDGL',text:'菜单管理',href:'${ctx}/menu'}
                 ]
             }]
         },{

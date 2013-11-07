@@ -19,7 +19,7 @@ public class MainController {
 
     @RequestMapping(value = "/main")
     public String to(Model model){
-        model.addAttribute("menus", Responses.writeJson( menuService.findAllMenu() ) );
+        model.addAttribute("menus", Responses.writeJson( menuService.buildAllMenu() ) );
         return "main";
     }
 

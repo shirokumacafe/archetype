@@ -15,14 +15,15 @@
 
     <link type="image/x-icon" href="${ctx}/static/images/favicon.ico" rel="shortcut icon">
 
-    <link rel="stylesheet" href="${ctx}/static/styles/base.css">
+    <%--<link rel="stylesheet" href="${ctx}/static/styles/base.css">--%>
     <link rel="stylesheet" href="${ctx}/static/bui/css/dpl-min.css">
     <link rel="stylesheet" href="${ctx}/static/bui/css/bui-min.css">
     <link rel="stylesheet" href="${ctx}/static/styles/main.css">
+    <link rel="stylesheet" href="${ctx}/static/styles/page.css">
 
     <script type="text/javascript" src="${ctx}/static/jquery/jquery-1.8.1.min.js"></script>
     <script type="text/javascript" src="${ctx}/static/bui/bui-min.js"></script>
-    <script type="text/javascript" src="${ctx}/static/js/config.js"></script>
+    <script type="text/javascript" src="${ctx}/static/common/config.js"></script>
 
     <sitemesh:head/>
 </head>

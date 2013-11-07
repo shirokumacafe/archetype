@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -31,10 +32,9 @@ public interface UsersMapper {
     int deleteByPrimaryKey(Integer userId);
 
     @Insert({
-        "insert into users (user_id, user_code, ",
-        "user_name, login_name, ",
-        "password, salt, ",
-        "sex, idcard_address, ",
+        "insert into users (user_code, user_name, ",
+        "login_name, password, ",
+        "salt, sex, idcard_address, ",
         "idcard, home_address, ",
         "tel, contact_tel, ",
         "contact_name, bank_dict, ",
@@ -49,10 +49,9 @@ public interface UsersMapper {
         "qq, email, create_id, ",
         "update_id, create_time, ",
         "update_time)",
-        "values (#{userId,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, ",
-        "#{userName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, ",
-        "#{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, ",
-        "#{sex,jdbcType=INTEGER}, #{idcardAddress,jdbcType=VARCHAR}, ",
+        "values (#{userCode,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, ",
+        "#{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, ",
+        "#{salt,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{idcardAddress,jdbcType=VARCHAR}, ",
         "#{idcard,jdbcType=VARCHAR}, #{homeAddress,jdbcType=VARCHAR}, ",
         "#{tel,jdbcType=VARCHAR}, #{contactTel,jdbcType=VARCHAR}, ",
         "#{contactName,jdbcType=VARCHAR}, #{bankDict,jdbcType=VARCHAR}, ",
@@ -68,9 +67,11 @@ public interface UsersMapper {
         "#{updateId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, ",
         "#{updateTime,jdbcType=TIMESTAMP})"
     })
+    @Options(useGeneratedKeys=true,keyProperty="userId")
     int insert(Users record);
 
     @InsertProvider(type=UsersSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true,keyProperty="userId")
     int insertSelective(Users record);
 
     @SelectProvider(type=UsersSqlProvider.class, method="selectByExample")

@@ -302,6 +302,7 @@ define('bui/form/basefield',['bui/common','bui/form/tips','bui/form/valid','bui/
     renderUI : function(){
       var _self = this,
         control = _self.get('control');
+
       if(!control){
         var controlTpl = _self.get('controlTpl'),
           container = _self.getControlContainer();
@@ -681,7 +682,8 @@ define('bui/form/basefield',['bui/common','bui/form/tips','bui/form/valid','bui/
     //禁用控件
     _uiSetDisabled : function(v){
       var _self = this,
-        innerControl = _self.getInnerControl();
+        innerControl = _self.getInnerControl(),
+        children = _self.get('children');
       innerControl.attr('disabled',v);
       if(_self.get('rendered')){
         if(v){//控件不可用，清除错误
@@ -691,6 +693,11 @@ define('bui/form/basefield',['bui/common','bui/form/tips','bui/form/valid','bui/
           _self.valid();
         }
       }
+
+      BUI.each(children,function(child){
+        child.set('disabled',v);
+      });
+
     },
     _uiSetWidth : function(v){
       var _self = this;
@@ -1083,7 +1090,7 @@ define('bui/form/selectfield',['bui/common','bui/form/basefield'],function (requ
   function resetOptions (select,options,self) {
     select.children().remove();
     var emptyText = self.get('emptyText');
-    if(emptyText){
+    if(emptyText && self.get('showBlank')){
       appendItem('',emptyText,select);
     }
     BUI.each(options,function (option) {
@@ -1179,6 +1186,22 @@ define('bui/form/selectfield',['bui/common','bui/form/basefield'],function (requ
       innerControl.val(value);
       if(select && select.set &&  select.getSelectedValue() !== value){
         select.setSelectedValue(value);
+      }
+    },
+    /**
+     * 获取选中的文本
+     * @return {String} 选中的文本
+     */
+    getSelectedText : function(){
+      var _self = this,
+        select = _self.get('select'),
+        innerControl = _self.getInnerControl();
+      if(innerControl.is('select')){
+        var dom = innerControl[0],
+          item = dom.options[dom.selectedIndex];
+        return item ? item.text : '';
+      }else{
+        return select.getSelectedText();
       }
     },
     /**
@@ -1307,12 +1330,12 @@ define('bui/form/datefield',['bui/common','bui/form/basefield','bui/calendar'],f
     bindUI : function(){
       var _self = this,
         datePicker = _self.get('datePicker');
-      datePicker.on('selectedchange',function(ev){
+      /*datePicker.on('selectedchange',function(ev){
         var curTrigger = ev.curTrigger;
         if(curTrigger[0] == _self.getInnerControl()[0]){
           _self.set('value',ev.value);
         }
-      });
+      });*/
     },
     /**
      * 设置字段的值
@@ -1900,6 +1923,79 @@ define('bui/form/listfield',['bui/common','bui/form/basefield','bui/list'],funct
 
   return List;
 });/**
+ * @fileOverview 模拟选择框在表单中
+ * @ignore
+ */
+
+define('bui/form/uploaderfield',['bui/common','bui/form/basefield'],function (require) {
+
+  var BUI = require('bui/common'),
+    JSON = BUI.JSON,
+    Field = require('bui/form/basefield');
+
+  /**
+   * 表单上传域
+   * @class BUI.Form.Field.Upload
+   * @extends BUI.Form.Field
+   */
+  var uploaderField = Field.extend({
+    //生成upload
+    renderUI : function(){
+      var _self = this,
+        innerControl = _self.getInnerControl();
+      if(_self.get('srcNode') && innerControl.get(0).type === 'file'){ //如果使用现有DOM生成，不使用上传组件
+        return;
+      }
+      _self._initUpload();
+    },
+    _initUpload: function(){
+      var _self = this,
+        children = _self.get('children'),
+        uploader = _self.get('uploader') || {};
+
+      BUI.use('bui/uploader', function(Uploader){
+        uploader.render = _self.getControlContainer();
+        uploader.autoRender = true;
+        uploader = new Uploader.Uploader(uploader);
+        _self.set('uploader', uploader);
+        _self.set('isCreate',true);
+        _self.get('children').push(uploader);
+        uploader.get('uploaderType').on('success', function(ev){
+          var items = uploader.get('queue').getItems();
+          _self.setControlValue(items);
+        });
+      });
+    },
+    setControlValue: function(items){
+      var _self = this,
+        innerControl = _self.getInnerControl(),
+        result = [];
+      BUI.each(items, function(item){
+        result.push(item.result);
+      })
+      innerControl.val(JSON.stringify(result));
+    }
+  },{
+    ATTRS : {
+      /**
+       * 内部表单元素的容器
+       * @type {String}
+       */
+      controlTpl : {
+        value : '<input type="hidden"/>'
+      },
+      uploader: {
+      },
+      value:{
+        value: []
+      }
+    }
+  },{
+    xclass : 'form-field-uploader'
+  });
+
+  return uploaderField;
+});/**
  * @fileOverview 可勾选的列表，模拟多个checkbox
  * @ignore
  */
@@ -1997,6 +2093,7 @@ define(BASE + 'field',['bui/common',BASE + 'textfield',BASE + 'datefield',BASE +
     Checkbox : require(BASE + 'checkboxfield'),
     Plain : require(BASE + 'plainfield'),
     List : require(BASE + 'listfield'),
+    Uploader : require(BASE + 'uploaderfield'),
     CheckList : require(BASE + 'checklistfield'),
     RadioList : require(BASE + 'radiolistfield')
   });
@@ -3753,6 +3850,12 @@ define('bui/form/rule',['bui/common'],function (require) {
 
   //是否通过验证
   function valid(self,value,baseValue,msg,control){
+    if(BUI.isArray(baseValue) && BUI.isString(baseValue[1])){
+      if(baseValue[1]){
+        msg = baseValue[1];
+      }
+      baseValue = baseValue[0];
+    }
     var _self = self,
       validator = _self.get('validator'),
       formatedMsg = formatError(self,baseValue,msg),

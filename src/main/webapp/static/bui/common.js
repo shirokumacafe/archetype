@@ -28,6 +28,10 @@ define('bui/common',['bui/ua','bui/json','bui/date','bui/array','bui/keycode','b
  * @singleton
  */  
 var BUI = BUI || {};
+if(!BUI.use && seajs){
+    BUI.use = seajs.use;
+    BUI.config = seajs.config;
+}
 
 define('bui/util',function(){
   
@@ -589,24 +593,24 @@ define('bui/util',function(){
     */
     setField:function(form,fieldName,value){
       var fields = form.elements[fieldName];
-      if(BUI.isArray(fields) || (fields && fields.length)){
+      if(fields && fields.type){
+        formHelper._setFieldValue(fields,value);
+      }else if(BUI.isArray(fields) || (fields && fields.length)){
         BUI.each(fields,function(field){
           formHelper._setFieldValue(field,value);
         });
-      }else{
-        formHelper._setFieldValue(fields,value);
       }
     },
     //设置字段的值
     _setFieldValue : function(field,value){
         if(field.type === 'checkbox'){
-            if(field.value == value ||(BUI.isArray(value) && BUI.Array.indexOf(field.value,value) !== -1)) {
+            if(field.value == ''+ value ||(BUI.isArray(value) && BUI.Array.indexOf(field.value,value) !== -1)) {
               $(field).attr('checked',true);
             }else{
               $(field).attr('checked',false);  
             }
         }else if(field.type === 'radio'){
-            if(field.value == value){
+            if(field.value == ''+  value){
               $(field).attr('checked',true);
             }else{
               $(field).attr('checked',false); 
@@ -1196,7 +1200,7 @@ define('bui/observable',['bui/util'],function (r) {
  * @ignore
  * @author dxq613@gmail.com
  */
-define('bui/ua',function(){
+define('bui/ua', function () {
 
     function numberify(s) {
         var c = 0;
@@ -1206,37 +1210,50 @@ define('bui/ua',function(){
         }));
     };
 
-    var UA = $.UA || (function(){
-        var browser = $.browser,
+    function uaMatch(s) {
+        s = s.toLowerCase();
+        var r = /(chrome)[ \/]([\w.]+)/.exec(s) || /(webkit)[ \/]([\w.]+)/.exec(s) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(s) || /(msie) ([\w.]+)/.exec(s) || s.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(s) || [],
+            a = {
+                browser: r[1] || "",
+                version: r[2] || "0"
+            },
+            b = {};
+        a.browser && (b[a.browser] = !0, b.version = a.version),
+            b.chrome ? b.webkit = !0 : b.webkit && (b.safari = !0);
+        return b;
+    }
+
+    var UA = $.UA || (function () {
+        var browser = $.browser || uaMatch(navigator.userAgent),
             versionNumber = numberify(browser.version),
             /**
              * 浏览器版本检测
              * @class BUI.UA
-                     * @singleton
+             * @singleton
              */
-            ua = 
+                ua =
             {
                 /**
                  * ie 版本
                  * @type {Number}
                  */
-                ie : browser.msie && versionNumber,
+                ie: browser.msie && versionNumber,
 
                 /**
                  * webkit 版本
                  * @type {Number}
                  */
-                webkit : browser.webkit && versionNumber,
+                webkit: browser.webkit && versionNumber,
                 /**
                  * opera 版本
                  * @type {Number}
                  */
-                opera : browser.opera && versionNumber,
+                opera: browser.opera && versionNumber,
                 /**
                  * mozilla 火狐版本
                  * @type {Number}
                  */
-                mozilla : browser.mozilla && versionNumber
+                mozilla: browser.mozilla && versionNumber
             };
         return ua;
     })();
@@ -4753,18 +4770,22 @@ define('bui/component/uibase/keynav',['bui/keycode'],function (require) {
       if(ignoreInputFields && $(ev.target).is('input,select,textarea')){
         return;
       }
-      ev.preventDefault();
+      
       switch(code){
         case KeyCode.UP :
+          ev.preventDefault();
           _self.handleNavUp(ev);
           break;
         case KeyCode.DOWN : 
+          ev.preventDefault();
           _self.handleNavDown(ev);
           break;
         case KeyCode.RIGHT : 
+          ev.preventDefault();
           _self.handleNavRight(ev);
           break;
         case KeyCode.LEFT : 
+          ev.preventDefault();
           _self.handleNavLeft(ev);
           break;
         case KeyCode.ENTER : 
@@ -6531,7 +6552,6 @@ define('bui/component/uibase/selection',function () {
          *   list.setSelected(item);
          * </code></pre>
          * @param {Object} item 记录或者子控件
-         * @param {BUI.Component.Controller|Object} element 子控件或者DOM结构
          */
         setSelected: function(item){
             var _self = this,
@@ -8018,6 +8038,12 @@ define('bui/component/view',['bui/component/manage','bui/component/uibase'],func
         _uiSetElStyle: function (style) {
             this.get('el').css(style);
         },
+        //设置role
+        _uiSetRole : function(role){
+            if(role){
+                this.get('el').attr('role',role);
+            } 
+        },
         /**
          * 设置应用到控件宽度
          * @protected
@@ -8109,6 +8135,13 @@ define('bui/component/view',['bui/component/manage','bui/component/uibase'],func
          * see {@link BUI.Component.Controller#property-elStyle}
          */
         elStyle: {
+        },
+        /**
+         * ARIA 标准中的role
+         * @type {String}
+         */
+        role : {
+            
         },
         /**
          * 控件宽度
@@ -9966,6 +9999,14 @@ define('bui/component/controller',['bui/component/uibase','bui/component/manage'
              */
             render:{
                 view:1
+            },
+            /**
+             * ARIA 标准中的role,不要更改此属性
+             * @type {String}
+             * @protected
+             */
+            role : {
+                view : 1
             },
             /**
              * 状态相关的样式,默认情况下会使用 前缀名 + xclass + '-' + 状态名

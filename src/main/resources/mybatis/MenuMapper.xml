@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.shirokumacafe.archetype.repository.MenuXMLMapper">
+
+	<select id="findMenuByCodeForList" parameterType="String" resultType="Menu">
+		with recursive r as(
+            select menu_code,menu_parent,menu_name,link,sort,state,btn from menu where menu_code=#{code}
+            union all
+            select menu.* from menu,r where menu.menu_parent=r.menu_code
+        )
+        select * from r  where menu_code !=#{code} order by sort
+	</select>
+
+</mapper> 
