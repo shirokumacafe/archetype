@@ -44,12 +44,14 @@ class UserController {
         usersService.add(user);
      return Responses.writeSuccess();
     }
+
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public Map update(Users user){
         usersService.update(user);
         return Responses.writeSuccess();
     }
+
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
     public Map delete(@RequestParam(value = "ids") List<Integer> ids){

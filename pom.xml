@@ -12,7 +12,7 @@
         <spring.version>3.2.5.RELEASE</spring.version>
         <mybatis.version>3.2.3</mybatis.version>
         <mybatis-spring.version>1.2.0</mybatis-spring.version>
-        <tomcat-jdbc.version>7.0.42</tomcat-jdbc.version>
+        <tomcat-jdbc.version>7.0.47</tomcat-jdbc.version>
         <sitemesh.version>2.4.2</sitemesh.version>
         <shiro.version>1.2.2</shiro.version>
         <jackson.version>2.2.3</jackson.version>
