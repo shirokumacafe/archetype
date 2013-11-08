@@ -32,6 +32,8 @@ public class MenuService {
         return menus;
     }
 
+
+
     public List buildAllMenu(){
         MenuExample rootExample = new MenuExample();
         MenuExample.Criteria rootCriteria = rootExample.createCriteria();

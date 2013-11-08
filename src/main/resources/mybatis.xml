@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties>
-        <property name="dialect" value="H2"/>
+        <property name="dialect" value="mysql"/>
     </properties>
     <plugins>
         <plugin interceptor="com.shirokumacafe.archetype.common.mybatis.plugin.PaginationInterceptor">
