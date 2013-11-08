@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,15 +49,21 @@ public class UsersService {
     }
 
     public void add(Users user) {
+//        user.setUserId();
+        user.setCreateTime(new Date());
         usersMapper.insert(user);
     }
 
     public void update(Users user) {
+        user.setUpdateTime(new Date());
         usersMapper.updateByPrimaryKeySelective(user);
     }
 
-    public void delete(Users user) {
-        usersMapper.deleteByPrimaryKey(user.getUserId());
+    public void delete(List<Integer> ids) {
+        UsersExample example = new UsersExample();
+        UsersExample.Criteria criteria = example.createCriteria();
+        criteria.andUserIdIn(ids);
+        usersMapper.deleteByExample(example);
     }
 
 }

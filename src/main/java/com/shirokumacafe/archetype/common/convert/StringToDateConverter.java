@@ -1,10 +1,10 @@
 package com.shirokumacafe.archetype.common.convert;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -17,7 +17,8 @@ public class StringToDateConverter implements Converter<String, Date> {
     private static DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
     @Override
     public Date convert(String source) {
-        if ( source == null && source.length() == 0 ) {
+
+        if (source.isEmpty() ) {
             return null;
         }
 

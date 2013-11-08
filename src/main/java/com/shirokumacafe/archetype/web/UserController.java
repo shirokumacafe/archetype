@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -43,7 +44,7 @@ class UserController {
         usersService.add(user);
      return Responses.writeSuccess();
     }
-    @RequestMapping(value = "edit",method = RequestMethod.POST)
+    @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
     public Map update(Users user){
         usersService.update(user);
@@ -51,8 +52,8 @@ class UserController {
     }
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
-    public Map delete(Users user){
-        usersService.delete(user);
+    public Map delete(@RequestParam(value = "ids") List<Integer> ids){
+        usersService.delete(ids);
         return Responses.writeSuccess();
     }
 }

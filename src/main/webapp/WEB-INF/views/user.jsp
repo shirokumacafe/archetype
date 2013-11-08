@@ -48,7 +48,7 @@
     </div>
 
     <div id="content" class="hide">
-        <form id="J_Form" class="form-horizontal" action="${ctx}/user/add">
+        <form id="J_Form" class="form-horizontal">
             <div class="row">
                 <div class="control-group span8">
                     <label class="control-label"><s>*</s>用户编码：</label>
@@ -107,8 +107,9 @@
           columns = [
             { title: '用户编码', width: 100, dataIndex: 'userCode'},
             { title: '用户名称', width: 100, dataIndex: 'userName'},
-            { title: '性别', width: 150, dataIndex: 'sex', renderer:BUI.Grid.Format.enumRenderer(enumObj)},
-            { title: '状态', width: 100, dataIndex: 'state'}
+            { title: '性别', width: 100, dataIndex: 'sex', renderer:BUI.Grid.Format.enumRenderer(enumObj)},
+            { title: '状态', width: 100, dataIndex: 'state'},
+            { title: '创建时间', width: 100, dataIndex: 'createTime'}
           ],
             store = Search.createStore('${ctx}/user/list'),
             editing = new BUI.Grid.Plugins.DialogEditing({
@@ -121,11 +122,13 @@
                                 data = editor.getValue(); //编辑完成的记录
                         editor.valid();
                         if(editor.isValid()){
-                            submit(BUI.mix(record,data),editor);
+                            if(record.isNew){
+                                add(BUI.mix(record,data),editor);
+                            }else{
+                               update(BUI.mix(record,data),editor);
+                            }
+
                         }
-                        /*var form = $('#J_Form'); //也可以直接使用表单同步提交的方式
-                         form.submit();
-                         */
                     }
                 }
             }),
@@ -162,7 +165,8 @@
             grid = search.get('grid');
 
         function addFunction(){
-            editing.add({}); //添加记录后，直接编辑
+            var newData = {isNew : true}; //标志是新增加的记录
+            editing.add(newData); //添加记录后，直接编辑
         }
 
         function editFunction(){
@@ -177,12 +181,17 @@
 
         function delFunction(){
             var selections = grid.getSelection();
+            var ids = [];
+            BUI.each(selections,function(item){
+                ids.push(item.userId);
+            });
             if(ids.length){
                 BUI.Message.Confirm('确认要删除选中的记录么？',function(){
                     $.ajax({
-                        url : '../data/del.php',
+                        url : '${ctx}/user/delete',
+                        type:'post',
                         dataType : 'json',
-                        data : {ids : ids},
+                        data : {ids : ids.join(',')},
                         success : function(data){
                             if(data.success){ //删除成功
                                 search.load();
@@ -193,12 +202,31 @@
                     });
                 },'question');
             }
-//            store.remove(selections);
         }
 
-        function submit(record,editor){
+        function add(record,editor){
+            console.log(record);
+            console.log(editor);
             $.ajax({
                 url : '${ctx}/user/add',
+                dataType : 'json',
+                type:'post',
+                data : record,
+                success : function(data){
+                    if(data.success){ //编辑、新建成功
+                        editor.accept(); //隐藏弹出框
+                        search.load();
+                    }else{ //编辑失败失败
+                        var msg = data.msg;
+                        BUI.Message.Alert('错误原因:' + msg);
+                    }
+                }
+            });
+        }
+
+        function update(record,editor){
+            $.ajax({
+                url : '${ctx}/user/update',
                 dataType : 'json',
                 type:'post',
                 data : record,
