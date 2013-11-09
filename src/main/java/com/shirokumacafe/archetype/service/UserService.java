@@ -4,9 +4,10 @@ import com.shirokumacafe.archetype.common.mybatis.Page;
 import com.shirokumacafe.archetype.common.utilities.CurrentUsers;
 import com.shirokumacafe.archetype.common.utilities.Digests;
 import com.shirokumacafe.archetype.common.utilities.Encodes;
-import com.shirokumacafe.archetype.entity.Users;
-import com.shirokumacafe.archetype.entity.UsersExample;
-import com.shirokumacafe.archetype.repository.UsersMapper;
+import com.shirokumacafe.archetype.entity.User;
+import com.shirokumacafe.archetype.entity.UserExample;
+import com.shirokumacafe.archetype.repository.UserMapper;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,19 +25,19 @@ import java.util.List;
  */
 @Component
 @Transactional
-public class UsersService {
+public class UserService {
 
     public static final String HASH_ALGORITHM = "SHA-1";
     public static final int HASH_INTERATIONS = 1024;
     private static final int SALT_SIZE = 8;
 
-    private static Logger logger = LoggerFactory.getLogger(UsersService.class);
+    private static Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    private UsersMapper usersMapper;
+    private UserMapper userMapper;
 
-    public Page<Users> findUserForPage(Users user,Page page) {
-        UsersExample example = new UsersExample();
-        UsersExample.Criteria criteria = example.createCriteria();
+    public Page<User> findUserForPage(User user,Page page) {
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
 
         if (StringUtils.isNotBlank(user.getUserCode())) {
             criteria.andUserCodeLike("%" + user.getUserCode() + "%");
@@ -51,31 +52,31 @@ public class UsersService {
             criteria.andStateEqualTo(user.getState());
         }
 
-        List<Users> rows = usersMapper.selectByExampleWithRowbounds(example,page.createRowBounds());
-        Integer results = usersMapper.countByExample(example);
+        List<User> rows = userMapper.selectByExampleWithRowbounds(example,page.createRowBounds());
+        Integer results = userMapper.countByExample(example);
         page.setRows(rows);
         page.setResults(results);
 
         return page;
     }
 
-    public Users findUserByLoginName(String loginName){
-        UsersExample example = new UsersExample();
-        UsersExample.Criteria criteria = example.createCriteria();
+    public User findUserByLoginName(String loginName){
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
         criteria.andLoginNameEqualTo(loginName);
-        Users user = usersMapper.selectByExample(example).get(0);
+        User user = userMapper.selectByExample(example).get(0);
         return user;
     }
 
-    public void add(Users user) {
+    public void add(User user) {
 //        user.setUserId();
         user.setCreateTime(new Date());
-        usersMapper.insert(user);
+        userMapper.insert(user);
     }
 
-    public void update(Users user) {
+    public void update(User user) {
         user.setUpdateTime(new Date());
-        usersMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateByPrimaryKeySelective(user);
     }
 
     public void delete(List<Integer> ids) {
@@ -85,10 +86,10 @@ public class UsersService {
             throw new ServiceException("不能删除超级管理员用户");
         }
 
-        UsersExample example = new UsersExample();
-        UsersExample.Criteria criteria = example.createCriteria();
+        UserExample example = new UserExample();
+        UserExample.Criteria criteria = example.createCriteria();
         criteria.andUserIdIn(ids);
-        usersMapper.deleteByExample(example);
+        userMapper.deleteByExample(example);
     }
 
     /**
@@ -101,7 +102,7 @@ public class UsersService {
     /**
      * 设定安全的密码，生成随机的salt并经过1024次 sha-1 hash
      */
-    private void entryptPassword(Users user) {
+    private void entryptPassword(User user) {
         byte[] salt = Digests.generateSalt(SALT_SIZE);
         user.setSalt(Encodes.encodeHex(salt));
 
@@ -110,8 +111,8 @@ public class UsersService {
     }
 
     @Autowired
-    public void setUsersMapper(UsersMapper usersMapper) {
-        this.usersMapper = usersMapper;
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
     public static void main(String[] args) {

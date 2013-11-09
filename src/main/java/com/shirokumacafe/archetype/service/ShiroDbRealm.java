@@ -1,7 +1,7 @@
 package com.shirokumacafe.archetype.service;
 
 import com.shirokumacafe.archetype.common.utilities.Encodes;
-import com.shirokumacafe.archetype.entity.Users;
+import com.shirokumacafe.archetype.entity.User;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -17,7 +17,7 @@ import java.util.Objects;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
-	protected UsersService usersService;
+	protected UserService userService;
 
 	/**
 	 * 认证回调函数,登录时调用.
@@ -25,7 +25,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		Users user = usersService.findUserByLoginName(token.getUsername());
+		User user = userService.findUserByLoginName(token.getUsername());
 		if (user != null) {
 			byte[] salt = Encodes.decodeHex(user.getSalt());
 			return new SimpleAuthenticationInfo(new ShiroUser(user.getUserId(), user.getLoginName(), user.getUserName()),
@@ -41,7 +41,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-		Users user = usersService.findUserByLoginName(shiroUser.loginName);
+		User user = userService.findUserByLoginName(shiroUser.loginName);
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 //		info.addRoles(user.getRoleList());
 		return info;
@@ -52,14 +52,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
 	 */
 	@PostConstruct
 	public void initCredentialsMatcher() {
-		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(UsersService.HASH_ALGORITHM);
-		matcher.setHashIterations(UsersService.HASH_INTERATIONS);
+		HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(UserService.HASH_ALGORITHM);
+		matcher.setHashIterations(UserService.HASH_INTERATIONS);
 
 		setCredentialsMatcher(matcher);
 	}
 
-    public void setUsersService(UsersService usersService) {
-        this.usersService = usersService;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     /**

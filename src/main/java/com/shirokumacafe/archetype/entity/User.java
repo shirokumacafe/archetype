@@ -3,7 +3,7 @@ package com.shirokumacafe.archetype.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Users {
+public class User {
     private Integer userId;
 
     private String userCode;

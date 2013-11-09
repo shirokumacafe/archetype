@@ -13,7 +13,7 @@
 
 	<!-- 項目自定义的Realm -->
 	<bean id="shiroDbRealm" class="com.shirokumacafe.archetype.service.ShiroDbRealm">
-		<property name="usersService" ref="usersService"/>
+		<property name="userService" ref="userService"/>
 	</bean>
 	
 	<!-- Shiro Filter -->

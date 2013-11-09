@@ -1,13 +1,10 @@
 package com.shirokumacafe.archetype.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 public class Menu {
-    @JsonProperty("id")
     private String menuCode;
-    @JsonProperty("pId")
+
     private String menuParent;
-    @JsonProperty("name")
+
     private String menuName;
 
     private String link;

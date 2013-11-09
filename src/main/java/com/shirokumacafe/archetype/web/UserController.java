@@ -3,8 +3,8 @@ package com.shirokumacafe.archetype.web;
 
 import com.shirokumacafe.archetype.common.mybatis.Page;
 import com.shirokumacafe.archetype.common.utilities.Responses;
-import com.shirokumacafe.archetype.entity.Users;
-import com.shirokumacafe.archetype.service.UsersService;
+import com.shirokumacafe.archetype.entity.User;
+import com.shirokumacafe.archetype.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +23,7 @@ import java.util.Map;
 @RequestMapping(value = "/user")
 class UserController {
     @Autowired
-    private UsersService usersService;
+    private UserService userService;
 
 
     @RequestMapping
@@ -33,29 +33,29 @@ class UserController {
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     @ResponseBody
-    public String list(Users user,Page page){
-        Page<Users> users = usersService.findUserForPage(user,page);
+    public String list(User user,Page page){
+        Page<User> users = userService.findUserForPage(user,page);
         return Responses.writeJson(users);
     }
 
     @RequestMapping(value = "add",method = RequestMethod.POST)
     @ResponseBody
-    public Map add(Users user){
-        usersService.add(user);
+    public Map add(User user){
+        userService.add(user);
      return Responses.writeSuccess();
     }
 
     @RequestMapping(value = "update",method = RequestMethod.POST)
     @ResponseBody
-    public Map update(Users user){
-        usersService.update(user);
+    public Map update(User user){
+        userService.update(user);
         return Responses.writeSuccess();
     }
 
     @RequestMapping(value = "delete",method = RequestMethod.POST)
     @ResponseBody
     public Map delete(@RequestParam(value = "ids") List<Integer> ids){
-        usersService.delete(ids);
+        userService.delete(ids);
         return Responses.writeSuccess();
     }
 }

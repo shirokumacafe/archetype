@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -16,6 +17,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.type.JdbcType;
+
 public interface MenuMapper {
     @SelectProvider(type=MenuSqlProvider.class, method="countByExample")
     int countByExample(MenuExample example);
@@ -24,22 +26,24 @@ public interface MenuMapper {
     int deleteByExample(MenuExample example);
 
     @Delete({
-        "delete from menu",
+        "delete from t_menu",
         "where menu_code = #{menuCode,jdbcType=VARCHAR}"
     })
     int deleteByPrimaryKey(String menuCode);
 
     @Insert({
-        "insert into menu (menu_code, menu_parent, ",
-        "menu_name, link, ",
-        "sort, state, btn)",
-        "values (#{menuCode,jdbcType=VARCHAR}, #{menuParent,jdbcType=VARCHAR}, ",
-        "#{menuName,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, ",
-        "#{sort,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{btn,jdbcType=INTEGER})"
+        "insert into t_menu (menu_parent, menu_name, ",
+        "link, sort, state, ",
+        "btn)",
+        "values (#{menuParent,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, ",
+        "#{link,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, ",
+        "#{btn,jdbcType=INTEGER})"
     })
+    @Options(useGeneratedKeys=true,keyProperty="menuCode")
     int insert(Menu record);
 
     @InsertProvider(type=MenuSqlProvider.class, method="insertSelective")
+    @Options(useGeneratedKeys=true,keyProperty="menuCode")
     int insertSelective(Menu record);
 
     @SelectProvider(type=MenuSqlProvider.class, method="selectByExample")
@@ -69,7 +73,7 @@ public interface MenuMapper {
     @Select({
         "select",
         "menu_code, menu_parent, menu_name, link, sort, state, btn",
-        "from menu",
+        "from t_menu",
         "where menu_code = #{menuCode,jdbcType=VARCHAR}"
     })
     @Results({
@@ -93,7 +97,7 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     @Update({
-        "update menu",
+        "update t_menu",
         "set menu_parent = #{menuParent,jdbcType=VARCHAR},",
           "menu_name = #{menuName,jdbcType=VARCHAR},",
           "link = #{link,jdbcType=VARCHAR},",

@@ -25,25 +25,21 @@ public class MenuSqlProvider {
     public String countByExample(MenuExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("menu");
+        FROM("t_menu");
         applyWhere(example, false);
         return SQL();
     }
 
     public String deleteByExample(MenuExample example) {
         BEGIN();
-        DELETE_FROM("menu");
+        DELETE_FROM("t_menu");
         applyWhere(example, false);
         return SQL();
     }
 
     public String insertSelective(Menu record) {
         BEGIN();
-        INSERT_INTO("menu");
-        
-        if (record.getMenuCode() != null) {
-            VALUES("menu_code", "#{menuCode,jdbcType=VARCHAR}");
-        }
+        INSERT_INTO("t_menu");
         
         if (record.getMenuParent() != null) {
             VALUES("menu_parent", "#{menuParent,jdbcType=VARCHAR}");
@@ -85,7 +81,7 @@ public class MenuSqlProvider {
         SELECT("sort");
         SELECT("state");
         SELECT("btn");
-        FROM("menu");
+        FROM("t_menu");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -100,7 +96,7 @@ public class MenuSqlProvider {
         MenuExample example = (MenuExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("menu");
+        UPDATE("t_menu");
         
         if (record.getMenuCode() != null) {
             SET("menu_code = #{record.menuCode,jdbcType=VARCHAR}");
@@ -136,7 +132,7 @@ public class MenuSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("menu");
+        UPDATE("t_menu");
         
         SET("menu_code = #{record.menuCode,jdbcType=VARCHAR}");
         SET("menu_parent = #{record.menuParent,jdbcType=VARCHAR}");
@@ -153,7 +149,7 @@ public class MenuSqlProvider {
 
     public String updateByPrimaryKeySelective(Menu record) {
         BEGIN();
-        UPDATE("menu");
+        UPDATE("t_menu");
         
         if (record.getMenuParent() != null) {
             SET("menu_parent = #{menuParent,jdbcType=VARCHAR}");

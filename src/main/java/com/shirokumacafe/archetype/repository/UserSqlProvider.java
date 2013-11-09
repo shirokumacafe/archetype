@@ -13,33 +13,33 @@ import static org.apache.ibatis.jdbc.SqlBuilder.UPDATE;
 import static org.apache.ibatis.jdbc.SqlBuilder.VALUES;
 import static org.apache.ibatis.jdbc.SqlBuilder.WHERE;
 
-import com.shirokumacafe.archetype.entity.Users;
-import com.shirokumacafe.archetype.entity.UsersExample.Criteria;
-import com.shirokumacafe.archetype.entity.UsersExample.Criterion;
-import com.shirokumacafe.archetype.entity.UsersExample;
+import com.shirokumacafe.archetype.entity.User;
+import com.shirokumacafe.archetype.entity.UserExample.Criteria;
+import com.shirokumacafe.archetype.entity.UserExample.Criterion;
+import com.shirokumacafe.archetype.entity.UserExample;
 import java.util.List;
 import java.util.Map;
 
-public class UsersSqlProvider {
+public class UserSqlProvider {
 
-    public String countByExample(UsersExample example) {
+    public String countByExample(UserExample example) {
         BEGIN();
         SELECT("count(*)");
-        FROM("users");
+        FROM("t_user");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String deleteByExample(UsersExample example) {
+    public String deleteByExample(UserExample example) {
         BEGIN();
-        DELETE_FROM("users");
+        DELETE_FROM("t_user");
         applyWhere(example, false);
         return SQL();
     }
 
-    public String insertSelective(Users record) {
+    public String insertSelective(User record) {
         BEGIN();
-        INSERT_INTO("users");
+        INSERT_INTO("t_user");
         
         if (record.getUserCode() != null) {
             VALUES("user_code", "#{userCode,jdbcType=VARCHAR}");
@@ -110,7 +110,7 @@ public class UsersSqlProvider {
         }
         
         if (record.getSalary() != null) {
-            VALUES("salary", "#{salary,jdbcType=NUMERIC}");
+            VALUES("salary", "#{salary,jdbcType=DECIMAL}");
         }
         
         if (record.getPostionState() != null) {
@@ -188,7 +188,7 @@ public class UsersSqlProvider {
         return SQL();
     }
 
-    public String selectByExample(UsersExample example) {
+    public String selectByExample(UserExample example) {
         BEGIN();
         if (example != null && example.isDistinct()) {
             SELECT_DISTINCT("user_id");
@@ -231,7 +231,7 @@ public class UsersSqlProvider {
         SELECT("update_id");
         SELECT("create_time");
         SELECT("update_time");
-        FROM("users");
+        FROM("t_user");
         applyWhere(example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -242,11 +242,11 @@ public class UsersSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        Users record = (Users) parameter.get("record");
-        UsersExample example = (UsersExample) parameter.get("example");
+        User record = (User) parameter.get("record");
+        UserExample example = (UserExample) parameter.get("example");
         
         BEGIN();
-        UPDATE("users");
+        UPDATE("t_user");
         
         if (record.getUserId() != null) {
             SET("user_id = #{record.userId,jdbcType=INTEGER}");
@@ -321,7 +321,7 @@ public class UsersSqlProvider {
         }
         
         if (record.getSalary() != null) {
-            SET("salary = #{record.salary,jdbcType=NUMERIC}");
+            SET("salary = #{record.salary,jdbcType=DECIMAL}");
         }
         
         if (record.getPostionState() != null) {
@@ -402,7 +402,7 @@ public class UsersSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         BEGIN();
-        UPDATE("users");
+        UPDATE("t_user");
         
         SET("user_id = #{record.userId,jdbcType=INTEGER}");
         SET("user_code = #{record.userCode,jdbcType=VARCHAR}");
@@ -422,7 +422,7 @@ public class UsersSqlProvider {
         SET("birthday = #{record.birthday,jdbcType=DATE}");
         SET("state = #{record.state,jdbcType=INTEGER}");
         SET("postion_level_dict = #{record.postionLevelDict,jdbcType=VARCHAR}");
-        SET("salary = #{record.salary,jdbcType=NUMERIC}");
+        SET("salary = #{record.salary,jdbcType=DECIMAL}");
         SET("postion_state = #{record.postionState,jdbcType=INTEGER}");
         SET("join_date = #{record.joinDate,jdbcType=DATE}");
         SET("leave_date = #{record.leaveDate,jdbcType=DATE}");
@@ -442,14 +442,14 @@ public class UsersSqlProvider {
         SET("create_time = #{record.createTime,jdbcType=TIMESTAMP}");
         SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
-        UsersExample example = (UsersExample) parameter.get("example");
+        UserExample example = (UserExample) parameter.get("example");
         applyWhere(example, true);
         return SQL();
     }
 
-    public String updateByPrimaryKeySelective(Users record) {
+    public String updateByPrimaryKeySelective(User record) {
         BEGIN();
-        UPDATE("users");
+        UPDATE("t_user");
         
         if (record.getUserCode() != null) {
             SET("user_code = #{userCode,jdbcType=VARCHAR}");
@@ -520,7 +520,7 @@ public class UsersSqlProvider {
         }
         
         if (record.getSalary() != null) {
-            SET("salary = #{salary,jdbcType=NUMERIC}");
+            SET("salary = #{salary,jdbcType=DECIMAL}");
         }
         
         if (record.getPostionState() != null) {
@@ -600,7 +600,7 @@ public class UsersSqlProvider {
         return SQL();
     }
 
-    protected void applyWhere(UsersExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(UserExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }
