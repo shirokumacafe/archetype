@@ -64,7 +64,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="control-group span8 ">
+                    <div class="control-group span8">
+                        <label class="control-label">用户账号：</label>
+                        <div class="controls">
+                            <input name="loginName" type="text" class="input-normal control-text">
+                        </div>
+                    </div>
+                    <div class="control-group span8">
+                        <label class="control-label">电话号码：</label>
+                        <div class="controls">
+                            <input name="tel" type="text" data-rules="{number:true}" class="input-normal control-text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group span8">
                         <label class="control-label">性别：</label>
                         <div class="controls">
                             <select    name="sex" class="input-normal">
@@ -73,12 +87,14 @@
                             </select>
                         </div>
                     </div>
-                    <label class="control-label">性别状态：</label>
-                    <div class="controls">
-                        <select  data-rules="{required:true}"  name="state" class="input-normal">
-                            <option value="1">启用</option>
-                            <option value="0">禁用</option>
-                        </select>
+                    <div class="control-group span8">
+                        <label class="control-label">状态：</label>
+                        <div class="controls">
+                            <select  data-rules="{required:true}"  name="state" class="input-normal">
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <%--</div>--%>
