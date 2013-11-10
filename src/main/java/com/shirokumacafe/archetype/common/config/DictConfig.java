@@ -5,5 +5,5 @@ package com.shirokumacafe.archetype.common.config;
  *
  * @author lim
  */
-public enum DataDict {
+public enum DictConfig {
 }

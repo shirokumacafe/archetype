@@ -1,5 +1,6 @@
 package com.shirokumacafe.archetype.service;
 
+import com.shirokumacafe.archetype.common.exception.ServiceException;
 import com.shirokumacafe.archetype.common.mybatis.Page;
 import com.shirokumacafe.archetype.common.utilities.CurrentUsers;
 import com.shirokumacafe.archetype.common.utilities.Digests;

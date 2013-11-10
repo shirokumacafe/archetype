@@ -97,35 +97,37 @@
                         </div>
                     </div>
                 </div>
-                <%--</div>--%>
-                <%--<div class="row">--%>
-                    <%--<div class="control-group span15 ">--%>
-                        <%--<label class="control-label">在校日期：</label>--%>
-                        <%--<div id="range" class="controls bui-form-group" data-rules="{dateRange : true}">--%>
-                            <%--<input name="enter" class="calendar" type="text"><label>&nbsp;-&nbsp;</label><input name="outter" class="calendar" type="text">--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-                <%--<div class="row">--%>
-                    <%--<div class="control-group span15">--%>
-                        <%--<label class="control-label">备注：</label>--%>
-                        <%--<div class="controls control-row4">--%>
-                            <%--<textarea name="memo" class="input-large" type="text"></textarea>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
+                <div class="row">
+                    <div class="control-group span8">
+                        <label class="control-label">入职日期：</label>
+                        <div class="controls">
+                            <input name="joinDate" class="calendar" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="control-group span15">
+                        <label class="control-label">备注：</label>
+                        <div class="controls control-row4">
+                            <textarea name="remark" class="input-large" type="text"></textarea>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
     <script type="text/javascript">
         BUI.use(['common/search'],function (Search) {
-            var enumObj = {"1":"男","0":"女"},
+            var enumSex = {"1":"男","0":"女"},
+              enumState = {"1":"正常","0":"禁用"},
               columns = [
                 { title: '用户编码', width: 100, dataIndex: 'userCode'},
                 { title: '用户名称', width: 100, dataIndex: 'userName'},
-                { title: '性别', width: 100, dataIndex: 'sex', renderer:BUI.Grid.Format.enumRenderer(enumObj)},
-                { title: '状态', width: 100, dataIndex: 'state'},
-                { title: '创建时间', width: 100, dataIndex: 'createTime'}
+                { title: '性别', width: 100, dataIndex: 'sex', renderer:BUI.Grid.Format.enumRenderer(enumSex)},
+                { title: '状态', width: 100, dataIndex: 'state',renderer:BUI.Grid.Format.enumRenderer(enumState)},
+                { title: '创建时间', width: 150, dataIndex: 'createTime'},
+                { title: '创建人', width: 100, dataIndex: 'createId'},
+                { title: '备注', width: 100, dataIndex: 'remark'}
               ],
                 store = Search.createStore('${ctx}/user/list'),
                 editing = new BUI.Grid.Plugins.DialogEditing({

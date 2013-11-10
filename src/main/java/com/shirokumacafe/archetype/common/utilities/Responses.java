@@ -1,6 +1,7 @@
 package com.shirokumacafe.archetype.common.utilities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.text.DateFormat;
@@ -29,6 +30,7 @@ public class Responses {
     static{
         //设置时间格式
         objectMapper.getMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false).setDateFormat(threadLocal.get());
+//        objectMapper.getMapper().getFactory().setCharacterEscapes(CharacterEscapes);
     }
 
     private final static String SUCCESS = "success";

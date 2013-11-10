@@ -19,12 +19,6 @@
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
             </bean>
-            <!--设置通过@ResponseBody标注方法的序列化时间格式-->
-            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-                <!--<property name="objectMapper">-->
-                    <!--<bean id="customObjectMapper" class="com.shirokumacafe.archetype.common.convert.CustomObjectMapper"/>-->
-                <!--</property>-->
-            <!--</bean>-->
         </mvc:message-converters>
     </mvc:annotation-driven>
 

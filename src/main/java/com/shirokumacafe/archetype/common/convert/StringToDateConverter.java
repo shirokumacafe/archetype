@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.owasp.esapi.ESAPI;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.Date;
@@ -24,11 +25,12 @@ public class StringToDateConverter implements Converter<String, Date> {
 
         try {
             DateTime dt;
-            if( source.length()==19 && !source.contains("T") ){
-                dt = fmt.parseDateTime( source );
+            String decodedStr = ESAPI.encoder().decodeForHTML(source);
+            if( decodedStr.length()==19 && !decodedStr.contains("T") ){
+                dt = fmt.parseDateTime( decodedStr );
             }
             else{
-                dt = new DateTime( source );
+                dt = new DateTime( decodedStr );
             }
             return dt.toDate();
         } catch (IllegalArgumentException e) {

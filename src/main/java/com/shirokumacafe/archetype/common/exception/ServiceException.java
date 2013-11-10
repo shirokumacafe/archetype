@@ -1,4 +1,4 @@
-package com.shirokumacafe.archetype.service;
+package com.shirokumacafe.archetype.common.exception;
 
 /**
  * Service层公用的Exception.
