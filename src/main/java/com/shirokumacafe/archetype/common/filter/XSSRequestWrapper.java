@@ -1,6 +1,8 @@
 package com.shirokumacafe.archetype.common.filter;
 
-import org.owasp.esapi.ESAPI;
+import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
@@ -10,8 +12,11 @@ import javax.servlet.http.HttpServletRequestWrapper;
  *
  * @author lim
  */
-public class XSSRequestWrapper extends HttpServletRequestWrapper{
-    public XSSRequestWrapper(HttpServletRequest request) {
+public class XssRequestWrapper extends HttpServletRequestWrapper{
+
+    private final static Whitelist MY_WHITE_LIST = Whitelist.relaxed();
+
+    public XssRequestWrapper(HttpServletRequest request) {
         super(request);
     }
 
@@ -21,7 +26,7 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper{
         if( null == value ){
             return null;
         }
-        return ESAPI.encoder().encodeForHTML(value);
+        return clean(value);
     }
 
     @Override
@@ -32,8 +37,13 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper{
         }
         String[] encodedValues = new String[values.length];
         for(int i=0;i<values.length;i++ ){
-            encodedValues[i] = ESAPI.encoder().encodeForHTML(values[i]);
+            encodedValues[i] = clean(values[i]);
         }
         return encodedValues;
+    }
+
+    private String clean(String str){
+        if(StringUtils.isBlank(str)) return "";
+        return Jsoup.clean(str,MY_WHITE_LIST);
     }
 }

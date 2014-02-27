@@ -8,14 +8,14 @@ import java.io.IOException;
  * XSS过滤器
  * @author lim
  */
-public class XSSFilter implements Filter {
+public class XssFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        filterChain.doFilter(new XSSRequestWrapper((HttpServletRequest) servletRequest),servletResponse);
+        filterChain.doFilter(new XssRequestWrapper((HttpServletRequest) servletRequest),servletResponse);
     }
 
     @Override
