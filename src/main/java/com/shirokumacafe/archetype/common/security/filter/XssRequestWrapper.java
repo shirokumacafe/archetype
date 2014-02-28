@@ -1,4 +1,4 @@
-package com.shirokumacafe.archetype.common.filter;
+package com.shirokumacafe.archetype.common.security.filter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;

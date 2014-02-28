@@ -1,4 +1,4 @@
-package com.shirokumacafe.archetype.common.filter;
+package com.shirokumacafe.archetype.common.security.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

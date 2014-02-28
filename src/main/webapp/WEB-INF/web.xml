@@ -61,7 +61,7 @@
 
     <filter>
         <filter-name>xssFilter</filter-name>
-        <filter-class>com.shirokumacafe.archetype.common.filter.XssFilter</filter-class>
+        <filter-class>com.shirokumacafe.archetype.common.security.filter.XssFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>xssFilter</filter-name>

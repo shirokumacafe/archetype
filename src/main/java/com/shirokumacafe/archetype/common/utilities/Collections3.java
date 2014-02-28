@@ -1,8 +1,8 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
+/*******************************************************************************
+ * Copyright (c) 2005, 2014 springside.github.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- */
+ *******************************************************************************/
 package com.shirokumacafe.archetype.common.utilities;
 
 import org.apache.commons.beanutils.PropertyUtils;
@@ -46,7 +46,7 @@ public class Collections3 {
 
 	/**
 	 * 提取集合中的对象的一个属性(通过Getter函数), 组合成List.
-	 *
+	 * 
 	 * @param collection 来源集合.
 	 * @param propertyName 要提取的属性名.
 	 */
@@ -98,14 +98,21 @@ public class Collections3 {
 	 * 判断是否为空.
 	 */
 	public static boolean isEmpty(Collection collection) {
-		return (collection == null || collection.isEmpty());
+		return (collection == null) || collection.isEmpty();
+	}
+
+	/**
+	 * 判断是否为空.
+	 */
+	public static boolean isEmpty(Map map) {
+		return (map == null) || map.isEmpty();
 	}
 
 	/**
 	 * 判断是否为空.
 	 */
 	public static boolean isNotEmpty(Collection collection) {
-		return (collection != null && !(collection.isEmpty()));
+		return (collection != null) && !(collection.isEmpty());
 	}
 
 	/**
