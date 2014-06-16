@@ -8,12 +8,14 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
             classpath*:/applicationContext.xml,
-            classpath*:/applicationContext-shiro.xml
+            classpath*:/applicationContext-shiro.xml,
+            classpath*:/applicationContext-email.xml
         </param-value>
 	</context-param>
 	<context-param>
 		<param-name>spring.profiles.default</param-name>
 		<param-value>production</param-value>
+        <!--<param-value>development</param-value>-->
 	</context-param>
 
 	<listener>
@@ -48,6 +50,8 @@
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
 	</filter-mapping>
 
 	<filter>
@@ -61,12 +65,19 @@
 
     <filter>
         <filter-name>xssFilter</filter-name>
-        <filter-class>com.shirokumacafe.archetype.common.security.filter.XssFilter</filter-class>
+        <filter-class>com.shirokumacafe.archetype.common.filter.XssFilter</filter-class>
+        <init-param>
+            <param-name>blackListURL</param-name>
+            <param-value>/static/**</param-value>
+        </init-param>
+        <init-param>
+            <param-name>whiteListURL</param-name>
+            <param-value>/**</param-value>
+        </init-param>
     </filter>
     <filter-mapping>
         <filter-name>xssFilter</filter-name>
         <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
 
 	<servlet>

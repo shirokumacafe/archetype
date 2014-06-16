@@ -1,9 +1,11 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
+/*******************************************************************************
+ * Copyright (c) 2005, 2014 springside.github.io
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- */
+ *******************************************************************************/
 package com.shirokumacafe.archetype.common.utilities;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -29,11 +31,10 @@ public class RandomData {
 	 * 返回随机名称, prefix字符串+5位随机数字.
 	 */
 	public static String randomName(String prefix) {
-		return prefix + random.nextInt(10000);
+		return prefix + RandomStringUtils.randomNumeric(5);
 	}
 
-
-    /**
+	/**
 	 * 从输入list中随机返回一个对象.
 	 */
 	public static <T> T randomOne(List<T> list) {

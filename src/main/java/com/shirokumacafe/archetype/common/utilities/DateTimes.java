@@ -1,8 +1,7 @@
 package com.shirokumacafe.archetype.common.utilities;
 
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.ReadableInstant;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -48,10 +47,14 @@ public class DateTimes {
      * @param format
      * @return
      */
-    public static DateTime convertFromString(String str, String format) {
-        DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
-        DateTime dateTime = fmt.parseDateTime(str);
-        return dateTime;
+    public static Date convertFromString(String str, String format) {
+        if(StringUtils.isNotBlank(str)){
+            DateTimeFormatter fmt = DateTimeFormat.forPattern(format);
+            DateTime dateTime = fmt.parseDateTime(str);
+            return dateTime.toDate();
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -60,8 +63,9 @@ public class DateTimes {
      * @param str
      * @return
      */
-    public static DateTime convertFromString(String str) {
-        return convertFromString(str, FORMAT);
+    public static Date convertFromString(String str) {
+        Date date = convertFromString(str, FORMAT);
+        return date;
     }
 
     /**
@@ -70,10 +74,15 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static DateTime startOfMonth(Date date) {
+    public static Date startOfMonth(Date date) {
         DateTime dateTime = new DateTime(date);
         DateTime startOfMonth = dateTime.dayOfMonth().withMinimumValue();
-        return startOfMonth;
+        return startOfMonth.toDate();
+    }
+
+    public static Date startOfMonth() {
+        DateTime dateTime = new DateTime();
+        return startOfMonth(dateTime.millisOfDay().withMinimumValue().toDate());
     }
 
     /**
@@ -82,10 +91,15 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static DateTime endOfMonth(Date date) {
+    public static Date endOfMonth(Date date) {
         DateTime dateTime = new DateTime(date);
         DateTime endOfMonth = dateTime.dayOfMonth().withMaximumValue();
-        return endOfMonth;
+        return endOfMonth.toDate();
+    }
+
+    public static Date endOfMonth() {
+        DateTime dateTime = new DateTime();
+        return endOfMonth(dateTime.millisOfDay().withMaximumValue().toDate());
     }
 
     /**
@@ -94,9 +108,9 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static DateTime startOfDate(Date date) {
+    public static Date startOfDate(Date date) {
         DateTime dateTime = new DateTime(date);
-        return dateTime.millisOfDay().withMinimumValue();
+        return dateTime.millisOfDay().withMinimumValue().toDate();
     }
 
     /**
@@ -105,10 +119,37 @@ public class DateTimes {
      * @param date
      * @return
      */
-    public static DateTime endOfDate(Date date) {
+    public static Date endOfDate(Date date) {
         DateTime dateTime = new DateTime(date);
-        return dateTime.millisOfDay().withMaximumValue();
+        return dateTime.millisOfDay().withMaximumValue().toDate();
     }
 
+    /**
+     * 取得本周的头一天
+     */
+    public static Date startOfWeek() {
+        DateTime dateTime = new DateTime();
+        DateTime startOfWeek = dateTime.millisOfDay().withMinimumValue().dayOfWeek().withMinimumValue();
+        return startOfWeek.toDate();
+    }
 
+    /**
+     * 取得本周的最后一天
+     */
+    public static Date endOfWeek() {
+        DateTime dateTime = new DateTime();
+        DateTime startOfWeek = dateTime.millisOfDay().withMinimumValue().dayOfWeek().withMaximumValue();
+        return startOfWeek.toDate();
+    }
+
+    public static String now(){
+        return convertToString(new Date());
+    }
+
+    public static void main(String[] args) {
+        DateTime dateTime = new DateTime();
+        Date date = dateTime.millisOfDay().withMinimumValue().dayOfWeek().withMaximumValue().toDate();
+        String s=convertToString(date);
+        System.out.println(s);
+    }
 }

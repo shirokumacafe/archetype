@@ -2,13 +2,12 @@ package com.shirokumacafe.archetype.service;
 
 import com.shirokumacafe.archetype.common.exception.ServiceException;
 import com.shirokumacafe.archetype.common.mybatis.Page;
+import com.shirokumacafe.archetype.common.security.utils.Digests;
 import com.shirokumacafe.archetype.common.utilities.CurrentUsers;
-import com.shirokumacafe.archetype.common.utilities.Digests;
 import com.shirokumacafe.archetype.common.utilities.Encodes;
 import com.shirokumacafe.archetype.entity.User;
 import com.shirokumacafe.archetype.entity.UserExample;
 import com.shirokumacafe.archetype.repository.UserMapper;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,17 +64,23 @@ public class UserService {
         UserExample example = new UserExample();
         UserExample.Criteria criteria = example.createCriteria();
         criteria.andLoginNameEqualTo(loginName);
-        User user = userMapper.selectByExample(example).get(0);
+        User user = null;
+        try {
+            user = userMapper.selectByExample(example).get(0);
+        } catch (Exception e) {
+            //忽略
+        }
         return user;
     }
 
     public void add(User user) {
-//        user.setUserId();
+
         user.setCreateTime(new Date());
         userMapper.insert(user);
     }
 
     public void update(User user) {
+
         user.setUpdateTime(new Date());
         userMapper.updateByPrimaryKeySelective(user);
     }

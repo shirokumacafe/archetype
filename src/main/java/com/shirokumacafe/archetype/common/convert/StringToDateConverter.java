@@ -17,7 +17,7 @@ public class StringToDateConverter implements Converter<String, Date> {
     @Override
     public Date convert(String source) {
 
-        if (source.isEmpty() ) {
+        if (null == source || source.isEmpty() ) {
             return null;
         }
 

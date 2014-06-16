@@ -1,13 +1,12 @@
 package com.shirokumacafe.archetype.common.utilities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
 * 应答工具类
@@ -30,61 +29,42 @@ public class Responses {
     static{
         //设置时间格式
         objectMapper.getMapper().configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false).setDateFormat(threadLocal.get());
-//        objectMapper.getMapper().getFactory().setCharacterEscapes(CharacterEscapes);
     }
 
     private final static String SUCCESS = "success";
-
+    private final static String URL = "url";
     private final static String MSG = "msg";
 
-
-     /**
-     * 创建后台验证错误，返回对象
-     */
-    public static Map writeFailAndMsg(String errors){
-        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
+    public static Map writeFailAndMsg(String error,String url){
+        Map<String,Object> map = new HashMap<String, Object>();
         map.put(SUCCESS,false);
-        map.put(MSG,errors);
+        map.put(URL,url);
+        map.put(MSG,error);
         return map;
     }
 
-    /**
-     * 创建后台验证错误
-     */
+    public static Map writeFailAndMsg(String error){
+        return writeFailAndMsg(error, null);
+    }
+
     public static Map writeFail(){
-        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
-        map.put(SUCCESS,false);
-        map.put(MSG,"系统出错！");
-        return map;
+        return writeFailAndMsg("系统出错！", null);
     }
 
-    /**
-     * 后台操作成功，返回对象
-     */
-    public static Map writeSuccessAndMsg(Map<String,Object> msg){
-        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
+    public static Map writeSuccessAndMsg(String msg,String url){
+        Map<String,Object> map = new HashMap<String, Object>();
         map.put(SUCCESS,true);
+        map.put(URL,url);
         map.put(MSG,msg);
         return map;
     }
 
-    /**
-     * 后台操作成功，返回对象
-     */
     public static Map writeSuccessAndMsg(String msg){
-        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
-        map.put(SUCCESS,true);
-        map.put(MSG,msg);
-        return map;
+        return writeSuccessAndMsg(msg,null);
     }
 
-    /**
-     * 后台操作成功
-     */
     public static Map writeSuccess(){
-        Map<String,Object> map = new ConcurrentHashMap<String, Object>();
-        map.put(SUCCESS,true);
-        return map;
+        return writeSuccessAndMsg(null,null);
     }
 
     /**

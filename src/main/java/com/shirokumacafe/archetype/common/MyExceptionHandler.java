@@ -1,4 +1,4 @@
-package com.shirokumacafe.archetype.web;
+package com.shirokumacafe.archetype.common;
 
 import com.shirokumacafe.archetype.common.utilities.Responses;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * 全局Exception Handler，提供友好的错误输出
  */
 @ControllerAdvice
-public class RestExceptionHandler {
+public class MyExceptionHandler {
 
     /**
      * Runtime异常处理

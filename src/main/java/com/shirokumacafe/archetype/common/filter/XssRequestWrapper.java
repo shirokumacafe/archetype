@@ -1,4 +1,4 @@
-package com.shirokumacafe.archetype.common.security.filter;
+package com.shirokumacafe.archetype.common.filter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -14,10 +14,14 @@ import javax.servlet.http.HttpServletRequestWrapper;
  */
 public class XssRequestWrapper extends HttpServletRequestWrapper{
 
-    private final static Whitelist MY_WHITE_LIST = Whitelist.relaxed();
-
     public XssRequestWrapper(HttpServletRequest request) {
         super(request);
+    }
+
+    private final static Whitelist MY_WHITE_LIST = Whitelist.relaxed();
+
+    static {
+
     }
 
     @Override

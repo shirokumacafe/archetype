@@ -10,6 +10,7 @@ import com.google.common.net.HttpHeaders;
 import org.apache.commons.lang3.Validate;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -184,4 +185,16 @@ public class Servlets {
 		String encode = userName + ":" + password;
 		return "Basic " + Encodes.encodeBase64(encode.getBytes());
 	}
+
+
+    /**
+     * 设置cookie
+     */
+    public static void setCookie(String name,String value,HttpServletResponse response) {
+        Cookie cookie = new Cookie(name,value);
+        cookie.setMaxAge((int) ONE_YEAR_SECONDS);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+    }
+
 }

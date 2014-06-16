@@ -1,5 +1,6 @@
 package com.shirokumacafe.archetype.service;
 
+import com.google.common.base.Objects;
 import com.shirokumacafe.archetype.common.utilities.Encodes;
 import com.shirokumacafe.archetype.entity.User;
 import org.apache.shiro.authc.*;
@@ -10,10 +11,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 
-
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.util.Objects;
 
 public class ShiroDbRealm extends AuthorizingRealm {
 
